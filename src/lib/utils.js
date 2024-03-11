@@ -42,6 +42,6 @@ export function createSingleton(name, instantiate) {
  */
 export function env(name) {
   const val = process.env[name]
-  if (!val) throw new Error(`${name} Env Var not found!`)
+  if (!val) throw new Error(`Environment variable "${name}" not found!`)
   return val
 }
