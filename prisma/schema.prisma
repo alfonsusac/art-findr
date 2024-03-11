@@ -13,6 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id String @id @default(cuid())
+  fullName String
+  email String
+  mitra Mitra? @relation(name:"UserAsMitra")
+  bookmark Mitra[] @relation(name:"UserBookmark")
+  location SeekerAddress?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+}
+
 model Mitra {
   id String @id @default(cuid())
   name String
@@ -21,11 +34,34 @@ model Mitra {
   expertises String
   considerations String
   status StatusMitra
-  harga String
-  location String
+  pricePerHour Decimal
+  pricePerDay Decimal
+  pricePerMonth Decimal
+  dateOfBirth DateTime
+  overnight Boolean
+
+  userId String @unique
+  user User @relation(name: "UserAsMitra", fields: [userId], references: [id])
+   
+  bookmarkUser String  
+  bookmark User @relation(name: "UserBookmark", fields: [bookmarkUser], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+
 
 enum StatusMitra {
   Tersedia
   Sibuk
+}
+
+model SeekerAddress {
+  id String @id @default(cuid())
+  province String
+  city String
+  subDistrict String
+
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
 }
