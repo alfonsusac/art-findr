@@ -10,7 +10,7 @@ export const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 export const isDevelopment = process.env.NODE_ENV === "development"
 
 /**
- * Combines, merges, remove duplicates into valid classnames
+ * Combines, merges, remove duplicate className into valid classname string
  * @param  {...any} o 
  * @returns {string}
  */

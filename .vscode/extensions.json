@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "mikestead.dotenv",
+    "usernamehw.errorlens",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "ecmel.vscode-html-css",
+    "ms-vscode.vscode-typescript-next",
+    "prisma.prisma",
+    "humao.rest-client",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
