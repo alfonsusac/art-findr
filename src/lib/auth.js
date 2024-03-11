@@ -5,4 +5,6 @@ export async function auth() {
   const session = await getServerSession(authOptions)
   // put validation here or something
   return session
+  //test
 }
+
