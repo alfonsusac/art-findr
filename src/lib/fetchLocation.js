@@ -1,6 +1,6 @@
-const BASE_URL = "https://ttnsy.github.io/api-wilayah-indonesia/api";
+const BASE_URL = "https://wilayah.id/api/";
 
-async function getListProvinsi() {
+export async function getListProvinsi() {
   const url = `${BASE_URL}/provinces.json`;
 
   const res = await fetch(url, {
@@ -9,13 +9,13 @@ async function getListProvinsi() {
 
   const data = await res.json();
   if (!!res.ok) {
-    return data;
+    return data.data;
   } else {
-    throw new Error(data.message);
+    throw new Error(`Error ${res.status} fetching from ${url}`);
   }
 }
 
-async function getListKotaKabupaten(idProvinsi) {
+export async function getListKotaKabupaten(idProvinsi) {
   const url = `${BASE_URL}/regencies/${idProvinsi}.json`;
 
   const res = await fetch(url, {
@@ -24,13 +24,13 @@ async function getListKotaKabupaten(idProvinsi) {
 
   const data = await res.json();
   if (!!res.ok) {
-    return data;
+    return data.data;
   } else {
-    throw new Error(data.message);
+    throw new Error(`Error ${res.status} fetching from ${url}`);
   }
 }
 
-async function getKecamatan(idKota) {
+export async function getKecamatan(idKota) {
   const url = `${BASE_URL}/districts/${idKota}.json`;
 
   const res = await fetch(url, {
@@ -39,24 +39,8 @@ async function getKecamatan(idKota) {
 
   const data = await res.json();
   if (!!res.ok) {
-    return data;
+    return data.data;
   } else {
-    throw new Error(data.message);
+    throw new Error(`Error ${res.status} fetching from ${url}`);
   }
 }
-
-async function getKelurahan(idKecamatan) {
-  const url = `${BASE_URL}/villages/${idKecamatan}.json`;
-
-  const res = await fetch(url, {
-    method: "GET",
-  });
-
-  const data = await res.json();
-  if (!!res.ok) {
-    return data;
-  } else {
-    throw new Error(data.message);
-  }
-}
-
