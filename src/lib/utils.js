@@ -22,6 +22,7 @@ export function cn(...o) {
 /**
  * Creates Singleton so that no instance is created when hot-reloaded.
  *  used for prisma
+ * @template Instance
  * @param {string} name 
  * @param {()=>Instance} instantiate 
  * @returns {Instance} instance
