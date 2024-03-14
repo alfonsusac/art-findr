@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import twMerge from "tailwind-merge"
+import {twMerge} from "tailwind-merge"
 
 /**
  * Delays for ms amount of seconds.
