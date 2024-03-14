@@ -20,6 +20,7 @@ model User {
   phoneNumber String
   mitra       Mitra?         @relation(name: "UserAsMitra")
   bookmark    Mitra[]        @relation(name: "UserBookmark")
+  calonMitra  CalonMitra?
   location    SeekerAddress?
 
   createdAt DateTime @default(now())
@@ -29,10 +30,10 @@ model User {
 model Mitra {
   expertises     String[]
   considerations String[]
-  availability   StatusMitra
-  pricePerHour   Decimal
-  pricePerDay    Decimal
-  pricePerMonth  Decimal
+  status         StatusMitra
+  pricePerHour   Decimal?
+  pricePerDay    Decimal?
+  pricePerMonth  Decimal?
   dateOfBirth    DateTime
   allowOvernight Boolean
 
@@ -49,6 +50,21 @@ model Mitra {
 enum StatusMitra {
   Tersedia
   Sibuk
+}
+
+model CalonMitra {
+  isFotoDiri     Boolean?
+  isFotoKTP      Boolean?
+  dateOfBirth    DateTime?
+  allowOvernight Boolean?
+  expertises     String[]
+  considerations String[]
+  pricePerHour   Decimal?
+  pricePerDay    Decimal?
+  pricePerMonth  Decimal?
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model SeekerAddress {
