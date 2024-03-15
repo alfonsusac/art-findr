@@ -2,14 +2,15 @@
 
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import OtpInput from "react-otp-input";
 import PhoneInput from "react-phone-number-input/react-hook-form-input";
-import { signIn } from "next-auth/react";
 
 import { generateOTP } from "@/lib/otpGenerator";
 
 export const LoginForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [showOtpInput, setShowOtpInput] = useState(false);
+  const [otp, setOtp] = useState("");
 
   const {
     control,
@@ -53,9 +54,21 @@ export const LoginForm = () => {
           </button>
         </form>
       ) : (
-        <div>
-          <p>Enter OTP sent to {phoneNumber}</p>
-        </div>
+        <form action="">
+          <p>
+            Masukkan kode OTP yang telah dikirim ke nomor handphone Anda:
+            {phoneNumber}
+          </p>
+          <OtpInput
+            value={otp}
+            onChange={setOtp}
+            numInputs={6}
+            renderSeparator={<span> - </span>}
+            renderInput={(props) => <input {...props} />}
+            inputStyle={"border-gray-400"}
+            containerStyle={"p-4 flex justify-center"}
+          />
+        </form>
       )}
     </>
   );
