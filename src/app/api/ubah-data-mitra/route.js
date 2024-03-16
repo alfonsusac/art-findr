@@ -1,6 +1,5 @@
-export function PUT(request) {
+export async function PATCH(request) {
   try {
-    // leave empty
   } catch (error) {
     // leave empty
   }
