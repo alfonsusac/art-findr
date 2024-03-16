@@ -1,3 +1,4 @@
+import { getUserSession } from "@/lib/auth";
 import { ClientTestPage } from "./client";
 import { prisma } from "@/lib/prisma";
 
