@@ -1,7 +1,6 @@
 import { RegisterForm } from "../components/RegisterForm";
 import { getUserSession, getUserData } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { signOut } from "next-auth/react";
 import { LogOutRegister } from "../components/LogOutRegister";
 
 export default async function PageDaftar() {
@@ -41,7 +40,7 @@ export default async function PageDaftar() {
           <LogOutRegister />
         </div>
 
-        <RegisterForm />
+        <RegisterForm session={session} />
       </div>
     </div>
   );

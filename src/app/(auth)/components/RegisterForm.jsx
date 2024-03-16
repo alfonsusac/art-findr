@@ -3,49 +3,32 @@
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ session }) => {
   const router = useRouter();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = new FormData(e.target);
-    const fullName = form.get("fullName");
-    const email = form.get("email");
-    const provinsi = form.get("provinsi");
-    const kota = form.get("kota");
-    const kecamatan = form.get("kecamatan");
-    const phoneNumber = form.get("phoneNumber");
-
-    try {
-      const response = await fetch("http://localhost:3000/api/daftar/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fullName,
-          email,
-          provinsi,
-          kota,
-          kecamatan,
-          phoneNumber,
-        }),
-      });
-
-      if (response.status === 400) {
-        toast.error("Email sudah terdaftar!");
-      }
-
-      // Handle success
-      toast.success("Registrasi berhasil!");
-      router.push("/akun");
-    } catch (error) {
-      // Handle error
-      toast.error("Registrasi gagal!");
-    }
-  };
 
   return (
-    <form className="mt-6" onSubmit={handleSubmit}>
+    <form
+      className="mt-6"
+      action={async (form) => {
+        try {
+          const res = await fetch("/api/daftar", {
+            method: "POST",
+            body: form,
+          });
+          const data = await res.json();
+
+          if (res.status === 400) {
+            toast.error("Email atau nomor telfon sudah terdaftar!");
+          }
+          if (res.status === 200) {
+            toast.success("Registrasi berhasil!");
+            router.push("/dashboard");
+          }
+        } catch (error) {
+          toast.error("Registrasi gagal!");
+        }
+      }}
+    >
       <div className="flex flex-col space-y-4">
         <input
           name="fullName"
@@ -53,12 +36,22 @@ export const RegisterForm = () => {
           placeholder="Nama Panjang"
           type="text"
         />
-        <input
-          type="email"
-          name="email"
-          className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
-          placeholder="john@gmail.com"
-        />
+        {session.phoneNumber && (
+          <input
+            type="email"
+            name="email"
+            className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
+            placeholder="john@gmail.com"
+          />
+        )}
+        {/* {session.email && (
+          <input
+            type="number"
+            name="phoneNumber"
+            className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
+            placeholder="085777170181"
+          />
+        )} */}
         <input
           type="number"
           name="phoneNumber"

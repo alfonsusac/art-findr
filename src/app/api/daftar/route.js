@@ -1,33 +1,40 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { getUserSession } from "@/lib/auth";
 
 export async function POST(request) {
+  const session = await getUserSession();
   try {
-    const { fullName, email, provinsi, kota, kecamatan, phoneNumber } =
-      await request.json();
+    const data = await request.formData();
 
-    // To check if the user already exists. But cannot do it right now because email is not unique in schema
+    const existingUsers = await prisma.user.findMany({
+      where: {
+        OR: [
+          { email: session?.email ?? "" },
+          { phoneNumber: session?.phoneNumber ?? "" },
+        ],
+      },
+    });
 
-    // const existingUser = await prisma.user.findUnique({
-    //   where: {
-    //     email: email,
-    //   },
-    // });
-
-    // if (existingUser) {
-    //   return NextResponse.error(400, "Email already exists");
-    // }
+    // If a user with the same email or phone number already exists, return a 400 error
+    if (existingUsers.length !== 0) {
+      // return NextResponse.error(201, "Email or Phone already exists");
+      return NextResponse.json(
+        { message: "Email or Phone already exists" },
+        { status: 400 }
+      );
+    }
 
     const newUser = await prisma.user.create({
       data: {
-        fullName,
-        email,
-        phoneNumber,
+        fullName: data.get("fullName"),
+        email: session ? session.email : data.get("email"),
+        phoneNumber: String(data.get("phoneNumber")),
         location: {
           create: {
-            provinsi,
-            kota,
-            kecamatan,
+            provinsi: data.get("provinsi"),
+            kota: data.get("kota"),
+            kecamatan: data.get("kecamatan"),
           },
         },
       },
