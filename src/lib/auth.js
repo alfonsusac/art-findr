@@ -30,8 +30,12 @@ export async function getUserData(opts) {
   }
   const user = await prisma.user.findUnique({
     where: {
-      email: session.email,
-      phoneNumber: session.phoneNumber
+      // email: session.email ?? "",
+      // phoneNumber: session.phoneNumber ?? "",
+      email_phoneNumber: {
+        email: session?.email ?? "",
+        phoneNumber: session?.phoneNumber ?? ""
+      }
     }
   })
   if (!user && opts?.redirectIfNoData ) {
