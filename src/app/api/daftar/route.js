@@ -8,15 +8,15 @@ export async function POST(request) {
 
     // To check if the user already exists. But cannot do it right now because email is not unique in schema
 
-    const existingUser = await prisma.user.findUnique({
-      where: {
-        email: email,
-      },
-    });
+    // const existingUser = await prisma.user.findUnique({
+    //   where: {
+    //     email: email,
+    //   },
+    // });
 
-    if (existingUser) {
-      return NextResponse.error(400, "Email already exists");
-    }
+    // if (existingUser) {
+    //   return NextResponse.error(400, "Email already exists");
+    // }
 
     const newUser = await prisma.user.create({
       data: {
