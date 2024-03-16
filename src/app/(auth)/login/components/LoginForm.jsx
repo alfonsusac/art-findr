@@ -13,11 +13,11 @@ export const LoginForm = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (formData) => {
-  
-    const data = signIn("phoneOTP", {
-      phoneNumber: formData.phone,
-      otp: formData.otp,
+  const onSubmit = ({ phone, otp }) => {
+     signIn("phoneOTP", {
+      phoneNumber: phone,
+      otp: otp,
+      callbackUrl: '/akun'
     });
   };
 

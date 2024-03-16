@@ -1,13 +1,20 @@
 import React from "react";
-
 import Link from "next/link";
 
+import { getUserSession } from "@/lib/auth";
 import { LoginForm } from "./components/LoginForm";
 import { LoginButtonGoogle } from "./components/LoginButtonGoogle";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await getUserSession();
+
+  if (session !== null) {
+    redirect("/akun")
+  }
+
   return (
     <main className="flex flex-col gap-2 items-center mt-6">
       <div className="p-10">
@@ -23,7 +30,7 @@ export default function LoginPage() {
         </div>
         <LoginButtonGoogle />
         <p className="mt-2 text-center">
-          Belum punya akun?{" "}
+          Belum punya akun?
           <Link href="/register" className=" text-rose-400 underline">
             Daftar sekarang.
           </Link>
