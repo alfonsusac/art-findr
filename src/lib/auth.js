@@ -36,9 +36,14 @@ export async function getUserData(opts) {
         email: session?.email ?? "",
         phoneNumber: session?.phoneNumber ?? ""
       }
+    },
+    include: {
+      location: true,
+      mitra: true,
+      calonMitra: true
     }
   })
-  if (!user && opts?.redirectIfNoData ) {
+  if (!user && opts?.redirectIfNoData) {
     redirect('/daftar')
   }
   return user
