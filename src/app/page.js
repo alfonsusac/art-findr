@@ -1,5 +1,7 @@
-export const dynamic = "force-dynamic";
+import Image from "next/image";
+import { Twitter, Instagram, Camera } from 'lucide-react';
 
+<Twitter />
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
