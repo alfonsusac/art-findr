@@ -45,6 +45,7 @@ export async function getUserData(opts) {
   })
   if (!user && opts?.redirectIfNoData) {
     redirect('/daftar')
+    // test
   }
   return user
 }
