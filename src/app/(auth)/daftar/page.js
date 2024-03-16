@@ -1,6 +1,14 @@
 import { RegisterForm } from "../components/RegisterForm";
+import { getUserSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function PageDaftar() {
+  const session = await getUserSession();
+
+  if (!session) {
+    redirect("/masuk");
+  }
+
   return (
     <div
       key="1"
