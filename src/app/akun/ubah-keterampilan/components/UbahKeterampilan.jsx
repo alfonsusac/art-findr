@@ -1,27 +1,52 @@
 "use client";
-import { setSourceMapsEnabled } from "process";
-import { useState } from "react";
 
-export const UbahKeterampilan = () => {
-  const [skill, setSkills] = useState([]);
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import Link from "next/link";
+
+export const UbahKeterampilan = ({ expertises }) => {
+  const [skill, setSkills] = useState([...expertises]);
   const [input, setInput] = useState(""); // new state for the input value
 
-  const handleDelete = (index) => {
+  function handleDelete(index) {
     const newSkills = [...skill];
     newSkills.splice(index, 1);
     setSkills(newSkills);
-  };
+  }
 
-  const handleAdd = () => {
+  function handleAdd() {
     setSkills([...skill, input]);
     setInput(""); // clear the input after adding the skill
-  };
+  }
+
+  async function handleSave() {
+    const res = await fetch("/api/ubah-data-mitra", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ expertises: skill }),
+    })
+      .then((res) => {
+        if (
+          res.ok &&
+          res.headers.get("Content-Type").includes("application/json")
+        ) {
+          return res.json();
+        } else {
+          toast.error("Gagal mengubah keterampilan");
+        }
+      })
+      .then((data) => {
+        toast.success(data.message);
+      })
+      .catch((error) => console.error("Fetch error:", error));
+  }
+
   return (
     <div className="bg-gray-800 text-white p-4 rounded-lg max-w-md mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <a className="text-gray-400 hover:text-gray-300" href="#">
-          Batal{"\n          "}
-        </a>
+        <Link href="/akun">Batal{"\n          "}</Link>
       </div>
       <h1 className="text-3xl font-bold mb-4">Ubah Keterampilan</h1>
       <div className="mb-4">
@@ -58,7 +83,12 @@ export const UbahKeterampilan = () => {
         </button>
       </div>
 
-      <button className="w-full bg-blue-600 hover:bg-blue-700">Simpan</button>
+      <button
+        className="w-full bg-blue-600 hover:bg-blue-700"
+        onClick={handleSave}
+      >
+        Simpan
+      </button>
     </div>
   );
 };
