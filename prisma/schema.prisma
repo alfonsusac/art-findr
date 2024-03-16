@@ -40,8 +40,8 @@ model Mitra {
   userId String @unique
   user   User   @relation(name: "UserAsMitra", fields: [userId], references: [id])
 
-  bookmarkUser String
-  bookmark     User   @relation(name: "UserBookmark", fields: [bookmarkUser], references: [id])
+  bookmarkUser String?
+  bookmark     User?   @relation(name: "UserBookmark", fields: [bookmarkUser], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
