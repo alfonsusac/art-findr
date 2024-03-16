@@ -1,10 +1,11 @@
-import { getUserSession } from "@/lib/auth";
+import { getUserData, getUserSession } from "@/lib/auth";
 import { ClientTestPage } from "./client";
 import { prisma } from "@/lib/prisma";
 
 export default async function TestPage() {
 
   const session = await getUserSession()
+  const userData = await getUserData()
 
   const registeredUser = await prisma.user.findFirst({
     where: {
@@ -63,7 +64,8 @@ export default async function TestPage() {
   return (
     <main>
       Welcome to test page<br />
-      {JSON.stringify(session)}<br />
+      Session: {JSON.stringify(session)}<br />
+      UserData: {JSON.stringify(userData)}
       <ClientTestPage />
     </main>
   )
