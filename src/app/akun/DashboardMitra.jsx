@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { signOut } from "next-auth/react";
+import { MitraStatus } from "./MitraStatus";
 
-export const DashboardMitra = ({ mitra }) => {
+export const DashboardMitra = ({ mitra, uid }) => {
   return (
     <main>
       <h1>Dashboard Mitra</h1>
@@ -19,8 +20,9 @@ export const DashboardMitra = ({ mitra }) => {
             Edit Kebutuhan
           </a>
         </div>
-
-        <p>Status : {mitra.status}</p>
+        <div>
+          <MitraStatus uid={uid} status={mitra.status} />
+        </div>
         <div>
           <p>Price per Hour : {mitra.pricePerHour?.toString()}</p>
           <p>Price per Day : {mitra.pricePerDay?.toString()}</p>
@@ -29,9 +31,12 @@ export const DashboardMitra = ({ mitra }) => {
             Ubah Harga
           </a>
         </div>
-
         <div>
-          <p>Date of Birth: {mitra.dateOfBirth.toString()}</p>
+          <p>
+            Date of Birth: {mitra.dateOfBirth.getDate()}-
+            {mitra.dateOfBirth.getUTCMonth()}-
+            {mitra.dateOfBirth.getUTCFullYear()}
+          </p>
           <a href="/akun/ubah-tgl-lahir" className="text-rose-400">
             Ubah Tgl Lahir
           </a>
