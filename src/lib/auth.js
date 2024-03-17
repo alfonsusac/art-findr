@@ -26,7 +26,7 @@ export async function getUserSession() {
 export async function getUserData(opts) {
   const session = await getServerSession(authOptions)
   if (!session && opts?.redirectIfNoSession) {
-    redirect('/test') // TODO: Change this to actual login page lol
+    redirect('/masuk') // TODO: Change this to actual login page lol
   }
   const user = await prisma.user.findUnique({
     where: {

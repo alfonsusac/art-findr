@@ -7,17 +7,10 @@ import { DashboardMitra } from "./DashboardMitra";
 import DaftarMitra from "./DaftarMitra";
 
 export default async function pageAkun() {
-  const session = await getUserSession();
-
-  if (!session) {
-    redirect("/masuk");
-  }
-
-  const userData = await getUserData();
-
-  if (!userData) {
-    redirect("/daftar");
-  }
+  const userData = await getUserData({
+    redirectIfNoData: true,
+    redirectIfNoSession: true,
+  });
 
   if (userData.mitra) {
     return <DashboardMitra mitra={userData.mitra} />;
