@@ -16,12 +16,14 @@ export async function POST() {
 
   await prisma.user.create({
     data: {
+      id: "198",
       fullName: "Jojo", email: "", phoneNumber: "198",
       location: { create: { kecamatan: "kecamatanXXX", kota: "kotaYYY", provinsi: "provinsiZZZ", } }
     }
   })
   await prisma.user.create({
     data: {
+      id: "199",
       fullName: "Bibi",
       email: "",
       phoneNumber: "199",
@@ -41,6 +43,7 @@ export async function POST() {
   })
   await prisma.user.create({
     data: {
+      id: "200",
       fullName: "Lili",
       email: "",
       phoneNumber: "200",
@@ -65,6 +68,7 @@ export async function POST() {
   })
   await prisma.user.create({
     data: {
+      id: "299",
       fullName: "Lala",
       email: "",
       phoneNumber: "299",
