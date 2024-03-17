@@ -5,7 +5,7 @@ import { UploadFormTestPage } from "./form"
 export const dynamic = 'force-dynamic'
 export default async function UploadExample() {
   
-  const testImageLink = await getImageURL('/fotodiri/test.webp')
+  const testImageLink = await getImageURL('fotodiri/test.webp')
 
   return (
     <>
