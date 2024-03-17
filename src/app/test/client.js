@@ -22,12 +22,10 @@ export function ClientTestPage() {
         <input type="text" name="otp" placeholder="otp" />
         <button>
           Sign in with phone
-        </button>
-        <div>
-          198: User<br />
-          199: User + calonMitra<br />
-          200+: User + Mitra<br />
-        </div>
+        </button><br />
+        <button formAction={async () => { signIn("phoneOTP", { phoneNumber: "198", otp: "123"})}}>Sign in As User</button><br/>
+        <button formAction={async () => { signIn("phoneOTP", { phoneNumber: "199", otp: "123" }) }}>Sign in As User + calonMitra</button><br/>
+        <button formAction={async () => { signIn("phoneOTP", { phoneNumber: "200", otp: "123" }) }}>Sign in As User + Mitra</button><br/>
       </form>
       <hr />
       <button onClick={() => { signOut() }}>
