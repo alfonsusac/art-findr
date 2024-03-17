@@ -19,15 +19,9 @@ export const DashboardMitra = ({ mitra }) => {
         </div>
 
         <p>Status : {mitra.status}</p>
-        <div>
-          <p>Price per Hour : {mitra.pricePerHour?.toString()}</p>
-          <p>Price per Day : {mitra.pricePerDay?.toString()}</p>
-          <p>Price per Month : {mitra.pricePerMonth?.toString()}</p>
-          <a href="/akun/ubah-harga" className="text-rose-400">
-            Ubah Harga
-          </a>
-        </div>
-
+        <p>Price per Hour : {mitra.pricePerHour?.toString()}</p>
+        <p>Price per Day : {mitra.pricePerDay?.toString()}</p>
+        <p>Price per Month : {mitra.pricePerMonth?.toString()}</p>
         <div>
           <p>Date of Birth: {mitra.dateOfBirth.toString()}</p>
           <a href="/akun/ubah-tgl-lahir" className="text-rose-400">
@@ -36,18 +30,6 @@ export const DashboardMitra = ({ mitra }) => {
         </div>
 
         <p>Menginap : {mitra.allowOvernight}</p>
-
-        <div>
-          <a href="/akun/ubah-foto-diri" className="text-rose-400">
-            Ubah Foto Diri
-          </a>
-        </div>
-
-        <div>
-          <a href="/akun/ubah-foto-ktp" className="text-rose-400">
-            Ubah Foto KTP
-          </a>
-        </div>
       </div>
     </main>
   );
