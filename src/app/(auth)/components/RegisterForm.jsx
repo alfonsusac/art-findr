@@ -36,14 +36,6 @@ export const RegisterForm = ({ session }) => {
           placeholder="Nama Panjang"
           type="text"
         />
-        {session.phoneNumber && (
-          <input
-            type="email"
-            name="email"
-            className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
-            placeholder="john@gmail.com"
-          />
-        )}
         <div className="flex flex-col space-y-2">
           <label className="text-sm font-semibold">Lokasi</label>
           <input
