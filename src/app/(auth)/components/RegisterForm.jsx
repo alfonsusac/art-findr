@@ -22,7 +22,7 @@ export const RegisterForm = ({ session }) => {
           }
           if (res.status === 200) {
             toast.success("Registrasi berhasil!");
-            router.push("/dashboard");
+            router.push("/akun");
           }
         } catch (error) {
           toast.error("Registrasi gagal!");
@@ -35,20 +35,6 @@ export const RegisterForm = ({ session }) => {
           className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
           placeholder="Nama Panjang"
           type="text"
-        />
-        {session.phoneNumber && (
-          <input
-            type="email"
-            name="email"
-            className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
-            placeholder="john@gmail.com"
-          />
-        )}
-        <input
-          type="number"
-          name="phoneNumber"
-          className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
-          placeholder="085777170181"
         />
         <div className="flex flex-col space-y-2">
           <label className="text-sm font-semibold">Lokasi</label>
@@ -67,7 +53,7 @@ export const RegisterForm = ({ session }) => {
           <input
             name="kecamatan"
             className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
-            placeholder="Kecamata"
+            placeholder="Kecamatan"
             type="text"
           />
         </div>
