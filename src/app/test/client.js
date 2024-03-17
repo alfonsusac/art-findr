@@ -23,6 +23,11 @@ export function ClientTestPage() {
         <button>
           Sign in with phone
         </button>
+        <div>
+          198: User<br />
+          199: User + calonMitra<br />
+          200+: User + Mitra<br />
+        </div>
       </form>
       <hr />
       <button onClick={() => { signOut() }}>
@@ -31,6 +36,20 @@ export function ClientTestPage() {
       <hr />
       <div className="bg-black/5 p-4 flex flex-col gap-2">
         <h3>Standard Form</h3>
+        <form action={async (form) => {
+          console.log(form.get('input1'))
+          console.log(form.get('input2'))
+          const res = await fetch("/test/api", { method: "POST", body: form })
+          const data = await res.json()
+          console.log(data)
+        }}>
+          <input name="input1" placeholder="1" />
+          <input name="input2" placeholder="2" /> <br />
+          <button>Submit</button>
+        </form>
+      </div>
+      <div className="bg-black/5 p-4 flex flex-col gap-2">
+        <h3>File</h3>
         <form action={async (form) => {
           console.log(form.get('input1'))
           console.log(form.get('input2'))

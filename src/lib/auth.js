@@ -21,7 +21,7 @@ export async function getUserSession() {
  *   redirectIfNoSession?: boolean
  *   redirectIfNoData?: boolean
  * }} [opts] 
- * @returns {import("@prisma/client").User}
+ * @returns {Promise<import("@prisma/client").User>}
  */
 export async function getUserData(opts) {
   const session = await getServerSession(authOptions)
