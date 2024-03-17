@@ -9,24 +9,23 @@ import { redirect } from "next/navigation";
 //   return session
 // }
 
-
 export async function getUserSession() {
-  const session = await getServerSession(authOptions)
-  return session
+  const session = await getServerSession(authOptions);
+  return session;
 }
 
 /**
- * 
+ *
  * @param {{
  *   redirectIfNoSession?: boolean
  *   redirectIfNoData?: boolean
- * }} [opts] 
+ * }} [opts]
  * @returns {Promise<import("@prisma/client").User>}
  */
 export async function getUserData(opts) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session && opts?.redirectIfNoSession) {
-    redirect('/test') // TODO: Change this to actual login page lol
+    redirect("/masuk"); // TODO: Change this to actual login page lol
   }
   const user = await prisma.user.findUnique({
     where: {
@@ -34,18 +33,18 @@ export async function getUserData(opts) {
       // phoneNumber: session.phoneNumber ?? "",
       email_phoneNumber: {
         email: session?.email ?? "",
-        phoneNumber: session?.phoneNumber ?? ""
-      }
+        phoneNumber: session?.phoneNumber ?? "",
+      },
     },
     include: {
       location: true,
       mitra: true,
-      calonMitra: true
-    }
-  })
+      calonMitra: true,
+    },
+  });
   if (!user && opts?.redirectIfNoData) {
-    redirect('/daftar')
+    redirect("/daftar");
     // test
   }
-  return user
+  return user;
 }
