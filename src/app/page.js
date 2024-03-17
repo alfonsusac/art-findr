@@ -4,6 +4,10 @@ import { ArtCards } from "./components/ArtCards";
 import { getUserSession } from "@/lib/auth";
 
 export default async function Home() {
+  const res = await fetch("http://localhost:3000/api/semua-mitra");
+  const data = await res.json();
+  const mitra = data.body;
+
   const session = await getUserSession();
 
   return (
@@ -33,7 +37,7 @@ export default async function Home() {
           </div>
         </section>
         <section className="bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-8">
-          <ArtCards session={session} />
+          <ArtCards session={session} mitra={mitra} />
         </section>
       </main>
       <footer className="bg-blue-100 min-h-48 flex">

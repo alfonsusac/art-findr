@@ -9,7 +9,7 @@ export const SingleArtCards = ({ user, session }) => {
       <div className="aspect-[3/4] bg-neutral-300 rounded-lg" />
       <div className="flex flex-col">
         <div className="text-lg font-semibold">{user.fullName}</div>
-        <div>Location: {user.location.provinsi}</div>
+        <div>Location: {user?.location?.provinsi}</div>
         <div>Keahlian: {user.mitra.expertises.join(", ")}</div>
         <div>Kebutuhan: {user.mitra.considerations.join(", ")}</div>
         <div>Status: {user.mitra.status}</div>
