@@ -1,5 +1,9 @@
-import React from "react";
+import { UbahKeterampilan } from "./components/UbahKeterampilan";
+import { getUserData } from "@/lib/auth";
 
-export default function ubahKeterampilanPage() {
-  return <div>ubah keterampilan</div>;
+export default async function UbahKeterampilanPage() {
+  const userData = await getUserData();
+  const expertises = userData?.mitra?.expertises;
+  console.log(userData);
+  return <UbahKeterampilan expertises={expertises} />;
 }

@@ -1,5 +1,6 @@
 import React from "react";
+import UbahFoto from "./components/UbahFoto";
 
-export default function ubahFotoDiriPage() {
-  return <div>ubah foto diri</div>;
+export default function UbahFotoDiri() {
+  return <UbahFoto />;
 }
