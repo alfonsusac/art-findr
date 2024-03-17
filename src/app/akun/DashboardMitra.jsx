@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { signOut } from "next-auth/react";
 
 export const DashboardMitra = ({ mitra }) => {
   return (
@@ -37,7 +39,6 @@ export const DashboardMitra = ({ mitra }) => {
 
         <p>Menginap : {mitra.allowOvernight}</p>
 
-
         <div>
           <a href="/akun/ubah-foto-diri" className="text-rose-400">
             Ubah Foto Diri
@@ -49,6 +50,14 @@ export const DashboardMitra = ({ mitra }) => {
             Ubah Foto KTP
           </a>
         </div>
+        <button
+          className="bg-rose-400 rounded-md text-white h-12 p-4 "
+          onClick={() => {
+            signOut();
+          }}
+        >
+          Keluar
+        </button>
       </div>
     </main>
   );
