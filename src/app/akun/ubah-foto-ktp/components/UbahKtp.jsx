@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export default function UbahKTP() {
+export const UbahKtp = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (e) => {
@@ -49,4 +49,4 @@ export default function UbahKTP() {
       </div>
     </div>
   );
-}
+};

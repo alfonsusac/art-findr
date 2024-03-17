@@ -1,6 +1,6 @@
 import React from "react";
-import { UbahKTP } from "./components/UbahKtp";
+import { UbahKtp } from "./components/UbahKtp";
 
 export default function UbahFotoKtp() {
-  return <UbahKTP />;
+  return <UbahKtp />;
 }
