@@ -1,7 +1,7 @@
 import { getUserData } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-import FormDaftarMitra from "./components/FormDaftarMitra";
+import DaftarMitra from "./components/DaftarMitra";
 
 export default function page() {
 //   const userData = getUserData();
@@ -11,8 +11,8 @@ export default function page() {
 //   }
 
   return(
-    <div className="flex flex-col items-center">
-        <FormDaftarMitra />
+    <div className="flex flex-col items-center w-full">
+        <DaftarMitra />
     </div>
   );
 }
