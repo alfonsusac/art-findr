@@ -1,6 +1,5 @@
 import React from "react";
-import { getUserSession, getUserData } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { getUserData } from "@/lib/auth";
 
 import { DashboardRegular } from "./DashboardRegular";
 import { DashboardMitra } from "./DashboardMitra";

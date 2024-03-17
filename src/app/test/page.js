@@ -1,11 +1,13 @@
 import { getUserData, getUserSession } from "@/lib/auth";
 import { ClientTestPage } from "./client";
 import { prisma } from "@/lib/prisma";
+import { getImageURL } from "@/lib/upload";
 
 export default async function TestPage() {
 
   const session = await getUserSession()
   const userData = await getUserData()
+  const testImageLink = await getImageURL('/fotodiri/test.webp')
 
   const registeredUser = await prisma.user.findFirst({
     where: {
@@ -67,6 +69,9 @@ export default async function TestPage() {
       Session: {JSON.stringify(session)}<br />
       UserData: {JSON.stringify(userData)}
       <ClientTestPage />
+      <div>
+        <img src={testImageLink} />
+      </div>
     </main>
   )
 }
