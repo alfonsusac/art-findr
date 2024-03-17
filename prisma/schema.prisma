@@ -33,9 +33,9 @@ model Mitra {
   expertises     String[]
   considerations String[]
   status         StatusMitra
-  pricePerHour   Decimal?
-  pricePerDay    Decimal?
-  pricePerMonth  Decimal?
+  pricePerHour   Int?
+  pricePerDay    Int?
+  pricePerMonth  Int?
   dateOfBirth    DateTime
   allowOvernight Boolean
 
@@ -61,9 +61,9 @@ model CalonMitra {
   allowOvernight Boolean?
   expertises     String[]
   considerations String[]
-  pricePerHour   Decimal?
-  pricePerDay    Decimal?
-  pricePerMonth  Decimal?
+  pricePerHour   Int?
+  pricePerDay    Int?
+  pricePerMonth  Int?
 
   userId String @unique
   user   User   @relation(fields: [userId], references: [id])
@@ -75,5 +75,5 @@ model SeekerAddress {
   kecamatan String
 
   userId String @unique
-  user   User?   @relation(fields: [userId], references: [id])
+  user   User?  @relation(fields: [userId], references: [id])
 }
