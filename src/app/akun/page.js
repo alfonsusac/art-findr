@@ -1,9 +1,10 @@
 import React from "react";
 import { getUserSession, getUserData } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { DashboardRegular } from "@/components/akun/DashboardRegular";
-import { DaftarMitra } from "@/components/akun/DaftarMitra";
-import { DashboardMitra } from "@/components/akun/DashboardMitra";
+
+import { DashboardRegular } from "./DashboardRegular";
+import { DashboardMitra } from "./DashboardMitra";
+import DaftarMitra from "./DaftarMitra";
 
 export default async function pageAkun() {
   const session = await getUserSession();
@@ -32,5 +33,10 @@ export default async function pageAkun() {
       />
     );
   }
-  <DaftarMitra />;
+  return (
+
+    <div className="p-10">
+      <DaftarMitra />
+    </div>
+  )
 }

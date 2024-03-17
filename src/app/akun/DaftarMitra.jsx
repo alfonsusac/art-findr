@@ -1,8 +1,11 @@
 "use client";
 import { useState } from "react";
-import { PageDisplay } from "./PageDisplay";
+import { PageDisplay } from "./daftar-mitra/PageDisplay";
+
+import { useRouter } from "next/navigation";
 
 export default function DaftarMitra() {
+  const route = useRouter();
   const [pageNum, setPageNum] = useState(0);
   const [formData, setFormData] = useState({
     tanggalLahir: "2000-01-01",
@@ -15,9 +18,15 @@ export default function DaftarMitra() {
   const pageLength = 5;
   const formTitles = `Langkah ${pageNum + 1}/${pageLength + 1}`;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(JSON.stringify(formData));
+
+    await fetch("/api/daftar-mitra/selesai", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+
+    route.refresh()
   };
 
   return (
@@ -26,7 +35,7 @@ export default function DaftarMitra() {
         <h1>{formTitles}</h1>
         <button
           onClick={async () => {
-            await fetch("/daftar-mitra/batal", { method: "DELETE" });
+            await fetch("/api/daftar-mitra/batal", { method: "DELETE" });
           }}
         >
           Batal
