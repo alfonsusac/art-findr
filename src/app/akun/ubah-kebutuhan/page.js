@@ -1,5 +1,8 @@
-import React from "react";
+import { UbahKebutuhan } from "./components/UbahKebutuhan";
+import { getUserData } from "@/lib/auth";
 
-export default function ubahKebutuhanPage() {
-  return <div>ubahKebutuhanPage</div>;
+export default async function UbahKeterampilanPage() {
+  const userData = await getUserData();
+  const considerations = userData?.mitra?.considerations;
+  return <UbahKebutuhan considerations={considerations} />;
 }
