@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 export default function UbahFoto() {
@@ -24,7 +25,7 @@ export default function UbahFoto() {
       <div className="w-full max-w-md mt-6">
         <h2 className="text-lg font-medium mb-4">Foto saya:</h2>
         <div className="flex justify-center items-center w-full h-48 mb-6 border-2 border-white rounded-lg">
-          <img
+          <Image
             alt="Profile"
             className="w-full h-full"
             src={selectedImage || "/placeholder.svg"}
