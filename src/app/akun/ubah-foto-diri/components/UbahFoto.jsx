@@ -6,8 +6,14 @@ export default function UbahFoto() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (e) => {
-    setSelectedImage(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    console.log(file);
+    setSelectedImage(URL.createObjectURL(file));
   };
+
+  function handleSubmit() {
+    console.log(selectedImage);
+  }
 
   return (
     <div className="bg-black text-white min-h-screen flex flex-col items-center justify-center p-4">
@@ -36,7 +42,9 @@ export default function UbahFoto() {
           onChange={handleImageChange}
           className="w-full mb-4 bg-white text-black"
         />
-        <button className="w-full bg-white text-black">Simpan</button>
+        <button className="w-full bg-white text-black" onClick={handleSubmit}>
+          Simpan
+        </button>
       </div>
     </div>
   );
