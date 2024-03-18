@@ -8,9 +8,11 @@ import { signIn, signOut } from "next-auth/react";
 
 import { LoginPhone } from "./LoginPhone";
 import { LoginOtp } from "./LoginOtp";
+import { generateOTP } from "@/lib/otpGenerator";
 
 export const LoginForm = () => {
   const [phoneStep, setPhoneStep] = useState(0);
+  const [phoneNum, setPhoneNum] = useState("");
 
   const valSchema = [
     yup.object({
@@ -33,17 +35,35 @@ export const LoginForm = () => {
     mode: "onChange",
   });
 
+  const handleNext = async () => {
+    const isStepValid = await trigger();
+    if (!isStepValid) {
+      return;
+    }
+
+    await fetch("/api/kirim-otp", {
+      method: "POST",
+      body: JSON.stringify({
+        nomorHandphone: phoneNum,
+        otp: generateOTP(),
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        alert("New record generated in VerifikasiOtp table!");
+        setPhoneStep((step) => step + 1);
+      }
+      else {
+        alert(res.status)
+      }
+    });
+  };
+
   const onSubmit = ({ phone, otp }) => {
     signIn("phoneOTP", {
       phoneNumber: phone,
       otp: otp,
       callbackUrl: "/akun",
     });
-  };
-
-  const handleNext = async () => {
-    const isStepValid = await trigger();
-    if (isStepValid) setPhoneStep((step) => step + 1);
   };
 
   const onError = (e) => {
@@ -56,7 +76,11 @@ export const LoginForm = () => {
       className="flex flex-col gap-4 width-full"
     >
       <section className={phoneStep > 0 ? "hidden" : "block"}>
-        <LoginPhone control={control} onClick={handleNext} />
+        <LoginPhone
+          control={control}
+          setPhoneNum={setPhoneNum}
+          handleNext={handleNext}
+        />
       </section>
 
       <section className={phoneStep > 0 ? "block" : "hidden"}>
