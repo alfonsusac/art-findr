@@ -1,6 +1,6 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { env } from "./utils";
+import { env, isDevelopment } from "./utils";
 
 /**
 @type {import("next-auth").AuthOptions}
@@ -15,6 +15,11 @@ export const authOptions = {
       id: "phoneOTP",
       async authorize(credentials, req) {
         const phoneNumber = credentials.phoneNumber;
+
+        if (isDevelopment && phoneNumber.length === 3) return {
+          phoneNumber
+        }
+
         const otp = credentials.otp;
 
         // Check OTP sama Database
