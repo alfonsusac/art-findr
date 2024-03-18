@@ -48,7 +48,11 @@ export const authOptions = {
             if (timeNow > otpExpiredAt) {
               throw new Error("OTP already expired!");
             }
-          });
+          })
+          .catch(error => {
+            console.log(error)
+            throw error
+          })
 
         return {
           phoneNumber,

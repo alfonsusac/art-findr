@@ -1,18 +1,32 @@
-import Image from "next/image";
-import { Twitter, Instagram, Camera } from "lucide-react";
 import { ArtCards } from "./components/ArtCards";
 import { getUserSession } from "@/lib/auth";
 import Link from "next/link";
 import { getURLfotoDiri } from "@/lib/link-foto";
+import { SearchMitra } from "./client";
+import { prisma } from "@/lib/prisma";
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
+export default async function Home({ searchParams }) {
   const session = await getUserSession();
+
+  // const listMitra = await prisma.mitra.findMany({
+  //   include: {
+  //     user: {
+  //       include: {
+  //         location: true
+  //       }
+  //     }
+  //   }
+  // })
+
   const res = await prisma.user.findMany({
     where: {
       mitra: {
         isNot: null,
       },
+      fullName: {
+        contains: searchParams.search
+      }
     },
     include: {
       mitra: true,
@@ -67,10 +81,7 @@ export default async function Home() {
               Cari ART Sesuai Kebutuhanmu
             </h1>
             <div className="w-80 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
-              <input
-                placeholder="Search"
-                className="block w-full outline-none"
-              />
+              <SearchMitra />
             </div>
           </div>
         </section>
