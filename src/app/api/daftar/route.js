@@ -9,6 +9,16 @@ export async function POST(request) {
 
     const existingUsers = await prisma.user.findMany({
       where: {
+        /**
+         * Harus diubah jadi "AND", karena harus memenuhi kedua syarat.
+         * Kalau OR, hanya salah satu yang terpenuhi.
+         * Kalau email: "", berarti ambil semua user yang tidak ada email.
+         * Kalau phoneNumber: "", berarti ambil semua user yang tidak ada phoneNumber
+         * Kalau AND, dua dua nya mesti terpenuhi.
+         * Kalau email: "" DAN phoneNumber: 123 -> ambil user yg phoneNumber cuma 123
+         * Kalau email: asdf DAN phoneNumber: "" -> ambil user yang email: asdf
+         * Kalau email: asdf ATAU phoneNumber: "" -> ambil semua user yang tidak ada phoneNumber... (salah)
+         */
         OR: [
           { email: session?.email ?? "" },
           { phoneNumber: session?.phoneNumber ?? "" },
@@ -28,6 +38,13 @@ export async function POST(request) {
     const newUser = await prisma.user.create({
       data: {
         fullName: data.get("fullName"),
+        /**
+         * Email dan PhoneNumber harus ambil dari session karena 
+         * data dari form bisa di palsukan. Sedangkan cookies TIDAK BISA DIPALSUKAN.
+         * Dan jika tidak ada, default ke "" 
+         * email: session.email ?? "",
+         * phoneNumber: session.phoneNumber ?? ""
+         */
         email: session ? session.email : data.get("email"),
         phoneNumber: String(data.get("phoneNumber")),
         location: {
