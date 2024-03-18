@@ -7,7 +7,13 @@ export const SingleArtCards = ({ user, session, imageUrl }) => {
   return user ? (
     <div className="flex flex-col gap-2 mb-8" key={user.id}>
       <Link href="/">Back</Link>
-      <Image src={imageUrl} width={150} height={100} unoptimized={true} />
+      <Image
+        src={imageUrl}
+        width={150}
+        height={100}
+        unoptimized={true}
+        alt="Foto Mitra ART"
+      />
       <div className="flex flex-col">
         <div className="text-lg font-semibold">{user.fullName}</div>
         <div>

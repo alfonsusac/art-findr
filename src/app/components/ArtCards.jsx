@@ -31,7 +31,7 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
       );
     }
     setAllMitra(filteredMitra);
-  }, [expertiseFilter, provinceFilter, overnightFilter]);
+  }, [expertiseFilter, provinceFilter, overnightFilter, availableMitra]);
 
   const expertises = Array.from(
     new Set(availableMitra.flatMap((user) => user.mitra.expertises))
@@ -83,7 +83,7 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
       >
         <option value="">Menginap</option>
         <option value="true">Allow Overnight</option>
-        <option value="false">Don't Allow Overnight</option>
+        <option value="false">Don&apos;t Allow Overnight</option>
       </select>
       <div className="bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-8">
         {availableMitra.map((user) => (
