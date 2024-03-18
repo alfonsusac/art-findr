@@ -1,15 +1,25 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
-export const SingleArtCards = ({ user, session }) => {
+export const SingleArtCards = ({ user, session, imageUrl }) => {
   return user ? (
     <div className="flex flex-col gap-2 mb-8" key={user.id}>
       <Link href="/">Back</Link>
-      <div className="aspect-[3/4] bg-neutral-300 rounded-lg" />
+      <Image
+        src={imageUrl}
+        width={150}
+        height={100}
+        unoptimized={true}
+        alt="Foto Mitra ART"
+      />
       <div className="flex flex-col">
         <div className="text-lg font-semibold">{user.fullName}</div>
-        <div>Location: {user.location.provinsi}</div>
+        <div>
+          Lokasi: {user?.location?.kecamatan}, {user?.location?.kota},
+          {user?.location?.provinsi}
+        </div>
         <div>Keahlian: {user.mitra.expertises.join(", ")}</div>
         <div>Kebutuhan: {user.mitra.considerations.join(", ")}</div>
         <div>Status: {user.mitra.status}</div>

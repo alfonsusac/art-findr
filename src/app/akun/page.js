@@ -12,12 +12,13 @@ export default async function pageAkun() {
   });
 
   if (userData.mitra) {
-    return <DashboardMitra mitra={userData.mitra} />;
+    return <DashboardMitra mitra={userData.mitra} uid={userData.id} />;
   }
 
   if (!userData.calonMitra) {
     return (
       <DashboardRegular
+        uid={userData.id}
         fullName={userData.fullName}
         email={userData.email}
         province={userData.location.provinsi}
@@ -26,9 +27,8 @@ export default async function pageAkun() {
     );
   }
   return (
-
     <div className="p-10">
       <DaftarMitra />
     </div>
-  )
+  );
 }
