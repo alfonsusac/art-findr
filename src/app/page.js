@@ -2,13 +2,34 @@ import Image from "next/image";
 import { Twitter, Instagram, Camera } from "lucide-react";
 import { ArtCards } from "./components/ArtCards";
 import { getUserSession } from "@/lib/auth";
+import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const res = await fetch("http://localhost:3000/api/semua-mitra");
-  const data = await res.json();
-  const mitra = data.body;
-
   const session = await getUserSession();
+  const res = await prisma.user.findMany({
+    where: {
+      mitra: {
+        isNot: null,
+      },
+    },
+    include: {
+      mitra: true,
+      location: true,
+    },
+  });
+
+  const mitra = res.filter((m) => m.mitra && m.mitra.status === "Tersedia");
+
+  mitra.forEach((m) => {
+    if (m.mitra && m.mitra.pricePerDay) {
+      m.mitra.pricePerDay = Number(m.mitra.pricePerDay.toString());
+    }
+    if (m.mitra && m.mitra.updatedAt) {
+      m.mitra.updatedAt = m.mitra.updatedAt.toISOString();
+    }
+  });
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -16,9 +37,12 @@ export default async function Home() {
         <div className="content flex justify-between items-center p-4">
           <div className="font-bold tracking-tight">CariART</div>
           <div className="">
-            <button className="p-1 px-5 border border-neutral-200 rounded-lg text-sm font-semibold">
+            <Link
+              href="/masuk"
+              className="p-1 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
+            >
               Masuk
-            </button>
+            </Link>
           </div>
         </div>
       </header>
@@ -36,8 +60,10 @@ export default async function Home() {
             </div>
           </div>
         </section>
-        <section className="bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-8">
+        <section className="">
           <ArtCards session={session} mitra={mitra} />
+
+          <Link href="/daftar">Daftar jadi Mitra</Link>
         </section>
       </main>
       <footer className="bg-blue-100 min-h-48 flex">
