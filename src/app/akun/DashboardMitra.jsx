@@ -31,7 +31,11 @@ export const DashboardMitra = ({ mitra }) => {
         </div>
 
         <div>
-          <p>Date of Birth: {mitra.dateOfBirth.toString()}</p>
+          <p>
+            Date of Birth: {mitra.dateOfBirth.getDate()}-
+            {mitra.dateOfBirth.getUTCMonth()}-
+            {mitra.dateOfBirth.getUTCFullYear()}
+          </p>
           <a href="/akun/ubah-tgl-lahir" className="text-rose-400">
             Ubah Tgl Lahir
           </a>
