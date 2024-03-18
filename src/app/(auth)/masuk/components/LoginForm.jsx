@@ -1,23 +1,71 @@
 "use client";
 
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { signIn, signOut } from "next-auth/react";
-import OtpInput from "react-otp-input";
 
-import PhoneInput from "react-phone-number-input/react-hook-form-input";
+import { LoginPhone } from "./LoginPhone";
+import { LoginOtp } from "./LoginOtp";
+import { generateOTP } from "@/lib/otpGenerator";
 
 export const LoginForm = () => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  const [phoneStep, setPhoneStep] = useState(0);
+  const [phoneNum, setPhoneNum] = useState("");
+
+  const valSchema = [
+    yup.object({
+      phone: yup
+        .string()
+        .required()
+        .matches(/^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/g)
+        .min(10),
+    }),
+    yup.object({
+      otp: yup.number().required().min(6),
+    }),
+  ];
+
+  const currentValSchema = valSchema[phoneStep];
+
+  const { control, handleSubmit, trigger } = useForm({
+    shouldUnregister: false,
+    resolver: yupResolver(currentValSchema),
+    mode: "onChange",
+  });
+
+  // TODO:
+  // Move this to handleNext once feature is completed
+  const otpValue = generateOTP();
+
+  const handleNext = async () => {
+    const isStepValid = await trigger();
+    if (!isStepValid) {
+      return;
+    }
+
+    await fetch("/api/kirim-otp", {
+      method: "POST",
+      body: JSON.stringify({
+        nomorHandphone: phoneNum,
+        otp: otpValue,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        alert("OTP:" + otpValue + "generated in VerifikasiOtp table!");
+        setPhoneStep((step) => step + 1);
+      } else {
+        alert(res.status);
+      }
+    });
+  };
 
   const onSubmit = ({ phone, otp }) => {
-     signIn("phoneOTP", {
+    signIn("phoneOTP", {
       phoneNumber: phone,
       otp: otp,
-      callbackUrl: '/akun'
+      callbackUrl: "/akun",
     });
   };
 
@@ -30,65 +78,17 @@ export const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit, onError)}
       className="flex flex-col gap-4 width-full"
     >
-      <PhoneInput
-        name="phone"
-        placeholder="Nomor handphone"
-        country="ID"
-        control={control}
-        rules={{
-          required: true,
-          pattern: /^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/g,
-        }}
-        aria-invalid={errors.phoneInput ? "true" : "false"}
-        className="border border-gray-300 rounded-md px-2 h-12"
-      />
-      {errors.phoneInput?.type === "pattern" && (
-        <p role="alert" className="text-sm italic text-red-400">
-          Masukkan nomor handphone yang valid.
-        </p>
-      )}
-      <div className="flex flex-col gap-4 text-center w-full">
-        <p>
-          Masukkan 6 digit kode OTP yang telah dikirim melalui SMS ke nomor
-          handphone Anda:
-        </p>
-        <Controller
-          name="otp"
+      <section className={phoneStep > 0 ? "hidden" : "block"}>
+        <LoginPhone
           control={control}
-          rules={{
-            required: true,
-            validate: (value) => value.length === 6,
-          }}
-          render={({ field: { onChange, value, ref }, fieldState }) => (
-            <div className="p-4 m-auto">
-              <OtpInput
-                value={value}
-                onChange={onChange}
-                numInputs={6}
-                renderSeparator={<span>-</span>}
-                renderInput={(props) => <input {...props} />}
-              />
-              {fieldState.invalid && (
-                <p
-                  role="alert"
-                  className="mt-2 text-sm text-center italic text-red-400"
-                >
-                  Kode OTP minimal 6 digit.
-                </p>
-              )}
-            </div>
-          )}
+          setPhoneNum={setPhoneNum}
+          handleNext={handleNext}
         />
-        <p>
-          Tidak menerima kode OTP?{" "}
-          <button type="reset" className="text-rose-400">
-            Kirim ulang.
-          </button>
-        </p>
-      </div>
-      <button type="submit" className="bg-rose-400 rounded-md text-white h-12">
-        Masuk
-      </button>
+      </section>
+
+      <section className={phoneStep > 0 ? "block" : "hidden"}>
+        <LoginOtp control={control} />
+      </section>
     </form>
   );
 };

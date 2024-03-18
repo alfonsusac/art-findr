@@ -77,3 +77,9 @@ model SeekerAddress {
   userId String @unique
   user   User?  @relation(fields: [userId], references: [id])
 }
+
+model VerifikasiOtp {
+  otp            Int      @id @unique
+  nomorHandphone String
+  createdAt      DateTime @default(now())
+}
