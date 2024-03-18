@@ -61,7 +61,10 @@ export const DashboardRegular = ({ uid, fullName, email, province, city }) => {
       >
         Keluar
       </button>
-      <button className="bg-rose-400 rounded-md text-white h-12 p-4 ">
+      <button
+        className="bg-rose-400 rounded-md text-white h-12 p-4 "
+        onClick={handleCreate}
+      >
         Daftar Menjadi Mitra
       </button>
     </main>
