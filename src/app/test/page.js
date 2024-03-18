@@ -70,9 +70,6 @@ export default async function TestPage() {
       <br />
       UserData: {JSON.stringify(userData)}
       <ClientTestPage />
-      <div>
-        <img src={testImageLink} />
-      </div>
     </main>
   );
 }
