@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import React from "react";
+import { signOut } from "next-auth/react";
 
 export const DashboardRegular = ({ fullName, email, province, city }) => {
   return (
@@ -25,12 +27,14 @@ export const DashboardRegular = ({ fullName, email, province, city }) => {
       <Link href="/akun/ubah-nama" className="border-b-2 border-gray-400">
         Ubah Nama Lengkap
       </Link>
-      <Link
-        href="/masuk"
+      <button
         className="bg-rose-400 rounded-md text-white h-12 p-4 "
+        onClick={() => {
+          signOut();
+        }}
       >
         Keluar
-      </Link>
+      </button>
       <button className="bg-rose-400 rounded-md text-white h-12 p-4 ">
         Daftar Menjadi Mitra
       </button>
