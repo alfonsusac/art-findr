@@ -35,6 +35,10 @@ export const LoginForm = () => {
     mode: "onChange",
   });
 
+  // TODO:
+  // Move this to handleNext once feature is completed
+  const otpValue = generateOTP();
+
   const handleNext = async () => {
     const isStepValid = await trigger();
     if (!isStepValid) {
@@ -45,11 +49,11 @@ export const LoginForm = () => {
       method: "POST",
       body: JSON.stringify({
         nomorHandphone: phoneNum,
-        otp: generateOTP(),
+        otp: otpValue,
       }),
     }).then((res) => {
       if (res.ok) {
-        alert("New record generated in VerifikasiOtp table!");
+        alert("OTP:" + otpValue + "generated in VerifikasiOtp table!");
         setPhoneStep((step) => step + 1);
       } else {
         alert(res.status);
