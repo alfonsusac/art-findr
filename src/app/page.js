@@ -3,7 +3,7 @@ import { Twitter, Instagram, Camera } from "lucide-react";
 import { ArtCards } from "./components/ArtCards";
 import { getUserSession } from "@/lib/auth";
 import Link from "next/link";
-
+import { getURLfotoDiri } from "@/lib/link-foto";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
@@ -20,16 +20,30 @@ export default async function Home() {
     },
   });
 
-  const mitra = res.filter((m) => m.mitra && m.mitra.status === "Tersedia");
+  // Filter out the mitra objects where mitra is defined and its status is "Tersedia"
+  const availableMitra = res.filter(
+    (m) => m.mitra && m.mitra.status === "Tersedia"
+  );
 
-  mitra.forEach((m) => {
-    if (m.mitra && m.mitra.pricePerDay) {
+  // Modify the availableMitra array in-place
+  availableMitra.forEach((m) => {
+    // Convert pricePerDay to a number
+    if (m.mitra.pricePerDay) {
       m.mitra.pricePerDay = Number(m.mitra.pricePerDay.toString());
     }
-    if (m.mitra && m.mitra.updatedAt) {
+    // Convert updatedAt to an ISO string
+    if (m.mitra.updatedAt) {
       m.mitra.updatedAt = m.mitra.updatedAt.toISOString();
     }
   });
+
+  // Create an object where the keys are the mitra phoneNumber and the values are the URLs
+  const mitraIdUrlMap = await availableMitra.reduce(async (accPromise, m) => {
+    const acc = await accPromise;
+    const url = await getURLfotoDiri(m.phoneNumber);
+    acc[m.phoneNumber] = url;
+    return acc;
+  }, Promise.resolve({}));
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -61,7 +75,11 @@ export default async function Home() {
           </div>
         </section>
         <section className="">
-          <ArtCards session={session} mitra={mitra} />
+          <ArtCards
+            session={session}
+            availableMitra={availableMitra}
+            mitraIdUrlMap={mitraIdUrlMap}
+          />
 
           <Link href="/daftar">Daftar jadi Mitra</Link>
         </section>

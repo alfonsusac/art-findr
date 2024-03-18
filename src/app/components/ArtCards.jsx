@@ -6,15 +6,15 @@ import { useQueryState } from "nuqs";
 import { SingleArtCards } from "./SingleArtCard";
 import Image from "next/image";
 
-export const ArtCards = ({ session, mitra }) => {
+export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
   const [id, setId] = useQueryState("id");
-  const [allMitra, setAllMitra] = useState(mitra);
+  const [allMitra, setAllMitra] = useState(availableMitra);
   const [expertiseFilter, setExpertiseFilter] = useState("");
   const [provinceFilter, setProvinceFilter] = useState("");
   const [overnightFilter, setOvernightFilter] = useState("");
 
   useEffect(() => {
-    let filteredMitra = mitra;
+    let filteredMitra = availableMitra;
     if (expertiseFilter) {
       filteredMitra = filteredMitra.filter((user) =>
         user.mitra.expertises.includes(expertiseFilter)
@@ -34,15 +34,21 @@ export const ArtCards = ({ session, mitra }) => {
   }, [expertiseFilter, provinceFilter, overnightFilter]);
 
   const expertises = Array.from(
-    new Set(mitra.flatMap((user) => user.mitra.expertises))
+    new Set(availableMitra.flatMap((user) => user.mitra.expertises))
   );
   const provinces = Array.from(
-    new Set(mitra.map((user) => user.location.provinsi))
+    new Set(availableMitra.map((user) => user.location.provinsi))
   );
 
   if (id) {
     const user = allMitra.find((user) => user.id === id);
-    return <SingleArtCards user={user} session={session} />;
+    return (
+      <SingleArtCards
+        user={user}
+        session={session}
+        imageUrl={mitraIdUrlMap[user.phoneNumber]}
+      />
+    );
   }
 
   return (
@@ -80,17 +86,18 @@ export const ArtCards = ({ session, mitra }) => {
         <option value="false">Don't Allow Overnight</option>
       </select>
       <div className="bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-8">
-        {allMitra.map((user) => (
+        {availableMitra.map((user) => (
           <div
             className="flex flex-col gap-2 mb-8"
             key={user.id}
             onClick={() => setId(user.id)}
           >
             <Image
-              src="https://pixabay.com/get/g9ab6d424456069df40a1f1c50b01f1c5ad91b47b80cb31447e4509a6c4190311cd23bcf3a0da46271bab017997edd38e67a54f162acc3823d42876dabcfa61e01029ae36de1b5cddfac9f0c9f066eb2e_640.jpg"
+              src={mitraIdUrlMap[user.phoneNumber]}
               width={150}
               height={100}
               unoptimized={true}
+              alt="Mitra ART"
             />
             <div className="flex flex-col">
               <div className="text-lg font-semibold">{user.fullName}</div>

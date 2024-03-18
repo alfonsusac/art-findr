@@ -3,16 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export const SingleArtCards = ({ user, session }) => {
+export const SingleArtCards = ({ user, session, imageUrl }) => {
   return user ? (
     <div className="flex flex-col gap-2 mb-8" key={user.id}>
       <Link href="/">Back</Link>
-      <Image
-        src="https://pixabay.com/get/g9ab6d424456069df40a1f1c50b01f1c5ad91b47b80cb31447e4509a6c4190311cd23bcf3a0da46271bab017997edd38e67a54f162acc3823d42876dabcfa61e01029ae36de1b5cddfac9f0c9f066eb2e_640.jpg"
-        width={150}
-        height={100}
-        unoptimized={true}
-      />
+      <Image src={imageUrl} width={150} height={100} unoptimized={true} />
       <div className="flex flex-col">
         <div className="text-lg font-semibold">{user.fullName}</div>
         <div>
