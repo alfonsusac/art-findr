@@ -4,18 +4,17 @@ import { prisma } from "@/lib/prisma";
 import { getImageURL } from "@/lib/upload";
 
 export default async function TestPage() {
-
-  const session = await getUserSession()
-  const userData = await getUserData()
-  const testImageLink = await getImageURL('/fotodiri/test.webp')
+  const session = await getUserSession();
+  const userData = await getUserData();
+  const testImageLink = await getImageURL("/fotodiri/test.webp");
 
   const registeredUser = await prisma.user.findFirst({
     where: {
-      phoneNumber: "198"
-    }
-  })
+      phoneNumber: "198",
+    },
+  });
   if (!registeredUser) {
-    await prisma.user.create({ 
+    await prisma.user.create({
       data: {
         fullName: "Jojo",
         email: "",
@@ -25,17 +24,17 @@ export default async function TestPage() {
             kecamatan: "kecamatanXXX",
             kota: "kotaYYY",
             provinsi: "provinsiZZZ",
-          }
-        }
-      }
-    })
+          },
+        },
+      },
+    });
   }
 
   const mitraUser = await prisma.user.findFirst({
     where: {
       phoneNumber: "199",
-    }
-  })
+    },
+  });
   if (!mitraUser) {
     await prisma.user.create({
       data: {
@@ -47,7 +46,7 @@ export default async function TestPage() {
             kecamatan: "kecamatanXXX",
             kota: "kotaYYY",
             provinsi: "provinsiZZZ",
-          }
+          },
         },
         mitra: {
           create: {
@@ -57,21 +56,20 @@ export default async function TestPage() {
             considerations: ["considerationCCC"],
             expertises: ["expertiseXXX"],
             pricePerDay: 90,
-          }
-        }
-      }
-    })
+          },
+        },
+      },
+    });
   }
 
   return (
     <main>
-      Welcome to test page<br />
-      Session: {JSON.stringify(session)}<br />
+      Welcome to test page
+      <br />
+      Session: {JSON.stringify(session)}
+      <br />
       UserData: {JSON.stringify(userData)}
       <ClientTestPage />
-      <div>
-        <img src={testImageLink} />
-      </div>
     </main>
-  )
+  );
 }

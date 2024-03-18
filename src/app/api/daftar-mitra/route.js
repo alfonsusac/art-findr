@@ -5,10 +5,13 @@ import { getUserData } from "@/lib/auth";
 
 export async function POST(req) {
   try {
-    const userData = getUserData();
+    const userData = await getUserData();
+    console.log(userData.id);
 
     const res = await prisma.calonMitra.create({
-      data: { userId: userData.id },
+      data: {
+        userId: userData.id,
+      },
     });
 
     return NextResponse.json({ status: 200, body: res });

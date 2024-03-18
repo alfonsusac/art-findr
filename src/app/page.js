@@ -2,9 +2,48 @@ import Image from "next/image";
 import { Twitter, Instagram, Camera } from "lucide-react";
 import { ArtCards } from "./components/ArtCards";
 import { getUserSession } from "@/lib/auth";
+import Link from "next/link";
+import { getURLfotoDiri } from "@/lib/link-foto";
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const session = await getUserSession();
+  const res = await prisma.user.findMany({
+    where: {
+      mitra: {
+        isNot: null,
+      },
+    },
+    include: {
+      mitra: true,
+      location: true,
+    },
+  });
+
+  // Filter out the mitra objects where mitra is defined and its status is "Tersedia"
+  const availableMitra = res.filter(
+    (m) => m.mitra && m.mitra.status === "Tersedia"
+  );
+
+  // Modify the availableMitra array in-place
+  availableMitra.forEach((m) => {
+    // Convert pricePerDay to a number
+    if (m.mitra.pricePerDay) {
+      m.mitra.pricePerDay = Number(m.mitra.pricePerDay.toString());
+    }
+    // Convert updatedAt to an ISO string
+    if (m.mitra.updatedAt) {
+      m.mitra.updatedAt = m.mitra.updatedAt.toISOString();
+    }
+  });
+
+  // Create an object where the keys are the mitra phoneNumber and the values are the URLs
+  const mitraIdUrlMap = await availableMitra.reduce(async (accPromise, m) => {
+    const acc = await accPromise;
+    const url = await getURLfotoDiri(m.phoneNumber);
+    acc[m.phoneNumber] = url;
+    return acc;
+  }, Promise.resolve({}));
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -12,9 +51,12 @@ export default async function Home() {
         <div className="content flex justify-between items-center p-4">
           <div className="font-bold tracking-tight">CariART</div>
           <div className="">
-            <button className="p-1 px-5 border border-neutral-200 rounded-lg text-sm font-semibold">
+            <Link
+              href="/masuk"
+              className="p-1 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
+            >
               Masuk
-            </button>
+            </Link>
           </div>
         </div>
       </header>
@@ -32,8 +74,14 @@ export default async function Home() {
             </div>
           </div>
         </section>
-        <section className="bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-8">
-          <ArtCards session={session} />
+        <section className="">
+          <ArtCards
+            session={session}
+            availableMitra={availableMitra}
+            mitraIdUrlMap={mitraIdUrlMap}
+          />
+
+          <Link href="/daftar">Daftar jadi Mitra</Link>
         </section>
       </main>
       <footer className="bg-blue-100 min-h-48 flex">

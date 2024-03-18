@@ -2,8 +2,34 @@
 import Link from "next/link";
 import React from "react";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-export const DashboardRegular = ({ fullName, email, province, city }) => {
+export const DashboardRegular = ({ uid, fullName, email, province, city }) => {
+  const route = useRouter();
+  async function handleCreate() {
+    const res = await fetch("/api/daftar-mitra", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: uid,
+        isFotoDiri: true,
+        isFotoKTP: true,
+        dateOfBirth: new Date(),
+        allowOvernight: true,
+        expertises: [],
+        considerations: [],
+        pricePerHour: 0,
+        pricePerDay: 0,
+        pricePerMonth: 0,
+      }),
+    });
+
+    const data = res.json();
+    console.log(data);
+    route.refresh();
+  }
   return (
     <main className="flex flex-col gap-2 items-center mt-6">
       <div className="p-10">
@@ -35,7 +61,10 @@ export const DashboardRegular = ({ fullName, email, province, city }) => {
       >
         Keluar
       </button>
-      <button className="bg-rose-400 rounded-md text-white h-12 p-4 ">
+      <button
+        className="bg-rose-400 rounded-md text-white h-12 p-4 "
+        onClick={handleCreate}
+      >
         Daftar Menjadi Mitra
       </button>
     </main>
