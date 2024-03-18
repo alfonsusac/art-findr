@@ -5,26 +5,46 @@ import { signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import OtpInput from "react-otp-input";
 
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import PhoneInput from "react-phone-number-input/react-hook-form-input";
 
 export const LoginForm = () => {
   const [phoneStep, setPhoneStep] = useState(0);
 
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    watch,
-  } = useForm();
+  const valSchema = [
+    yup.object({
+      phone: yup
+        .string()
+        .required()
+        .matches(/^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/g)
+        .min(10),
+    }),
+    yup.object({
+      otp: yup.number().required().min(6),
+    }),
+  ];
+
+  const currentValSchema = valSchema[phoneStep];
+
+  const { control, handleSubmit, trigger } = useForm({
+    shouldUnregister: false,
+    resolver: yupResolver(currentValSchema),
+    mode: "onChange",
+  });
 
   const onSubmit = ({ phone, otp }) => {
-    alert("OK");
+    signIn("phoneOTP", {
+      phoneNumber: phone,
+      otp: otp,
+      callbackUrl: "/akun",
+    });
+  };
 
-    // signIn("phoneOTP", {
-    //   phoneNumber: phone,
-    //   otp: otp,
-    //   callbackUrl: "/akun",
-    // });
+  const handleNext = async () => {
+    const isStepValid = await trigger();
+    if (isStepValid) setPhoneStep((step) => step + 1);
   };
 
   const onError = (e) => {
@@ -36,30 +56,18 @@ export const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit, onError)}
       className="flex flex-col gap-4 width-full"
     >
-      <section className={phoneStep >= 0 ? "block" : "hidden"}>
+      <section className={phoneStep > 0 ? "hidden" : "block"}>
         <div className="flex flex-col gap-4">
           <PhoneInput
             name="phone"
             placeholder="Nomor handphone"
             country="ID"
             control={control}
-            rules={{
-              required: true,
-              pattern: /^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$/g,
-            }}
-            aria-invalid={errors.phone ? "true" : "false"}
             className="border border-gray-300 rounded-md px-2 h-12"
           />
-          {errors.phone?.type === "pattern" && (
-            <p role="alert" className="text-sm italic text-red-400">
-              Masukkan nomor handphone yang valid.
-            </p>
-          )}
           <button
-            type="submit"
-            // onClick={() => {
-            //   setPhoneStep("otp");
-            // }}
+            type="button"
+            onClick={handleNext}
             className="bg-rose-400 rounded-md text-white h-12"
           >
             Masuk
@@ -67,7 +75,7 @@ export const LoginForm = () => {
         </div>
       </section>
 
-      <section className={phoneStep >= 0 ? "hidden" : "block"}>
+      <section className={phoneStep > 0 ? "block" : "hidden"}>
         <div className="flex flex-col gap-4 text-center w-full">
           <p>
             Masukkan 6 digit kode OTP yang telah dikirim melalui SMS ke nomor
@@ -89,14 +97,6 @@ export const LoginForm = () => {
                   renderSeparator={<span>-</span>}
                   renderInput={(props) => <input {...props} />}
                 />
-                {fieldState.invalid && (
-                  <p
-                    role="alert"
-                    className="mt-2 text-sm text-center italic text-red-400"
-                  >
-                    Kode OTP minimal 6 digit.
-                  </p>
-                )}
               </div>
             )}
           />

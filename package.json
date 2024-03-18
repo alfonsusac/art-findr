@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@aws-sdk/client-s3": "^3.535.0",
     "@aws-sdk/s3-request-presigner": "^3.535.0",
     "@prisma/client": "^5.10.2",
@@ -25,7 +26,8 @@
     "react-otp-input": "^3.1.1",
     "react-phone-number-input": "^3.3.9",
     "sharp": "^0.33.2",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.1",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/node": "20.11.28",
