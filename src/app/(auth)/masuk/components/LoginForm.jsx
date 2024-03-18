@@ -51,9 +51,8 @@ export const LoginForm = () => {
       if (res.ok) {
         alert("New record generated in VerifikasiOtp table!");
         setPhoneStep((step) => step + 1);
-      }
-      else {
-        alert(res.status)
+      } else {
+        alert(res.status);
       }
     });
   };
