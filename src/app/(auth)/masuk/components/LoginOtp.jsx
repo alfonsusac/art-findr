@@ -34,7 +34,7 @@ export const LoginOtp = ({ control }) => {
         </button>
       </p>
       <button type="submit" className="bg-rose-400 rounded-md text-white h-12">
-        Kirim kode OTP
+        Masuk
       </button>
     </div>
   );
