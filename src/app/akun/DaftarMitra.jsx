@@ -11,15 +11,16 @@ import { InputFotoKTP } from "./daftar-mitra/InputFotoKTP";
 export default function DaftarMitra() {
   const route = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  async function handleSubmit(formData) {
+    // console.log(formData)
+    // e.preventDefault();
 
     await fetch("/api/daftar-mitra/selesai", {
       method: "POST",
-      body: JSON.stringify(formData),
+      body: formData,
     });
 
-    route.refresh();
+    // route.refresh();
   };
 
   return (
@@ -34,14 +35,14 @@ export default function DaftarMitra() {
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form action={handleSubmit} className="flex flex-col gap-4">
         <InputTanggalLahir />
         <InputKebutuhan />
         <InputKeterampilan />
         <InputHarga />
         <InputFotoDiri />
         <InputFotoKTP />
-        <button type="submit">Submit</button>
+        <button>Submit</button>
       </form>
     </div>
   );
