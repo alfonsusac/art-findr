@@ -14,15 +14,14 @@ export default function DaftarMitra() {
   const route = useRouter();
 
   async function handleSubmit(formData) {
-    // console.log(formData)
-    // e.preventDefault();
+    e.preventDefault();
 
     await fetch("/api/daftar-mitra/selesai", {
       method: "POST",
       body: formData,
     });
 
-    // route.refresh();
+    route.refresh();
   };
 
   return (
