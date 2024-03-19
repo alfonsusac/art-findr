@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { getUserData } from "@/lib/auth";
