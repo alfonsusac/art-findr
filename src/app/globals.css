@@ -2,27 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
   min-width: 0;
   min-height: 0;
-  @apply flex-none tracking-tight
+  @apply flex-none tracking-tight;
 }
 
 body {
-  @apply bg-white text-neutral-800
+  @apply bg-white text-neutral-800;
 }
 
 @layer base {
   .content {
-    @apply w-full max-w-screen-lg mx-auto
+    @apply w-full max-w-screen-lg mx-auto;
   }
 }
 
-@layer components{
-    .button {
-    @apply text-sm font-bold tracking-tight text-black
+@layer components {
+  .button {
+    @apply text-sm font-medium tracking-tight text-black
     px-5 py-2 rounded-lg
-    shadow-[inset_0_0_0_0.1rem_#0002]
+    shadow-[inset_0_0_0_0.1rem_#0001]
     transition-all duration-75
     outline
     outline-0 outline-zinc-500/10 
@@ -33,7 +33,9 @@ body {
   .btn-primary {
     @apply bg-primary text-white outline-primary/30;
   }
-
+  .btn-outline {
+    @apply 
+  }
 }
 
 @layer utilities {

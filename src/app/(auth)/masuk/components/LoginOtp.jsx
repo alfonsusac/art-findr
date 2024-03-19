@@ -29,7 +29,7 @@ export const LoginOtp = ({ control }) => {
       />
       <p>
         Tidak menerima kode OTP?{" "}
-        <button type="reset" className="text-rose-400">
+        <button type="reset" className=" text-rose-400">
           Kirim ulang.
         </button>
       </p>
