@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.10.2",
     "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@vercel/blob": "^0.22.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

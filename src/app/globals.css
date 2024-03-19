@@ -16,6 +16,12 @@ body {
   .content {
     @apply w-full max-w-screen-lg mx-auto;
   }
+  label {
+    @apply text-base font-semibold;
+  }
+  fieldset{
+    @apply flex flex-col gap-2
+  }
 }
 
 @layer components {
@@ -34,7 +40,7 @@ body {
     @apply bg-primary text-white outline-primary/30;
   }
   .btn-outline {
-    @apply 
+    @apply;
   }
 }
 
