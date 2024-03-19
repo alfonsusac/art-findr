@@ -2,44 +2,79 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export const SingleArtCards = ({ user, session, imageUrl }) => {
   return user ? (
-    <div className="flex flex-col gap-2 mb-8" key={user.id}>
-      <Link href="/">Back</Link>
-      <Image
-        src={imageUrl}
-        width={150}
-        height={100}
-        unoptimized={true}
-        alt="Foto Mitra ART"
-      />
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">{user.fullName}</div>
-        <div>
-          Lokasi: {user?.location?.kecamatan}, {user?.location?.kota},
-          {user?.location?.provinsi}
-        </div>
-        <div>Keahlian: {user.mitra.expertises.join(", ")}</div>
-        <div>Kebutuhan: {user.mitra.considerations.join(", ")}</div>
-        <div>Status: {user.mitra.status}</div>
-        {session ? (
-          <>
-            <div>Harga Perjam: {user.mitra.pricePerHour}</div>
-            <div>Harga Perhari: {user.mitra.pricePerDay}</div>
-            <div>Harga perbulan: {user.mitra.pricePerMonth}</div>
-          </>
-        ) : (
-          <div>
-            Harga: <Link href="/masuk">Login untuk melihat harga</Link>
+    <div className={cn(
+      "flex flex-col items-center gap-2 mb-8",
+      // "bg-neutral-200",
+      "px-8",
+    )}>
+      <div className="max-w-screen-sm w-full">
+
+        <Link href="/">Back</Link>
+ 
+        <div className="flex flex-col md:flex-row gap-8">
+          <div className="bg-neutral-300 aspect-[9/12] max-w-xs w-full rounded-xl object-cover relative">
+            <Image
+              className="bg-neutral-300 aspect-[9/12] rounded-xl object-cover"
+              src={imageUrl} fill unoptimized alt="Foto Mitra ART"
+            />
           </div>
-        )}
-        <div>
-          Umur:{" "}
-          {new Date().getFullYear() -
-            new Date(user.mitra.dateOfBirth).getFullYear()}
+          <div className="flex flex-col">
+            <section className="my-4">
+              <div className="text-3xl font-semibold">{user.fullName}</div>
+              {/* <div>Lokasi</div> */}
+              <div>
+                {user?.location?.kecamatan}, {user?.location?.kota},
+                {user?.location?.provinsi}
+              </div>
+            </section>
+            <section className="my-2">
+              <div className="text-base font-semibold opacity-80">Keahlian</div>
+              <div>{user.mitra.expertises.join(", ")}</div>
+            </section>
+
+            <section className="my-2">
+              <div className="text-base font-semibold opacity-80">Kebutuhan Khusus</div>
+              <div>{user.mitra.considerations.join(", ")}</div>
+            </section>
+
+            <section className="my-2">
+              <div className="text-base font-semibold opacity-80">Status</div>
+              <div className="text-4xl font-normal">{user.mitra.status}</div>
+            </section>
+
+            <section className="my-2">
+              <div className="text-base font-semibold opacity-80">Harga</div>
+              {
+                session ? (
+                  <div className="text-2xl">
+                    {user.mitra.pricePerHour && <div>Rp{user.mitra.pricePerHour}/jam</div>}
+                    {user.mitra.pricePerDay && <div>Rp{user.mitra.pricePerDay}/hari</div>}
+                    {user.mitra.pricePerMonth && <div>Rp{user.mitra.pricePerMonth}/bulan</div>}
+                  </div>
+                ) : (
+                  <div>
+                    Harga: <Link href="/masuk">Login untuk melihat harga</Link>
+                  </div>
+                )
+              }
+            </section>
+
+            <section className="my-2">
+              <div className="text-base font-semibold opacity-80">Umur</div>
+              {new Date().getFullYear() -
+                new Date(user.mitra.dateOfBirth).getFullYear()} tahun
+            </section>
+
+            <section className="my-2">
+              <div className="text-base font-semibold opacity-80">Menginap</div>
+              {user.mitra.allowOvernight ? "Bisa menginap" : "Tidak bisa menginap"}
+            </section>
+          </div>
         </div>
-        <div>Menginap: {user.mitra.allowOvernight ? "Yes" : "No"}</div>
       </div>
     </div>
   ) : null;
