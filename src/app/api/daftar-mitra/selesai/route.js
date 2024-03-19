@@ -1,5 +1,6 @@
 import { getUserData } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { uploadImage } from "@/lib/upload-client";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -45,16 +46,15 @@ export async function POST(req) {
     return response(400, "Data belum lengkap!");
   }
 
-  if (!!calonMitra.isFotoDiri) {
-    try {
-      await uploadImage(
-        fotoDiri,
-        `fotodiri/${userData.id}`
-      );
-      await uploadImage(fotoKTP, `fotoKTP/${userData.id}`);
-    } catch (error) {
-      return NextResponse.json({ status: 500, body: "Error uploading Image!" });
+  try {
+    if (!!calonMitra.isFotoDiri) {
+      await uploadImage(fotoDiri, `/fotodiri/${userData.id}`);
     }
+    if (!!calonMitra.isFotoKTP) {
+      await uploadImage(fotoKTP, `/fotoKTP/${userData.id}`);
+    }
+  } catch (error) {
+    throw new Error("Error uploading image!");
   }
 
   try {

@@ -28,7 +28,6 @@ export default function DaftarMitra() {
   return (
     <div className="flex flex-col gap-4 py-8">
       <div className="flex justify-between">
-        <h1>{formTitles}</h1>
         <button
           onClick={async () => {
             await fetch("/api/daftar-mitra/batal", { method: "DELETE" });
