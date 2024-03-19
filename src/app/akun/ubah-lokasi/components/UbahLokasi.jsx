@@ -19,6 +19,9 @@ export const UbahLokasi = ({
   const [kota, setKota] = useQueryState("kota", {
     shallow: false,
   });
+  const [kecamatan, setKecamatan] = useQueryState("kecamatan", {
+    shallow: false,
+  });
 
   useEffect(() => {
     if (salahProvinsi) {
@@ -29,8 +32,28 @@ export const UbahLokasi = ({
       setKota(null);
     }
 
-    console.log(userData);
+    // console.log(userData);
   }, [salahProvinsi, salahKota, setProvinsi, setKota]);
+
+  function handleUpdate() {
+    const res = fetch("/api/ubah-data-user", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        provinsi: provinsi,
+        kota: kota,
+        kecamatan,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success(data.message);
+      })
+      .catch((error) => console.error("Fetch error:", error));
+  }
+
   return (
     <div className="bg-gray-800 text-white p-4 rounded-lg max-w-md mx-auto">
       <div className="flex items-center justify-between mb-6">
@@ -62,6 +85,7 @@ export const UbahLokasi = ({
             ))}
           </select>
           <select
+            name="kota"
             disabled={!listKota}
             onChange={(e) => {
               setKota(e.target.value);
@@ -73,7 +97,11 @@ export const UbahLokasi = ({
               </option>
             ))}
           </select>
-          <select disabled={!listKecamatan}>
+          <select
+            name="kecamatan"
+            disabled={!listKecamatan}
+            onChange={(e) => setKecamatan(e.target.value)}
+          >
             {listKecamatan?.data.map((kecamatan) => (
               <option key={kecamatan.name} value={kecamatan.code}>
                 {kecamatan.name}
@@ -83,7 +111,12 @@ export const UbahLokasi = ({
         </form>
       </div>
 
-      <button className="w-full bg-blue-600 hover:bg-blue-700">Simpan</button>
+      <button
+        className="w-full bg-blue-600 hover:bg-blue-700"
+        onClick={handleUpdate}
+      >
+        Simpan
+      </button>
     </div>
   );
 };
