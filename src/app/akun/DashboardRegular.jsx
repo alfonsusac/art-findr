@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { TextLogo } from "@/components/logo";
 
-export const DashboardRegular = ({ uid, fullName, email, province, city }) => {
+export const DashboardRegular = ({ uid, fullName, email, phoneNumber, province, city }) => {
   const route = useRouter();
   async function handleCreate() {
     const res = await fetch("/api/daftar-mitra", {
@@ -32,39 +32,61 @@ export const DashboardRegular = ({ uid, fullName, email, province, city }) => {
     route.refresh();
   }
   return (
-    <main className="flex flex-col gap-2 max-w-sm items-stretch mx-auto mt-6 p-4">
-      <div className="p-10">
+    <main className="flex flex-col gap-2 max-w-sm items-stretch mx-auto mt-6 p-4 text-lg">
+
+      <Link href="/" className="button h-12 self-start text-base">
+        {'<'} Kembali Lihat Daftar ART
+      </Link>
+      <div className="py-8">
         <TextLogo />
-        <h3 className="text-4xl font-bold">Dashboard</h3>
+        <h3 className="text-5xl font-bold">Akun Saya</h3>
       </div>
-      <h1 className="mb-2 text-lg">Selamat Datang</h1>
-      <div className="border-2 border-blue-400 rounded-lg p-4">
-        <h3>{fullName}</h3>
-        <p>{email}</p>
+      <h1 className="mb-1 text-xl">Selamat Datang</h1>
+      <div className="border border-neutral-300 rounded-lg p-4 -mx-4">
+        <h3 className="text-2xl font-semibold">{fullName}</h3>
+        <p className="text-xl">{email}</p>
+        <p className="text-xl">{phoneNumber}</p>
         <p>
           {city}, {province}
         </p>
       </div>
-      <Link href="/" className="bg-rose-400 rounded-md text-white h-12 p-4 ">
-        Lihat Daftar ART
-      </Link>
-      <p className="border-b-2 border-gray-400">Penyetelan</p>
-      <Link href="/akun/ubah-lokasi" className="border-b-2 border-gray-400">
-        Ubah Lokasi Saya
-      </Link>
-      <Link href="/akun/ubah-nama" className="border-b-2 border-gray-400">
-        Ubah Nama Lengkap
-      </Link>
+
+      <div className="py-5">
+        <p className="text-neutral-400 mb-2">Penyetelan</p>
+
+        <Link href="/akun/ubah-lokasi"
+          className="-mx-2 px-2 hover:bg-neutral-100 border-gray-300 py-5 border-y text-xl flex justify-between items-center"
+        >
+          <span>
+            Ubah Lokasi Saya
+          </span>
+          <span>
+            {'>'}
+          </span>
+        </Link>
+        <Link href="/akun/ubah-nama"
+          className="-mx-2 px-2 hover:bg-neutral-100 border-gray-300 py-5 border-b text-xl flex justify-between items-center"
+        >
+          <span>
+            Ubah Nama Lengkap
+          </span>
+          <span>
+            {'>'}
+          </span>
+        </Link>
+      </div>
+
       <button
-        className="bg-rose-400 rounded-md text-white h-12 p-4 "
+        className="button h-12 p-4 text-lg"
         onClick={() => {
           signOut();
         }}
       >
         Keluar
       </button>
+      <hr className="my-2" />
       <button
-        className="bg-rose-400 rounded-md text-white h-12 p-4 "
+        className="button btn-primary h-12 p-4 text-lg"
         onClick={handleCreate}
       >
         Daftar Menjadi Mitra

@@ -4,6 +4,7 @@ import { getUserData } from "@/lib/auth";
 import { DashboardRegular } from "./DashboardRegular";
 import { DashboardMitra } from "./DashboardMitra";
 import DaftarMitra from "./DaftarMitra";
+import { prisma } from "@/lib/prisma";
 
 export default async function pageAkun() {
   const userData = await getUserData({
@@ -20,6 +21,7 @@ export default async function pageAkun() {
       <DashboardRegular
         uid={userData.id}
         fullName={userData.fullName}
+        phoneNumber={userData.phoneNumber}
         email={userData.email}
         province={userData.location.provinsi}
         city={userData.location.kota}

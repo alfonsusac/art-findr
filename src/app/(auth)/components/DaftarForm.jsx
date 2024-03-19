@@ -23,6 +23,9 @@ export const DaftarForm = ({
 
   return (
     <form
+      action={async (form) => {
+        console.log(form.get('provinsi').split('|')[1]) // 21|banten
+      }}
       className="mt-6 w-full max-w-xs"
       onSubmit={async (event) => {
         event.preventDefault();
@@ -42,7 +45,6 @@ export const DaftarForm = ({
           toast.error("Mohon isi kecamatan anda")
           return
         }
-        console.log(provinsiValue, kotaValue, kecamatanValue)
 
         formData.set("provinsi", provinsiValue.split('|')[1]);
         formData.set("kota", kotaValue.split('|')[1]);

@@ -66,27 +66,6 @@ export default async function PageDaftar({ searchParams }) {
         listKota={listKota}
         listKecamatan={listKecamatan}
       />
-
-
-      {/* {listProvinsi &&
-        (listKota ? (
-          listKecamatan ? (
-            <DaftarForm
-              session={session}
-              listProvinsi={listProvinsi}
-              listKota={listKota}
-              listKecamatan={listKecamatan}
-            />
-          ) : (
-            <DaftarForm
-              session={session}
-              listProvinsi={listProvinsi}
-              listKota={listKota}
-            />
-          )
-        ) : (
-          <DaftarForm session={session} listProvinsi={listProvinsi} />
-        ))} */}
     </>
   );
 }
