@@ -4,6 +4,10 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SelectKecamatan, SelectKotaKabupaten, SelectProvinsi } from "@/components/wilayahSelect";
+import { useForm } from "react-hook-form";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export const DaftarForm = ({
   session,
@@ -11,26 +15,15 @@ export const DaftarForm = ({
   listKota,
   listKecamatan,
 }) => {
-  const [provinsi, setProvinsi] = useQueryState("provinsi", {
-    shallow: false,
-  });
-  const [kota, setKota] = useQueryState("kota", {
-    shallow: false,
-  });
-  const [kecamatan, setKecamatan] = useQueryState("kecamatan", {
-    sjallow: false,
-  });
-
-  //handle the wilayah name for submission
-  const [provinsiName, setProvinsiName] = useState("");
-  const [kotaName, setKotaName] = useState("");
-  const [kecamatanName, setKecamatanName] = useState("");
-
   const router = useRouter();
+
+  const form = useForm({
+    // resolver: yupResolver()
+  })
 
   return (
     <form
-      className="mt-6"
+      className="mt-6 w-full max-w-xs"
       onSubmit={async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -57,13 +50,14 @@ export const DaftarForm = ({
         const formObject = Object.fromEntries(formData.entries());
 
         try {
-          const res = await fetch("/api/daftar", {
-            method: "POST",
-            body: JSON.stringify(formObject),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+          console.log(formObject)
+          // const res = await fetch("/api/daftar", {
+          //   method: "POST",
+          //   body: JSON.stringify(formObject),
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // });
           const data = await res.json();
 
           if (res.status === 400) {
@@ -79,15 +73,51 @@ export const DaftarForm = ({
       }}
     >
       <div className="flex flex-col space-y-4">
-        <input
-          name="fullName"
-          className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
-          placeholder="Nama Panjang"
-          type="text"
-        />
-        <div className="flex flex-col space-y-2">
-          <label className="text-sm font-semibold">Lokasi</label>
-          <select
+
+        <fieldset>
+          <label>Nama Panjang</label>
+          <input
+            name="fullName"
+            className="border border-gray-300 rounded-md h-14 px-4 text-lg"
+            placeholder="Jojo Kusuma"
+            type="text"
+            required
+          />
+        </fieldset>
+        <fieldset>
+          <label>Lokasi</label>
+          <SelectProvinsi
+            name={"provinsi"}
+            className="w-full text-lg h-14"
+            listProvinsi={listProvinsi} />
+          <SelectKotaKabupaten
+            name={"kota"}
+            className="w-full text-lg h-14"
+            listKota={listKota} />
+          <SelectKecamatan
+            name={"kecamatan"}
+            className="w-full text-lg h-14"
+            listKecamatan={listKecamatan} />
+          {/* <Select
+            className=""
+            value={provinsiFilter ?? undefined} onValueChange={(value) => {
+              setProvinsi(value)
+              setKota(null)
+              setKecamatan(null)
+            }}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Pilih Provinsi" />
+            </SelectTrigger>
+            <SelectContent>
+              {listProvinsi?.map((item, index) => (
+                <SelectItem key={index} value={item.code}>
+                  {item.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+
+          </Select> */}
+          {/* <select
             name="provinsi"
             defaultValue=""
             className="w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none"
@@ -106,9 +136,8 @@ export const DaftarForm = ({
           <select
             name="kota"
             defaultValue=""
-            className={`${
-              provinsi ? "" : "hidden"
-            } w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none`}
+            className={`${provinsi ? "" : "hidden"
+              } w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none`}
             onChange={(e) => setKota(e.target.value)}
           >
             <option value="" disabled>
@@ -124,9 +153,8 @@ export const DaftarForm = ({
           <select
             name="kecamatan"
             defaultValue=""
-            className={`${
-              kota ? "" : "hidden"
-            } w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none`}
+            className={`${kota ? "" : "hidden"
+              } w-full rounded bg-[#333333] py-3 px-4 text-sm text-white placeholder-gray-400 focus:outline-none`}
             onChange={(e) => setKecamatan(e.target.value)}
           >
             <option value="" disabled>
@@ -137,10 +165,12 @@ export const DaftarForm = ({
                 {kecamatan.name}
               </option>
             ))}
-          </select>
-        </div>
+          </select> */}
+        </fieldset>
         <button
-          className="w-full rounded bg-gray-700 py-3 text-sm font-semibold hover:bg-gray-600"
+          className="button btn-primary font-medium text-lg tracking-normal rounded-md text-white h-14"
+          // className="button font-medium text-lg tracking-normal  h-14 w-full flex gap-2"
+          // className="w-full rounded bg-gray-700 py-3 text-sm font-semibold hover:bg-gray-600"
           type="submit"
         >
           Daftar

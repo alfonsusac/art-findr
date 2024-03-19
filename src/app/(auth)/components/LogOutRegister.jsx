@@ -1,14 +1,15 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { signIn, signOut } from "next-auth/react";
 
-export const LogOutRegister = () => {
+export const LogOutRegister = ({children, className}) => {
   return (
     <button
-      className="mt-2 w-full rounded bg-gray-700 py-2 text-sm font-semibold hover:bg-gray-600"
+      className={cn("button w-full", className)}
       onClick={() => signOut()}
     >
-      Batalkan
+      {children}
     </button>
   );
 };

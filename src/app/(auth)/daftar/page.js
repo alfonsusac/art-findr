@@ -7,6 +7,7 @@ import {
   getListKotaKabupaten,
   getKecamatan,
 } from "@/lib/fetchLocation";
+import { TextLogo } from "@/components/logo";
 
 export default async function PageDaftar({ searchParams }) {
   const listProvinsi = await getListProvinsi();
@@ -40,48 +41,52 @@ export default async function PageDaftar({ searchParams }) {
   }
 
   return (
-    <div
-      key="1"
-      className="bg-white min-h-screen flex flex-col items-center justify-center text-black p-4"
-    >
-      <div className="w-full max-w-sm rounded-lg bg-[#262626] p-6 text-white">
-        <div className="flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-lg font-bold uppercase">CariART</h1>
-            <h2 className="text-3xl font-bold">Daftar</h2>
-          </div>
-          <div />
-        </div>
-        <div className="mt-4">
-          <div className="text-center text-sm space-y-4">
-            <p>Masuk dengan</p>
-            <a className="font-semibold underline" href="#">
-              {session.email || session.phoneNumber}
-            </a>
-          </div>
-          <LogOutRegister />
-        </div>
-
-        {listProvinsi &&
-          (listKota ? (
-            listKecamatan ? (
-              <DaftarForm
-                session={session}
-                listProvinsi={listProvinsi}
-                listKota={listKota}
-                listKecamatan={listKecamatan}
-              />
-            ) : (
-              <DaftarForm
-                session={session}
-                listProvinsi={listProvinsi}
-                listKota={listKota}
-              />
-            )
-          ) : (
-            <DaftarForm session={session} listProvinsi={listProvinsi} />
-          ))}
+    <>
+      <div className="pb-6 text-center flex flex-col gap-2 text-lg">
+        <TextLogo />
+        <h1 className="mb-2 text-3xl font-semibold">Pendaftaran</h1>
+        <p className="max-w-xs text-lg">
+          Satu langkah lagi sebelum anda bisa mulai menggunakan layanan CariART
+        </p>
       </div>
-    </div>
+
+      <div className="text-center text-lg w-full max-w-xs">
+        <p>Saat ini, anda teridentifikasi dengan:</p>
+        <div className="font-semibold" href="#">
+          {session.email || session.phoneNumber}
+        </div>
+        <LogOutRegister className={"mt-2 text-lg"}>
+          Batalkan
+        </LogOutRegister>
+      </div>
+
+      <DaftarForm
+        session={session}
+        listProvinsi={listProvinsi}
+        listKota={listKota}
+        listKecamatan={listKecamatan}
+      />
+
+
+      {/* {listProvinsi &&
+        (listKota ? (
+          listKecamatan ? (
+            <DaftarForm
+              session={session}
+              listProvinsi={listProvinsi}
+              listKota={listKota}
+              listKecamatan={listKecamatan}
+            />
+          ) : (
+            <DaftarForm
+              session={session}
+              listProvinsi={listProvinsi}
+              listKota={listKota}
+            />
+          )
+        ) : (
+          <DaftarForm session={session} listProvinsi={listProvinsi} />
+        ))} */}
+    </>
   );
 }

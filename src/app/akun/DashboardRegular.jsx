@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { TextLogo } from "@/components/logo";
 
 export const DashboardRegular = ({ uid, fullName, email, province, city }) => {
   const route = useRouter();
@@ -31,9 +32,10 @@ export const DashboardRegular = ({ uid, fullName, email, province, city }) => {
     route.refresh();
   }
   return (
-    <main className="flex flex-col gap-2 items-center mt-6">
+    <main className="flex flex-col gap-2 max-w-sm items-stretch mx-auto mt-6 p-4">
       <div className="p-10">
-        <h3 className="text-4xl font-bold">CariART</h3>
+        <TextLogo />
+        <h3 className="text-4xl font-bold">Dashboard</h3>
       </div>
       <h1 className="mb-2 text-lg">Selamat Datang</h1>
       <div className="border-2 border-blue-400 rounded-lg p-4">
