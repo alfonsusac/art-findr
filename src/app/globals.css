@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
 *{
   min-width: 0;
   min-height: 0;
@@ -22,13 +9,6 @@
 }
 
 body {
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
   @apply bg-white text-neutral-800
 }
 
@@ -36,6 +16,24 @@ body {
   .content {
     @apply w-full max-w-screen-lg mx-auto
   }
+}
+
+@layer components{
+    .button {
+    @apply text-sm font-bold tracking-tight text-black
+    px-5 py-2 rounded-lg
+    shadow-[inset_0_0_0_0.1rem_#0002]
+    transition-all duration-75
+    outline
+    outline-0 outline-zinc-500/10 
+    hover:outline-[0.3rem]
+    flex items-center justify-center;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white outline-primary/30;
+  }
+
 }
 
 @layer utilities {

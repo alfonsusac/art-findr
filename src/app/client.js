@@ -1,4 +1,5 @@
 "use client";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useQueryState } from "nuqs";
 
@@ -42,72 +43,87 @@ export function MitraFilterList({
 
   return (
     <div className={cn(
-      "flex flex-row flex-wrap w-full items-center justify-center mx-auto p-4 gap-4",
+      "flex flex-col flex-wrap items-center justify-start mx-auto p-4 gap-4",
     )}>
-      <div className="flex gap-2">
-        <select
-          className="w-32 truncate"
-          value={provinsiFilter || ""}
-          onChange={(e) => {
-            setProvinsiFilter(e.target.value || null)
+      <div className="flex flex-wrap gap-2">
+        <Select
+          className=""
+          value={provinsiFilter ?? undefined} onValueChange={(value) => {
+            setProvinsiFilter(value)
             setKotaFilter(null)
             setKecamatanFilter(null)
-
+          }}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Pilih Provinsi" />
+          </SelectTrigger>
+          <SelectContent>
+            {allProvinsi?.map((provinsi, index) => (
+              <SelectItem key={index} value={provinsi.code}>
+                {provinsi.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={kotaFilter ?? undefined} disabled={!listKota} onValueChange={(value) => {
+          setKotaFilter(value)
+          setKecamatanFilter(null)
+        }}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Pilih Kota" />
+          </SelectTrigger>
+          <SelectContent>
+            {listKota?.map((item, index) => (
+              <SelectItem key={index} value={item.code}>
+                {item.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={kecamatanFilter ?? undefined} disabled={!listKecamatan} onValueChange={(value) => {
+          setKecamatanFilter(value)
+        }}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Pilih Kecamatan" />
+          </SelectTrigger>
+          <SelectContent>
+            {listKecamatan?.map((item, index) => (
+              <SelectItem key={index} value={item.code}>
+                {item.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <Select
+          value={menginapFilter ?? ""}
+          onValueChange={(value) => {
+            if (value === "batalkan") {
+              setMenginapFilter(null)
+            } else {
+              setMenginapFilter(value)
+            }
           }}
         >
-          <option value="">Select Provinsi</option>
-          {allProvinsi?.map((provinsi, index) => (
-            <option key={index} value={provinsi.code}>
-              {provinsi.name}
-            </option>
-          ))}
-        </select>
-        {
-          <select
-            className="w-32 truncate"
-            value={kotaFilter || ""}
-            onChange={(e) => {
-              setKotaFilter(e.target.value || null)
-              setKecamatanFilter(null)
-            }}
-            disabled={!listKota}
-          >
-            <option value="">Select Kota</option>
-            {listKota?.map((kota, index) => (
-              <option key={index} value={kota.code}>
-                {kota.name}
-              </option>
-            ))}
-          </select>
-        }
-        {
-          <select
-            className="w-32 truncate"
-            value={kecamatanFilter || ""}
-            onChange={(e) => {
-              setKecamatanFilter(e.target.value || null)
-            }}
-            disabled={!listKecamatan}
-          >
-            <option value="">Select Kecamatan</option>
-            {listKecamatan?.map((kecamatan, index) => (
-              <option key={index} value={kecamatan.code}>
-                {kecamatan.name}
-              </option>
-            ))}
-          </select>
-        }
-      </div>
-      <div className="flex gap-2">
-        <select
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Pilih Penginapan" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="true">Bisa Menginap</SelectItem>
+            <SelectItem value="false">Tidak Bisa Menginap</SelectItem>
+            <SelectItem value="batalkan">Batalkan</SelectItem>
+          </SelectContent>
+        </Select>
+        {/* <select
           value={menginapFilter || ""}
           onChange={(e) => setMenginapFilter(e.target.value || null)}
         >
-          <option value="">Semua Menginap atau Tidak </option>
+          <option value="">Semua Menginap atau Tidak</option>
           <option value="true">Menginap</option>
           <option value="false">Tidak Menginap</option>
-        </select>
+        </select> */}
         <button
+          className="button bg-white font-medium"
           onClick={() => {
             setKeahlianFilter(null);
             setProvinsiFilter(null);

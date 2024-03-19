@@ -49,7 +49,7 @@ export default async function Home({ searchParams }) {
           <div className="">
             <Link
               href="/masuk"
-              className="p-2 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
+              className="button btn-primary p-2 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
             >
               Masuk
             </Link>
@@ -68,7 +68,7 @@ export default async function Home({ searchParams }) {
             </div>
           </div>
         </section>
-        <section className="bg-neutral-100 mb-12 flex overflow-auto">
+        <section className="bg-primary/10 mb-12 flex overflow-auto">
           <MitraFilterList
             allProvinsi={await getListProvinsi()}
             listKota={await getListKotaKabupaten(searchParams.provinsi)}
