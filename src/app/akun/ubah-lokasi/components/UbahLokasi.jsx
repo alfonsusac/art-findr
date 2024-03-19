@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { useQueryState } from "nuqs";
 import { useEffect } from "react";
+import { useState } from "react";
 
 export const UbahLokasi = ({
   listProvinsi,
@@ -19,9 +20,7 @@ export const UbahLokasi = ({
   const [kota, setKota] = useQueryState("kota", {
     shallow: false,
   });
-  const [kecamatan, setKecamatan] = useQueryState("kecamatan", {
-    shallow: false,
-  });
+  const [kecamatan, setKecamatan] = useState("");
 
   useEffect(() => {
     if (salahProvinsi) {
@@ -35,15 +34,15 @@ export const UbahLokasi = ({
     // console.log(userData);
   }, [salahProvinsi, salahKota, setProvinsi, setKota]);
 
-  function handleUpdate() {
-    const res = fetch("/api/ubah-data-user", {
+  async function handleUpdate() {
+    const res = await fetch("/api/ubah-data-user", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        provinsi: provinsi,
-        kota: kota,
+        provinsi,
+        kota,
         kecamatan,
       }),
     })
