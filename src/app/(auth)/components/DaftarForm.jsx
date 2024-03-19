@@ -27,23 +27,28 @@ export const DaftarForm = ({
       onSubmit={async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const provinsiCode = formData.get("provinsi");
-        const kotaCode = formData.get("kota");
-        const kecamatanCode = formData.get("kecamatan");
+        const provinsiValue = formData.get("provinsi");
+        if (!provinsiValue) {
+          toast.error("Mohon isi provinsi anda")
+          return
+        }
+        const kotaValue = formData.get("kota");
+        if (!kotaValue) {
+          toast.error("Mohon isi kota/kabupaten anda")
+          return
+        }
+        const kecamatanValue = formData.get("kecamatan");
+        if (!kecamatanValue) {
+          toast.error("Mohon isi kecamatan anda")
+          return
+        }
+        console.log(provinsiValue, kotaValue, kecamatanValue)
 
-        const selectedProvinsi = listProvinsi.find(
-          (provinsi) => provinsi.code === provinsiCode
-        );
-        const selectedKota = listKota.find((kota) => kota.code === kotaCode);
-        const selectedKecamatan = listKecamatan.find(
-          (kecamatan) => kecamatan.code === kecamatanCode
-        );
-
-        formData.set("provinsi", selectedProvinsi ? selectedProvinsi.name : "");
-        formData.set("kota", selectedKota ? selectedKota.name : "");
+        formData.set("provinsi", provinsiValue.split('|')[1]);
+        formData.set("kota", kotaValue.split('|')[1]);
         formData.set(
           "kecamatan",
-          selectedKecamatan ? selectedKecamatan.name : ""
+          kecamatanValue.split('|')[1]
         );
 
         // Convert FormData to JSON
@@ -51,13 +56,13 @@ export const DaftarForm = ({
 
         try {
           console.log(formObject)
-          // const res = await fetch("/api/daftar", {
-          //   method: "POST",
-          //   body: JSON.stringify(formObject),
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          // });
+          const res = await fetch("/api/daftar", {
+            method: "POST",
+            body: JSON.stringify(formObject),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
           const data = await res.json();
 
           if (res.status === 400) {
