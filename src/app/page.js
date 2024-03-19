@@ -9,16 +9,6 @@ export const dynamic = "force-dynamic";
 export default async function Home({ searchParams }) {
   const session = await getUserSession();
 
-  // const listMitra = await prisma.mitra.findMany({
-  //   include: {
-  //     user: {
-  //       include: {
-  //         location: true
-  //       }
-  //     }
-  //   }
-  // })
-
   const res = await prisma.user.findMany({
     where: {
       mitra: {
