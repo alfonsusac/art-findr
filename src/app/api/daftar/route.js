@@ -5,7 +5,7 @@ import { getUserSession } from "@/lib/auth";
 export async function POST(request) {
   const session = await getUserSession();
   try {
-    const data = await request.formData();
+    const data = await request.json();
 
     const existingUsers = await prisma.user.findMany({
       where: {
@@ -37,21 +37,21 @@ export async function POST(request) {
 
     const newUser = await prisma.user.create({
       data: {
-        fullName: data.get("fullName"),
+        fullName: data.fullName,
         /**
-         * Email dan PhoneNumber harus ambil dari session karena 
+         * Email dan PhoneNumber harus ambil dari session karena
          * data dari form bisa di palsukan. Sedangkan cookies TIDAK BISA DIPALSUKAN.
-         * Dan jika tidak ada, default ke "" 
+         * Dan jika tidak ada, default ke ""
          * email: session.email ?? "",
          * phoneNumber: session.phoneNumber ?? ""
          */
-        email: session ? session.email : data.get("email"),
-        phoneNumber: String(data.get("phoneNumber")),
+        email: session ? session.email : data.email,
+        phoneNumber: session ? session.phoneNumber : data.phoneNumber,
         location: {
           create: {
-            provinsi: data.get("provinsi"),
-            kota: data.get("kota"),
-            kecamatan: data.get("kecamatan"),
+            provinsi: data.provinsi,
+            kota: data.kota,
+            kecamatan: data.kecamatan,
           },
         },
       },
