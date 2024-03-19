@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { PageDisplay } from "./daftar-mitra/PageDisplay";
 
 import { useRouter } from "next/navigation";
 import { InputTanggalLahir } from "./daftar-mitra/InputTanggalLahir";
@@ -26,6 +28,7 @@ export default function DaftarMitra() {
   return (
     <div className="flex flex-col gap-4 py-8">
       <div className="flex justify-between">
+        <h1>{formTitles}</h1>
         <button
           onClick={async () => {
             await fetch("/api/daftar-mitra/batal", { method: "DELETE" });
