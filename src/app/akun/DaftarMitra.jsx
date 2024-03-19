@@ -36,6 +36,7 @@ export default function DaftarMitra() {
         <button
           onClick={async () => {
             await fetch("/api/daftar-mitra/batal", { method: "DELETE" });
+            route.refresh()
           }}
         >
           Batal
