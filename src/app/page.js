@@ -2,13 +2,14 @@ import { ArtCards } from "./components/ArtCards";
 import { getUserSession } from "@/lib/auth";
 import Link from "next/link";
 import { getURLfotoDiri } from "@/lib/link-foto";
-import { SearchMitra } from "./client";
+import { MitraFilterList, SearchMitra } from "./client";
 import { prisma } from "@/lib/prisma";
+import { getKotaKabupaten, getListKecamatan, getListKotaKabupaten, getListProvinsi } from "@/lib/wilayah";
+import { Footer } from "./footer";
 export const dynamic = "force-dynamic";
 
 export default async function Home({ searchParams }) {
   const session = await getUserSession();
-
   const res = await prisma.user.findMany({
     where: {
       mitra: {
@@ -37,31 +38,42 @@ export default async function Home({ searchParams }) {
     return acc;
   }, Promise.resolve({}));
 
+  // const listProv = await getListKotaKabupaten(searchParams.provinsi)
+  // console.log("prov", listProv)
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="h-14 flex border-b border-neutral-200">
+    <div className="flex flex-col min-h-screen ">
+      <header className="h-14 flex ">
         <div className="content flex justify-between items-center p-4">
           <div className="font-bold tracking-tight">CariART</div>
           <div className="">
             <Link
               href="/masuk"
-              className="p-1 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
+              className="p-2 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
             >
               Masuk
             </Link>
           </div>
         </div>
       </header>
-      <main className="bg-neutral-100 grow">
-        <section className="min-h-48 flex bg-yellow-200">
-          <div className="content flex flex-col gap-4 p-12 items-center justify-center text-center bg-white">
-            <h1 className="text-3xl font-bold tracking-tight">
+
+      <main className=" grow">
+        <section className="min-h-40 my-4 flex items-end rounded-b-[3rem]">
+          <div className="content flex flex-col gap-4 items-center justify-center text-center">
+            <h1 className="text-3xl font-bold tracking-tight px-12">
               Cari ART Sesuai Kebutuhanmu
             </h1>
-            <div className="w-80 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
+            <div className="w-96 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
               <SearchMitra />
             </div>
           </div>
+        </section>
+        <section className="bg-neutral-100 mb-12 flex overflow-auto">
+          <MitraFilterList
+            allProvinsi={await getListProvinsi()}
+            listKota={await getListKotaKabupaten(searchParams.provinsi)}
+            listKecamatan={await getListKecamatan(searchParams.kota)}
+          />
         </section>
         <section className="">
           <ArtCards
@@ -69,48 +81,12 @@ export default async function Home({ searchParams }) {
             availableMitra={availableMitra}
             mitraIdUrlMap={mitraIdUrlMap}
           />
-
+        </section>
+        <section className="">
           <Link href="/daftar">Daftar jadi Mitra</Link>
         </section>
       </main>
-      <footer className="bg-blue-100 min-h-48 flex">
-        <div className="content flex flex-col">
-          <div className="content p-8 flex justify-between grow">
-            <div className="">
-              <div className="font-bold tracking-tight">CariART</div>
-            </div>
-            <div className="text-end flex flex-col gap-2">
-              <div className="text-blue-900/60">Company</div>
-              <div>About us</div>
-              <div>Blog</div>
-              <div>Careers</div>
-              <div>Press</div>
-              <div>Partner with us</div>
-            </div>
-            <div className="text-end flex flex-col gap-2">
-              <div className="text-blue-900/60">Resources</div>
-              <div>Help center</div>
-              <div>Contact support</div>
-              <div>Community</div>
-              <div>For Mitra</div>
-              <div>For Seekers</div>
-            </div>
-          </div>
-          <div className="flex justify-between py-5 border-t border-blue-900/20 text-sm mx-8">
-            <div className="flex gap-2">
-              <div>© 2024 CariART, Inc.</div>
-              <div>·</div>
-              <div>Privacy</div>
-              <div>Terms</div>
-              <div>Sitemap</div>
-            </div>
-            <div className="flex gap-2">
-              <div>Instagram</div>
-              <div>Facebook</div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

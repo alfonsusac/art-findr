@@ -79,72 +79,73 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
   ];
 
   return (
-    <div>
-      <select
-        value={keahlianFilter || ""}
-        onChange={(e) => setKeahlianFilter(e.target.value || null)}
-      >
-        <option value="">Select Keahlian</option>
-        {allExpertises.map((expertise, index) => (
-          <option key={index} value={expertise}>
-            {expertise}
-          </option>
-        ))}
-      </select>
-      <select
-        value={provinsiFilter || ""}
-        onChange={(e) => setProvinsiFilter(e.target.value || null)}
-      >
-        <option value="">Select Provinsi</option>
-        {allProvinsi.map((provinsi, index) => (
-          <option key={index} value={provinsi}>
-            {provinsi}
-          </option>
-        ))}
-      </select>
+    <div className="flex flex-col items-center">
+      {/* <div className="flex min-w-48 mx-auto bg-red-100 p-2 gap-4">
+        <select
+          value={keahlianFilter || ""}
+          onChange={(e) => setKeahlianFilter(e.target.value || null)}
+        >
+          <option value="">Select Keahlian</option>
+          {allExpertises.map((expertise, index) => (
+            <option key={index} value={expertise}>
+              {expertise}
+            </option>
+          ))}
+        </select>
+        <select
+          value={provinsiFilter || ""}
+          onChange={(e) => setProvinsiFilter(e.target.value || null)}
+        >
+          <option value="">Select Provinsi</option>
+          {allProvinsi.map((provinsi, index) => (
+            <option key={index} value={provinsi}>
+              {provinsi}
+            </option>
+          ))}
+        </select>
+        <select
+          value={kotaFilter || ""}
+          onChange={(e) => setKotaFilter(e.target.value || null)}
+        >
+          <option value="">Select Kota</option>
+          {allKota.map((kota, index) => (
+            <option key={index} value={kota}>
+              {kota}
+            </option>
+          ))}
+        </select>
+        <select
+          value={kecamatanFilter || ""}
+          onChange={(e) => setKecamatanFilter(e.target.value || null)}
+        >
+          <option value="">Select Kecamatan</option>
+          {allKecamatan.map((kecamatan, index) => (
+            <option key={index} value={kecamatan}>
+              {kecamatan}
+            </option>
+          ))}
+        </select>
+        <select
+          value={menginapFilter || ""}
+          onChange={(e) => setMenginapFilter(e.target.value || null)}
+        >
+          <option value="">Semua Menginap atau Tidak </option>
+          <option value="true">Menginap</option>
+          <option value="false">Tidak Menginap</option>
+        </select>
+        <button
+          onClick={() => {
+            setKeahlianFilter(null);
+            setProvinsiFilter(null);
+            setKotaFilter(null);
+            setKecamatanFilter(null);
+            setMenginapFilter(null);
+          }}
+        >
+          Reset All
+        </button>
+      </div> */}
 
-      <select
-        value={kotaFilter || ""}
-        onChange={(e) => setKotaFilter(e.target.value || null)}
-      >
-        <option value="">Select Kota</option>
-        {allKota.map((kota, index) => (
-          <option key={index} value={kota}>
-            {kota}
-          </option>
-        ))}
-      </select>
-
-      <select
-        value={kecamatanFilter || ""}
-        onChange={(e) => setKecamatanFilter(e.target.value || null)}
-      >
-        <option value="">Select Kecamatan</option>
-        {allKecamatan.map((kecamatan, index) => (
-          <option key={index} value={kecamatan}>
-            {kecamatan}
-          </option>
-        ))}
-      </select>
-      <select
-        value={menginapFilter || ""}
-        onChange={(e) => setMenginapFilter(e.target.value || null)}
-      >
-        <option value="">Semua Menginap atau Tidak </option>
-        <option value="true">Menginap</option>
-        <option value="false">Tidak Menginap</option>
-      </select>
-      <button
-        onClick={() => {
-          setKeahlianFilter(null);
-          setProvinsiFilter(null);
-          setKotaFilter(null);
-          setKecamatanFilter(null);
-          setMenginapFilter(null);
-        }}
-      >
-        Reset All
-      </button>
       <div className="bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-8">
         {filteredMitra.map((user) => (
           <div
