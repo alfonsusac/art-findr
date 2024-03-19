@@ -21,9 +21,7 @@ export default async function LoginPage() {
       <div className="pb-6 text-center flex flex-col gap-2">
         <TextLogo />
         <h1 className="mb-2 text-3xl font-semibold">Masuk</h1>
-        <p className="max-w-xs text-lg">
-          Untuk menggunakan layanan CariART, kami butuh mengidentifikasi anda melalui email atau nomor handphone
-        </p>
+
       </div>
       <div className="w-80 items-center">
         <LoginForm />

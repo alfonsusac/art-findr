@@ -4,6 +4,9 @@ import PhoneInput from "react-phone-number-input/react-hook-form-input";
 export const LoginPhone = ({ control, setPhoneNum, handleNext }) => {
   return (
     <div className="flex flex-col gap-4">
+      <p className="max-w-xs text-lg text-center">
+        Untuk menggunakan layanan CariART, kami butuh mengidentifikasi anda melalui email atau nomor handphone
+      </p>
       <div
         className={cn(
           "border border-gray-300 rounded-md h-14 px-4 text-lg"
