@@ -3,13 +3,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { useQueryState } from "nuqs";
 
 
-export function SelectProvinsi({ listProvinsi, className }) {
+export function SelectProvinsi({ listProvinsi, className, name }) {
   const [provinsi, setProvinsi] = useQueryState("provinsi", { shallow: false });
   const [kota, setKota] = useQueryState("kota", { shallow: false });
   const [kecamatan, setKecamatan] = useQueryState("kecamatan", { shallow: false });
 
   return (
     <Select
+      name={name}
       className=""
       value={provinsi ?? ""} onValueChange={(value) => {
         setProvinsi(value)
@@ -30,16 +31,20 @@ export function SelectProvinsi({ listProvinsi, className }) {
   )
 }
 
-export function SelectKotaKabupaten({ listKota, className }) {
+export function SelectKotaKabupaten({ listKota, className, name }) {
   const [provinsi, setProvinsi] = useQueryState("provinsi", { shallow: false });
   const [kota, setKota] = useQueryState("kota", { shallow: false });
   const [kecamatan, setKecamatan] = useQueryState("kecamatan", { shallow: false });
 
   return (
-    <Select value={kota ?? ""} disabled={!listKota} onValueChange={(value) => {
-      setKota(value)
-      setKecamatan(null)
-    }}>
+    <Select
+      name={name}
+      value={kota ?? ""}
+      disabled={!listKota}
+      onValueChange={(value) => {
+        setKota(value)
+        setKecamatan(null)
+      }}>
       <SelectTrigger className={cn("w-[180px]", className)}>
         <SelectValue placeholder="Pilih Kota" />
       </SelectTrigger>
@@ -54,15 +59,20 @@ export function SelectKotaKabupaten({ listKota, className }) {
   )
 }
 
-export function SelectKecamatan({ listKecamatan, className }) {
+export function SelectKecamatan({ listKecamatan, className, name }) {
   const [provinsi, setProvinsi] = useQueryState("provinsi", { shallow: false });
   const [kota, setKota] = useQueryState("kota", { shallow: false });
   const [kecamatan, setKecamatan] = useQueryState("kecamatan", { shallow: false });
 
   return (
-    <Select value={kecamatan ?? ""} disabled={!listKecamatan} onValueChange={(value) => {
-      setKecamatan(value)
-    }}>
+    <Select
+      name={name}
+      value={kecamatan ?? ""}
+      disabled={!listKecamatan}
+      onValueChange={(value) => {
+        setKecamatan(value)
+      }}
+    >
       <SelectTrigger className={cn("w-[180px]", className)}>
         <SelectValue placeholder="Pilih Kecamatan" />
       </SelectTrigger>

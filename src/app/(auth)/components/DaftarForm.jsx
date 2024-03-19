@@ -18,7 +18,7 @@ export const DaftarForm = ({
   const router = useRouter();
 
   const form = useForm({
-
+    // resolver: yupResolver()
   })
 
   return (
@@ -50,13 +50,14 @@ export const DaftarForm = ({
         const formObject = Object.fromEntries(formData.entries());
 
         try {
-          const res = await fetch("/api/daftar", {
-            method: "POST",
-            body: JSON.stringify(formObject),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+          console.log(formObject)
+          // const res = await fetch("/api/daftar", {
+          //   method: "POST",
+          //   body: JSON.stringify(formObject),
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // });
           const data = await res.json();
 
           if (res.status === 400) {
@@ -86,12 +87,15 @@ export const DaftarForm = ({
         <fieldset>
           <label>Lokasi</label>
           <SelectProvinsi
+            name={"provinsi"}
             className="w-full text-lg h-14"
             listProvinsi={listProvinsi} />
           <SelectKotaKabupaten
+            name={"kota"}
             className="w-full text-lg h-14"
             listKota={listKota} />
           <SelectKecamatan
+            name={"kecamatan"}
             className="w-full text-lg h-14"
             listKecamatan={listKecamatan} />
           {/* <Select
