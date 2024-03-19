@@ -29,12 +29,6 @@ export default async function LoginPage() {
           </p>
         </div>
         <LoginButtonGoogle />
-        <p className="mt-2 text-center">
-          Belum punya akun?
-          <Link href="/register" className=" text-rose-400 underline">
-            Daftar sekarang.
-          </Link>
-        </p>
       </div>
     </main>
   );
