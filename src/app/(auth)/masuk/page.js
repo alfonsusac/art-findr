@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 import { getUserSession } from "@/lib/auth";
 import { LoginForm } from "./components/LoginForm";
