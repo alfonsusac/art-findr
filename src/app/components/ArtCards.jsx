@@ -8,40 +8,52 @@ import Image from "next/image";
 
 export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
   const [id, setId] = useQueryState("id");
-  const [allMitra, setAllMitra] = useState(availableMitra);
-  const [expertiseFilter, setExpertiseFilter] = useState("");
-  const [provinceFilter, setProvinceFilter] = useState("");
-  const [overnightFilter, setOvernightFilter] = useState("");
+  const [keahlianFilter, setKeahlianFilter] = useQueryState("keahlian");
+  const [provinsiFilter, setProvinsiFilter] = useQueryState("provinsi");
+  const [kotaFilter, setKotaFilter] = useQueryState("kota");
+  const [kecamatanFilter, setKecamatanFilter] = useQueryState("kecamatan");
+  const [menginapFilter, setMenginapFilter] = useQueryState("menginap");
+  const [filteredMitra, setFilteredMitra] = useState(availableMitra);
 
   useEffect(() => {
     let filteredMitra = availableMitra;
-    if (expertiseFilter) {
+    if (keahlianFilter) {
       filteredMitra = filteredMitra.filter((user) =>
-        user.mitra.expertises.includes(expertiseFilter)
+        user.mitra.expertises.includes(keahlianFilter)
       );
     }
-    if (provinceFilter) {
+    if (provinsiFilter) {
       filteredMitra = filteredMitra.filter(
-        (user) => user.location.provinsi === provinceFilter
+        (user) => user.location.provinsi === provinsiFilter
       );
     }
-    if (overnightFilter) {
+    if (kotaFilter) {
       filteredMitra = filteredMitra.filter(
-        (user) => String(user.mitra.allowOvernight) === overnightFilter
+        (user) => user.location.kota === kotaFilter
       );
     }
-    setAllMitra(filteredMitra);
-  }, [expertiseFilter, provinceFilter, overnightFilter, availableMitra]);
-
-  const expertises = Array.from(
-    new Set(availableMitra.flatMap((user) => user.mitra.expertises))
-  );
-  const provinces = Array.from(
-    new Set(availableMitra.map((user) => user.location.provinsi))
-  );
+    if (kecamatanFilter) {
+      filteredMitra = filteredMitra.filter(
+        (user) => user.location.kecamatan === kecamatanFilter
+      );
+    }
+    if (menginapFilter !== null) {
+      filteredMitra = filteredMitra.filter(
+        (user) => String(user.mitra.allowOvernight) === menginapFilter
+      );
+    }
+    setFilteredMitra(filteredMitra);
+  }, [
+    keahlianFilter,
+    provinsiFilter,
+    kotaFilter,
+    kecamatanFilter,
+    availableMitra,
+    menginapFilter,
+  ]);
 
   if (id) {
-    const user = allMitra.find((user) => user.id === id);
+    const user = filteredMitra.find((user) => user.id === id);
     return (
       <SingleArtCards
         user={user}
@@ -51,42 +63,90 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
     );
   }
 
+  // Get all unique expertises
+  const allExpertises = [
+    ...new Set(availableMitra.flatMap((user) => user.mitra.expertises)),
+  ];
+  // Get all unique provinsi, kota, and kecamatan
+  const allProvinsi = [
+    ...new Set(availableMitra.map((user) => user.location.provinsi)),
+  ];
+  const allKota = [
+    ...new Set(availableMitra.map((user) => user.location.kota)),
+  ];
+  const allKecamatan = [
+    ...new Set(availableMitra.map((user) => user.location.kecamatan)),
+  ];
+
   return (
     <div>
       <select
-        value={expertiseFilter}
-        onChange={(e) => setExpertiseFilter(e.target.value)}
+        value={keahlianFilter || ""}
+        onChange={(e) => setKeahlianFilter(e.target.value || null)}
       >
-        <option value="">Semua Keahlian</option>
-        {expertises.map((expertise) => (
-          <option key={expertise} value={expertise}>
+        <option value="">Select Keahlian</option>
+        {allExpertises.map((expertise, index) => (
+          <option key={index} value={expertise}>
             {expertise}
           </option>
         ))}
       </select>
-
       <select
-        value={provinceFilter}
-        onChange={(e) => setProvinceFilter(e.target.value)}
+        value={provinsiFilter || ""}
+        onChange={(e) => setProvinsiFilter(e.target.value || null)}
       >
-        <option value="">Semua Provinsi</option>
-        {provinces.map((province) => (
-          <option key={province} value={province}>
-            {province}
+        <option value="">Select Provinsi</option>
+        {allProvinsi.map((provinsi, index) => (
+          <option key={index} value={provinsi}>
+            {provinsi}
           </option>
         ))}
       </select>
 
       <select
-        value={overnightFilter}
-        onChange={(e) => setOvernightFilter(e.target.value)}
+        value={kotaFilter || ""}
+        onChange={(e) => setKotaFilter(e.target.value || null)}
       >
-        <option value="">Menginap</option>
-        <option value="true">Allow Overnight</option>
-        <option value="false">Don&apos;t Allow Overnight</option>
+        <option value="">Select Kota</option>
+        {allKota.map((kota, index) => (
+          <option key={index} value={kota}>
+            {kota}
+          </option>
+        ))}
       </select>
+
+      <select
+        value={kecamatanFilter || ""}
+        onChange={(e) => setKecamatanFilter(e.target.value || null)}
+      >
+        <option value="">Select Kecamatan</option>
+        {allKecamatan.map((kecamatan, index) => (
+          <option key={index} value={kecamatan}>
+            {kecamatan}
+          </option>
+        ))}
+      </select>
+      <select
+        value={menginapFilter || ""}
+        onChange={(e) => setMenginapFilter(e.target.value || null)}
+      >
+        <option value="">Semua Menginap atau Tidak </option>
+        <option value="true">Menginap</option>
+        <option value="false">Tidak Menginap</option>
+      </select>
+      <button
+        onClick={() => {
+          setKeahlianFilter(null);
+          setProvinsiFilter(null);
+          setKotaFilter(null);
+          setKecamatanFilter(null);
+          setMenginapFilter(null);
+        }}
+      >
+        Reset All
+      </button>
       <div className="bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-8">
-        {availableMitra.map((user) => (
+        {filteredMitra.map((user) => (
           <div
             className="flex flex-col gap-2 mb-8"
             key={user.id}
@@ -105,18 +165,21 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
                 Lokasi: {user?.location?.kecamatan}, {user?.location?.kota},
                 {user?.location?.provinsi}
               </div>
-              <div>Keahlian: {user.mitra.expertises.join(", ")}</div>
-              <div>Kebutuhan: {user.mitra.considerations.join(", ")}</div>
-              <div>Status: {user.mitra.status}</div>
               {session ? (
                 <>
+                  <div>Keahlian: {user.mitra.expertises.join(", ")}</div>
+                  <div>Kebutuhan: {user.mitra.considerations.join(", ")}</div>
                   <div>Harga Perjam: {user.mitra.pricePerHour}</div>
                   <div>Harga Perhari: {user.mitra.pricePerDay}</div>
                   <div>Harga perbulan: {user.mitra.pricePerMonth}</div>
+                  <div>
+                    Menginap: {user.mitra.allowOvernight ? "Yes" : "No"}
+                  </div>
                 </>
               ) : (
                 <div>
-                  Harga: <Link href="/masuk">Login untuk melihat harga</Link>
+                  Harga:{" "}
+                  <Link href="/masuk">Login untuk melihat lebih detail</Link>
                 </div>
               )}
               <div>
@@ -124,7 +187,6 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
                 {new Date().getFullYear() -
                   new Date(user.mitra.dateOfBirth).getFullYear()}
               </div>
-              <div>Menginap: {user.mitra.allowOvernight ? "Yes" : "No"}</div>
             </div>
           </div>
         ))}

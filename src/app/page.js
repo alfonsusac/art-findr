@@ -25,8 +25,8 @@ export default async function Home({ searchParams }) {
         isNot: null,
       },
       fullName: {
-        contains: searchParams.search
-      }
+        contains: searchParams.search,
+      },
     },
     include: {
       mitra: true,
@@ -39,19 +39,7 @@ export default async function Home({ searchParams }) {
     (m) => m.mitra && m.mitra.status === "Tersedia"
   );
 
-  // Modify the availableMitra array in-place
-  availableMitra.forEach((m) => {
-    // Convert pricePerDay to a number
-    if (m.mitra.pricePerDay) {
-      m.mitra.pricePerDay = Number(m.mitra.pricePerDay.toString());
-    }
-    // Convert updatedAt to an ISO string
-    if (m.mitra.updatedAt) {
-      m.mitra.updatedAt = m.mitra.updatedAt.toISOString();
-    }
-  });
-
-  // Create an object where the keys are the mitra phoneNumber and the values are the URLs
+  // For Mitra Image. Create an object where the keys are the mitra phoneNumber and the values are the URLs.
   const mitraIdUrlMap = await availableMitra.reduce(async (accPromise, m) => {
     const acc = await accPromise;
     const url = await getURLfotoDiri(m.phoneNumber);
