@@ -39,7 +39,7 @@ export default async function Home({ searchParams }) {
     (m) => m.mitra && m.mitra.status === "Tersedia"
   );
 
-  // For Mitra Image Create an object where the keys are the mitra phoneNumber and the values are the URLs.
+  // For Mitra Image. Create an object where the keys are the mitra phoneNumber and the values are the URLs.
   const mitraIdUrlMap = await availableMitra.reduce(async (accPromise, m) => {
     const acc = await accPromise;
     const url = await getURLfotoDiri(m.phoneNumber);
