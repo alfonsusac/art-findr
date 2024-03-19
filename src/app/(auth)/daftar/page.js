@@ -1,11 +1,19 @@
-import { RegisterForm } from "../components/RegisterForm";
 import { getUserSession, getUserData } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LogOutRegister } from "../components/LogOutRegister";
+import { DaftarForm } from "../components/DaftarForm";
+import {
+  getListProvinsi,
+  getListKotaKabupaten,
+  getKecamatan,
+} from "@/lib/fetchLocation";
 
-export default async function PageDaftar() {
+export default async function PageDaftar({ searchParams }) {
+  const listProvinsi = await getListProvinsi();
   const session = await getUserSession();
   const userData = await getUserData();
+  let listKota;
+  let listKecamatan;
 
   if (!session) {
     redirect("/masuk");
@@ -15,7 +23,21 @@ export default async function PageDaftar() {
     redirect("/akun");
   }
 
-  console.log(userData);
+  if (searchParams.provinsi) {
+    try {
+      listKota = await getListKotaKabupaten(searchParams.provinsi);
+    } catch (error) {
+      throw new Error("Error fetching list kota");
+    }
+  }
+
+  if (searchParams.kota) {
+    try {
+      listKecamatan = await getKecamatan(searchParams.kota);
+    } catch (error) {
+      throw new Error("Error fetching list kecamatan");
+    }
+  }
 
   return (
     <div
@@ -40,7 +62,25 @@ export default async function PageDaftar() {
           <LogOutRegister />
         </div>
 
-        <RegisterForm session={session} />
+        {listProvinsi &&
+          (listKota ? (
+            listKecamatan ? (
+              <DaftarForm
+                session={session}
+                listProvinsi={listProvinsi}
+                listKota={listKota}
+                listKecamatan={listKecamatan}
+              />
+            ) : (
+              <DaftarForm
+                session={session}
+                listProvinsi={listProvinsi}
+                listKota={listKota}
+              />
+            )
+          ) : (
+            <DaftarForm session={session} listProvinsi={listProvinsi} />
+          ))}
       </div>
     </div>
   );
