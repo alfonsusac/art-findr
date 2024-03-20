@@ -1,5 +1,6 @@
 import { getUserData } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { uploadImage } from "@/lib/upload-client";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -8,19 +9,26 @@ import { NextRequest, NextResponse } from "next/server";
  */
 export async function POST(req) {
   const userData = await getUserData();
-  const data = await req.json();
-  console.log(userData.id);
+  const data = await req.formData();
+
+  const considerations = [data.get("kebutuhan-khusus")];
+  const expertises = [data.get("keterampilan")];
+  const dateOfBirth = new Date(data.get("tanggal-lahir"));
+
+  const fotoDiri = data.get("foto-diri");
+  const fotoKTP = data.get("foto-ktp");
+
   await prisma.calonMitra.update({
     where: {
       userId: userData.id,
     },
     data: {
       allowOvernight: true,
-      considerations: [data.kebutuhanKhusus],
-      expertises: [data.keterampilan],
-      dateOfBirth: new Date(data.tanggalLahir),
-      isFotoDiri: true,
-      isFotoKTP: true,
+      considerations,
+      expertises,
+      dateOfBirth,
+      isFotoDiri: !!fotoDiri.name,
+      isFotoKTP: !!fotoKTP.name,
     },
   });
 
@@ -29,14 +37,24 @@ export async function POST(req) {
       userId: userData.id,
     },
   });
+
   if (!calonMitra) {
     return response(401, "Bukan calon mitra!");
   }
 
-  if (
-    Object.values(calonMitra).every((x) => x === null || x.length === 0)
-  ) {
+  if (Object.values(calonMitra).every((x) => x === null || x.length === 0)) {
     return response(400, "Data belum lengkap!");
+  }
+
+  try {
+    if (!!calonMitra.isFotoDiri) {
+      await uploadImage(fotoDiri, `fotodiri/${userData.id}.webp`);
+    }
+    if (!!calonMitra.isFotoKTP) {
+      await uploadImage(fotoKTP, `fotoKTP/${userData.id}.webp`);
+    }
+  } catch (error) {
+    throw new Error("Error uploading image!");
   }
 
   try {
@@ -44,7 +62,7 @@ export async function POST(req) {
       data: {
         dateOfBirth: calonMitra.dateOfBirth,
         allowOvernight: true,
-        status: "Sibuk",
+        status: "Tersedia",
         userId: calonMitra.userId,
         considerations: calonMitra.considerations,
         expertises: calonMitra.expertises,
