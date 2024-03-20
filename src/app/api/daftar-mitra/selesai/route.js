@@ -14,7 +14,7 @@ export async function POST(req) {
   const dateOfBirth = new Date(data.get("tanggal-lahir"));
 
   const expertises = JSON.parse(data.get("keterampilan"));
-  const considerations = [data.get("kebutuhan-khusus")];
+  const considerations = JSON.parse(data.get("kebutuhan-khusus"));
 
   const fotoDiri = data.get("foto-diri");
   const fotoKTP = data.get("foto-ktp");

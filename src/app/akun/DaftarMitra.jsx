@@ -12,11 +12,12 @@ import { InputFotoKTP } from "./daftar-mitra/InputFotoKTP";
 export default function DaftarMitra() {
   const route = useRouter();
   const [keterampilan, setKeterampilan] = useState("");
-  const [kebutuhanKhusus, setKebutuhanKhusus] = useState("");
+  const [kebutuhan, setKebutuhan] = useState("");
 
   async function handleSubmit(formData) {
     formData.set("keterampilan", JSON.stringify(keterampilan));
-    // console.log(formData.get("keterampilan"));
+    formData.set("kebutuhan-khusus", JSON.stringify(kebutuhan));
+
     await fetch("/api/daftar-mitra/selesai", {
       method: "POST",
       body: formData,
@@ -44,7 +45,10 @@ export default function DaftarMitra() {
           keterampilan={keterampilan}
           setKeterampilan={setKeterampilan}
         />
-        <InputKebutuhan />
+        <InputKebutuhan
+          kebutuhan={kebutuhan}
+          setKebutuhan={setKebutuhan}
+        />
         <InputHarga />
         <InputFotoDiri />
         <InputFotoKTP />
