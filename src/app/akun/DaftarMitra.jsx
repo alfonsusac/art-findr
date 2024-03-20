@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { PageDisplay } from "./daftar-mitra/PageDisplay";
 
 import { useRouter } from "next/navigation";
 import { InputTanggalLahir } from "./daftar-mitra/InputTanggalLahir";
@@ -12,17 +11,19 @@ import { InputFotoKTP } from "./daftar-mitra/InputFotoKTP";
 
 export default function DaftarMitra() {
   const route = useRouter();
+  const [keterampilan, setKeterampilan] = useState("");
+  const [kebutuhanKhusus, setKebutuhanKhusus] = useState("");
 
   async function handleSubmit(formData) {
-    e.preventDefault();
-
+    formData.set("keterampilan", JSON.stringify(keterampilan));
+    // console.log(formData.get("keterampilan"));
     await fetch("/api/daftar-mitra/selesai", {
       method: "POST",
       body: formData,
     });
 
     route.refresh();
-  };
+  }
 
   return (
     <div className="flex flex-col gap-4 py-8">
@@ -30,7 +31,7 @@ export default function DaftarMitra() {
         <button
           onClick={async () => {
             await fetch("/api/daftar-mitra/batal", { method: "DELETE" });
-            route.refresh()
+            route.refresh();
           }}
         >
           Batal
@@ -39,8 +40,11 @@ export default function DaftarMitra() {
 
       <form action={handleSubmit} className="flex flex-col gap-4">
         <InputTanggalLahir />
+        <InputKeterampilan
+          keterampilan={keterampilan}
+          setKeterampilan={setKeterampilan}
+        />
         <InputKebutuhan />
-        <InputKeterampilan />
         <InputHarga />
         <InputFotoDiri />
         <InputFotoKTP />
