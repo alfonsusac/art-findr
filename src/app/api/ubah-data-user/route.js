@@ -22,25 +22,29 @@ export async function PATCH(request) {
     }
 
     if (location) {
-      const updatedUser = await prisma.user.update({
+      console.log(location);
+      await prisma.user.update({
         where: { id: userData.id },
         data: {
           location: {
             update: {
-              provinsi,
-              kota,
-              kecamatan,
+              provinsi: location.provinsi,
+              kota: location.kota,
+              kecamatan: location.kecamatan,
             },
           },
         },
       });
       return NextResponse.json(
-        { message: "Data berhasil dirubah", data: updatedUser },
+        { message: "Data berhasil dirubah" },
         { status: 200 }
       );
     }
   } catch (error) {
     console.error(error);
-    return NextResponse.error(500, error.message);
+    return NextResponse.json(
+      { message: "Gagal menyimpan data" },
+      { status: 500 }
+    );
   }
 }

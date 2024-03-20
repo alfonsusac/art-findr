@@ -4,10 +4,25 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { SelectKecamatan, SelectKotaKabupaten, SelectProvinsi } from "@/components/wilayahSelect";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  SelectKecamatan,
+  SelectKotaKabupaten,
+  SelectProvinsi,
+} from "@/components/wilayahSelect";
 import { useForm } from "react-hook-form";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export const DaftarForm = ({
   session,
@@ -19,45 +34,49 @@ export const DaftarForm = ({
 
   const form = useForm({
     // resolver: yupResolver()
-  })
+  });
 
   return (
     <form
+      action={async (form) => {
+        console.log(form.get("provinsi").split("|")[1]); // 21|banten
+      }}
       className="mt-6 w-full max-w-xs"
       onSubmit={async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const provinsiCode = formData.get("provinsi");
-        const kotaCode = formData.get("kota");
-        const kecamatanCode = formData.get("kecamatan");
+        const provinsiValue = formData.get("provinsi");
+        if (!provinsiValue) {
+          toast.error("Mohon isi provinsi anda");
+          return;
+        }
+        const kotaValue = formData.get("kota");
+        if (!kotaValue) {
+          toast.error("Mohon isi kota/kabupaten anda");
+          return;
+        }
+        const kecamatanValue = formData.get("kecamatan");
+        if (!kecamatanValue) {
+          toast.error("Mohon isi kecamatan anda");
+          return;
+        }
 
-        const selectedProvinsi = listProvinsi.find(
-          (provinsi) => provinsi.code === provinsiCode
-        );
-        const selectedKota = listKota.find((kota) => kota.code === kotaCode);
-        const selectedKecamatan = listKecamatan.find(
-          (kecamatan) => kecamatan.code === kecamatanCode
-        );
-
-        formData.set("provinsi", selectedProvinsi ? selectedProvinsi.name : "");
-        formData.set("kota", selectedKota ? selectedKota.name : "");
-        formData.set(
-          "kecamatan",
-          selectedKecamatan ? selectedKecamatan.name : ""
-        );
+        formData.set("provinsi", provinsiValue.split("|")[1]);
+        formData.set("kota", kotaValue.split("|")[1]);
+        formData.set("kecamatan", kecamatanValue.split("|")[1]);
 
         // Convert FormData to JSON
         const formObject = Object.fromEntries(formData.entries());
 
         try {
-          console.log(formObject)
-          // const res = await fetch("/api/daftar", {
-          //   method: "POST",
-          //   body: JSON.stringify(formObject),
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          // });
+          console.log(formObject);
+          const res = await fetch("/api/daftar", {
+            method: "POST",
+            body: JSON.stringify(formObject),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
           const data = await res.json();
 
           if (res.status === 400) {
@@ -73,7 +92,6 @@ export const DaftarForm = ({
       }}
     >
       <div className="flex flex-col space-y-4">
-
         <fieldset>
           <label>Nama Panjang</label>
           <input
@@ -89,15 +107,18 @@ export const DaftarForm = ({
           <SelectProvinsi
             name={"provinsi"}
             className="w-full text-lg h-14"
-            listProvinsi={listProvinsi} />
+            listProvinsi={listProvinsi}
+          />
           <SelectKotaKabupaten
             name={"kota"}
             className="w-full text-lg h-14"
-            listKota={listKota} />
+            listKota={listKota}
+          />
           <SelectKecamatan
             name={"kecamatan"}
             className="w-full text-lg h-14"
-            listKecamatan={listKecamatan} />
+            listKecamatan={listKecamatan}
+          />
           {/* <Select
             className=""
             value={provinsiFilter ?? undefined} onValueChange={(value) => {
