@@ -33,7 +33,6 @@ export const DashboardRegular = ({ uid, fullName, email, phoneNumber, province, 
   }
   return (
     <main className="flex flex-col gap-2 max-w-sm items-stretch mx-auto mt-6 p-4 text-lg">
-
       <Link href="/" className="button h-12 self-start text-base">
         {'<'} Kembali Lihat Daftar ART
       </Link>

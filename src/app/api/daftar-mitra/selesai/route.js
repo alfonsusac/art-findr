@@ -9,28 +9,28 @@ import { NextRequest, NextResponse } from "next/server";
  */
 export async function POST(req) {
   const userData = await getUserData();
-  const data = await req.formData();
+  // const data = await req.formData();
 
-  const considerations = [data.get("kebutuhan-khusus")];
-  const expertises = [data.get("keterampilan")];
-  const dateOfBirth = new Date(data.get("tanggal-lahir"));
+  // const considerations = [data.get("kebutuhan-khusus")];
+  // const expertises = [data.get("keterampilan")];
+  // const dateOfBirth = new Date(data.get("tanggal-lahir"));
 
-  const fotoDiri = data.get("foto-diri");
-  const fotoKTP = data.get("foto-ktp");
+  // const fotoDiri = data.get("foto-diri");
+  // const fotoKTP = data.get("foto-ktp");
 
-  await prisma.calonMitra.update({
-    where: {
-      userId: userData.id,
-    },
-    data: {
-      allowOvernight: true,
-      considerations,
-      expertises,
-      dateOfBirth,
-      isFotoDiri: !!fotoDiri.name,
-      isFotoKTP: !!fotoKTP.name,
-    },
-  });
+  // await prisma.calonMitra.update({
+  //   where: {
+  //     userId: userData.id,
+  //   },
+  //   data: {
+  //     allowOvernight: true,
+  //     considerations,
+  //     expertises,
+  //     dateOfBirth,
+  //     isFotoDiri: !!fotoDiri.name,
+  //     isFotoKTP: !!fotoKTP.name,
+  //   },
+  // });
 
   const calonMitra = await prisma.calonMitra.findUnique({
     where: {
@@ -46,16 +46,16 @@ export async function POST(req) {
     return response(400, "Data belum lengkap!");
   }
 
-  try {
-    if (!!calonMitra.isFotoDiri) {
-      await uploadImage(fotoDiri, `fotodiri/${userData.id}.webp`);
-    }
-    if (!!calonMitra.isFotoKTP) {
-      await uploadImage(fotoKTP, `fotoKTP/${userData.id}.webp`);
-    }
-  } catch (error) {
-    throw new Error("Error uploading image!");
-  }
+  // try {
+  //   if (!!calonMitra.isFotoDiri) {
+  //     await uploadImage(fotoDiri, `fotodiri/${userData.id}.webp`);
+  //   }
+  //   if (!!calonMitra.isFotoKTP) {
+  //     await uploadImage(fotoKTP, `fotoKTP/${userData.id}.webp`);
+  //   }
+  // } catch (error) {
+  //   throw new Error("Error uploading image!");
+  // }
 
   try {
     const createMitra = prisma.mitra.create({
