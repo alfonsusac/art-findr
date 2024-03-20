@@ -55,12 +55,15 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
   ]);
 
   if (id) {
+    /**
+     * @type {import("@prisma/client").User}
+     */
     const user = filteredMitra.find((user) => user.id === id);
     return (
       <SingleArtCards
         user={user}
         session={session}
-        imageUrl={mitraIdUrlMap[user.phoneNumber]}
+        imageUrl={mitraIdUrlMap[user.id]}
       />
     );
   }
@@ -156,7 +159,7 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
             key={user.id}
             user={user}
             onClick={(id) => { setId(id) }}
-            imageUrl={mitraIdUrlMap[user.phoneNumber]}
+            imageUrl={mitraIdUrlMap[user.id]}
             session={session}
             selected={id === user.id}
           />

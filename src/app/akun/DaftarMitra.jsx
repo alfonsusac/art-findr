@@ -1,6 +1,4 @@
 "use client";
-import { useState } from "react";
-import { PageDisplay } from "./daftar-mitra/PageDisplay";
 
 import { useRouter } from "next/navigation";
 import { InputTanggalLahir } from "./daftar-mitra/InputTanggalLahir";
