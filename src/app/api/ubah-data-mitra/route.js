@@ -24,6 +24,6 @@ export async function PATCH(request) {
     );
   } catch (error) {
     console.error(error);
-    return NextResponse.error(500, error.message);
+    return NextResponse.json({ message: "Data gagal diubah" }, { status: 500 });
   }
 }

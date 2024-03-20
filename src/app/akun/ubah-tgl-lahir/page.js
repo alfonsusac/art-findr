@@ -1,10 +1,12 @@
 import { getUserData } from "@/lib/auth";
 import { UbahTglLahirBtn } from "./components/UbahTglLahir";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function UbahTglLahir() {
   const user = await getUserData();
-  const date = user?.mitra?.dateOfBirth;
+  if (!user.mitra) redirect("/akun");
+  const date = user.mitra.dateOfBirth;
   const dateOfBirth = new Date(date).toISOString().split("T")[0];
 
   return (

@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const UbahKeterampilan = ({ expertises }) => {
+  const router = useRouter();
   const [skill, setSkills] = useState([...expertises]);
   const [input, setInput] = useState(""); // new state for the input value
 
@@ -26,21 +28,15 @@ export const UbahKeterampilan = ({ expertises }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ expertises: skill }),
-    })
-      .then((res) => {
-        if (
-          res.ok &&
-          res.headers.get("Content-Type").includes("application/json")
-        ) {
-          return res.json();
-        } else {
-          toast.error("Gagal mengubah keterampilan");
-        }
-      })
-      .then((data) => {
-        toast.success(data.message);
-      })
-      .catch((error) => console.error("Fetch error:", error));
+    });
+    const data = await res.json();
+
+    if (res.status === 200) {
+      toast.success(data.message);
+      router.push("/akun");
+    } else {
+      toast.error(data.message);
+    }
   }
 
   return (
