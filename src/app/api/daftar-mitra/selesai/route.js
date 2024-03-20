@@ -48,10 +48,10 @@ export async function POST(req) {
 
   try {
     if (!!calonMitra.isFotoDiri) {
-      await uploadImage(fotoDiri, `/fotodiri/${userData.id}`);
+      await uploadImage(fotoDiri, `fotodiri/${userData.id}.webp`);
     }
     if (!!calonMitra.isFotoKTP) {
-      await uploadImage(fotoKTP, `/fotoKTP/${userData.id}`);
+      await uploadImage(fotoKTP, `fotoKTP/${userData.id}.webp`);
     }
   } catch (error) {
     throw new Error("Error uploading image!");

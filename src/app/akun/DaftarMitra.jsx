@@ -14,7 +14,7 @@ export default function DaftarMitra() {
   const route = useRouter();
 
   async function handleSubmit(formData) {
-    e.preventDefault();
+    // e.preventDefault();
 
     await fetch("/api/daftar-mitra/selesai", {
       method: "POST",
