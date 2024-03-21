@@ -1,4 +1,4 @@
-import { UbahKebutuhan } from "./components/UbahKebutuhan";
+import { UbahKebutuhan } from "./UbahKebutuhan";
 import { getUserData } from "@/lib/auth";
 import Link from "next/link";
 
@@ -14,6 +14,6 @@ export default async function UbahKeterampilanPage() {
       <div className="text-xl font-semibold">Penyetelan</div>
       <h3 className="text-4xl font-bold">Ubah Kebutuhan</h3>
     </div>
-    <UbahKebutuhan considerations={considerations} />
+    <UbahKebutuhan considerations={considerations} user={userData} />
   </>
 }
