@@ -26,30 +26,25 @@ export const UbahNama = ({ userData }) => {
       .catch((error) => console.error("Fetch error:", error));
   }
   return (
-    <div className="bg-gray-800 text-white p-4 rounded-lg max-w-md mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <Link href="/akun">Batal{"\n          "}</Link>
-      </div>
-      <h1 className="text-3xl font-bold mb-4">Ubah Nama Lengkap</h1>
-
-      <div className="mb-6 text-black space-y-2">
+    <>
+      <div className="mb-4 text-black space-y-2">
         <form className="flex flex-col gap-2">
+          <label className="text-xl">Nama Lengkap Saya</label>
           <input
             name="fullName"
             type="text"
             value={fullName}
-            className="w-full text-black"
+            className="input w-full text-black"
             onChange={(e) => setFullName(e.target.value)}
           />
         </form>
       </div>
-
       <button
-        className="w-full bg-blue-600 hover:bg-blue-700"
+        className="button btn-primary w-full text-xl h-14 "
         onClick={handleUpdate}
       >
         Simpan
       </button>
-    </div>
+    </>
   );
 };
