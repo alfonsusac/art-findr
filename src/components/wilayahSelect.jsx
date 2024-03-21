@@ -1,35 +1,51 @@
 import { cn } from "@/lib/utils";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { useQueryState } from "nuqs";
 import { useRef } from "react";
 
-
 /**
- * 
+ *
  * @param {{
  *   listProvinsi: import("@/lib/wilayah").Provinsi[]
- * }} param0 
- * @returns 
+ * }} param0
+ * @returns
  */
 export function SelectProvinsi({ listProvinsi, className, name, required }) {
   const [provinsi, setProvinsi] = useQueryState("provinsi", { shallow: false });
   const [kota, setKota] = useQueryState("kota", { shallow: false });
-  const [kecamatan, setKecamatan] = useQueryState("kecamatan", { shallow: false });
-  const parsedInputValue = useRef(null)
+  const [kecamatan, setKecamatan] = useQueryState("kecamatan", {
+    shallow: false,
+  });
+  const parsedInputValue = useRef(null);
 
   return (
     <>
-      <input name={name} hidden value={parsedInputValue.current ?? ""} readOnly />
+      <input
+        name={name}
+        hidden
+        value={parsedInputValue.current ?? ""}
+        readOnly
+      />
       <Select
         required={required}
         // name={name}
         className=""
-        value={provinsi ?? ""} onValueChange={(value) => {
-          parsedInputValue.current = `${value}|${listProvinsi.find(p => p.code === value).name}`
-          setProvinsi(value)
-          setKota(null)
-          setKecamatan(null)
-        }}>
+        value={provinsi ?? ""}
+        onValueChange={(value) => {
+          parsedInputValue.current = `${value}|${
+            listProvinsi.find((p) => p.code === value).name
+          }`;
+          setProvinsi(value);
+          setKota(null);
+          setKecamatan(null);
+        }}
+      >
         <SelectTrigger className={cn("w-[180px]", className)}>
           <SelectValue placeholder="Pilih Provinsi" />
         </SelectTrigger>
@@ -43,28 +59,38 @@ export function SelectProvinsi({ listProvinsi, className, name, required }) {
         </SelectContent>
       </Select>
     </>
-  )
+  );
 }
 
 export function SelectKotaKabupaten({ listKota, className, name, required }) {
   const [provinsi, setProvinsi] = useQueryState("provinsi", { shallow: false });
   const [kota, setKota] = useQueryState("kota", { shallow: false });
-  const [kecamatan, setKecamatan] = useQueryState("kecamatan", { shallow: false });
-  const parsedInputValue = useRef(null)
+  const [kecamatan, setKecamatan] = useQueryState("kecamatan", {
+    shallow: false,
+  });
+  const parsedInputValue = useRef(null);
 
   return (
     <>
-      <input name={name} hidden value={parsedInputValue.current ?? ""} readOnly />
+      <input
+        name={name}
+        hidden
+        value={parsedInputValue.current ?? ""}
+        readOnly
+      />
       <Select
         required={required}
         // name={name}
         value={kota ?? ""}
         disabled={!listKota}
         onValueChange={(value) => {
-          parsedInputValue.current = `${value}|${listKota.find(p => p.code === value).name}`
-          setKota(value)
-          setKecamatan(null)
-        }}>
+          parsedInputValue.current = `${value}|${
+            listKota.find((p) => p.code === value).name
+          }`;
+          setKota(value);
+          setKecamatan(null);
+        }}
+      >
         <SelectTrigger className={cn("w-[180px]", className)}>
           <SelectValue placeholder="Pilih Kota" />
         </SelectTrigger>
@@ -78,27 +104,35 @@ export function SelectKotaKabupaten({ listKota, className, name, required }) {
         </SelectContent>
       </Select>
     </>
-
-  )
+  );
 }
 
 export function SelectKecamatan({ listKecamatan, className, name, required }) {
   const [provinsi, setProvinsi] = useQueryState("provinsi", { shallow: false });
   const [kota, setKota] = useQueryState("kota", { shallow: false });
-  const [kecamatan, setKecamatan] = useQueryState("kecamatan", { shallow: false });
-  const parsedInputValue = useRef(null)
+  const [kecamatan, setKecamatan] = useQueryState("kecamatan", {
+    shallow: false,
+  });
+  const parsedInputValue = useRef(null);
 
   return (
     <>
-      <input name={name} hidden value={parsedInputValue.current ?? ""} readOnly />
+      <input
+        name={name}
+        hidden
+        value={parsedInputValue.current ?? ""}
+        readOnly
+      />
       <Select
         required={required}
         // name={name}
         value={kecamatan ?? ""}
         disabled={!listKecamatan}
         onValueChange={(value) => {
-          parsedInputValue.current = `${value}|${listKecamatan.find(p => p.code === value).name}`
-          setKecamatan(value)
+          parsedInputValue.current = `${value}|${
+            listKecamatan.find((p) => p.code === value).name
+          }`;
+          setKecamatan(value);
         }}
       >
         <SelectTrigger className={cn("w-[180px]", className)}>
@@ -114,6 +148,5 @@ export function SelectKecamatan({ listKecamatan, className, name, required }) {
         </SelectContent>
       </Select>
     </>
-
-  )
+  );
 }

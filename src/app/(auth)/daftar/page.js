@@ -55,9 +55,7 @@ export default async function PageDaftar({ searchParams }) {
         <div className="font-semibold" href="#">
           {session.email || session.phoneNumber}
         </div>
-        <LogOutRegister className={"mt-2 text-lg"}>
-          Batalkan
-        </LogOutRegister>
+        <LogOutRegister className={"mt-2 text-lg"}>Batalkan</LogOutRegister>
       </div>
 
       <DaftarForm

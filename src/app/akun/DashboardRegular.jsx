@@ -5,7 +5,14 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { TextLogo } from "@/components/logo";
 
-export const DashboardRegular = ({ uid, fullName, email, phoneNumber, province, city }) => {
+export const DashboardRegular = ({
+  uid,
+  fullName,
+  email,
+  phoneNumber,
+  province,
+  city,
+}) => {
   const route = useRouter();
   async function handleCreate() {
     const res = await fetch("/api/daftar-mitra", {
@@ -34,7 +41,7 @@ export const DashboardRegular = ({ uid, fullName, email, phoneNumber, province, 
   return (
     <main className="flex flex-col gap-2 max-w-sm items-stretch mx-auto mt-6 p-4 text-lg">
       <Link href="/" className="button h-12 self-start text-base">
-        {'<'} Kembali Lihat Daftar ART
+        {"<"} Kembali Lihat Daftar ART
       </Link>
       <div className="py-8">
         <TextLogo />
@@ -53,25 +60,19 @@ export const DashboardRegular = ({ uid, fullName, email, phoneNumber, province, 
       <div className="py-5">
         <p className="text-neutral-400 mb-2">Penyetelan</p>
 
-        <Link href="/akun/ubah-lokasi"
+        <Link
+          href="/akun/ubah-lokasi"
           className="-mx-2 px-2 hover:bg-neutral-100 border-gray-300 py-5 border-y text-xl flex justify-between items-center"
         >
-          <span>
-            Ubah Lokasi Saya
-          </span>
-          <span>
-            {'>'}
-          </span>
+          <span>Ubah Lokasi Saya</span>
+          <span>{">"}</span>
         </Link>
-        <Link href="/akun/ubah-nama"
+        <Link
+          href="/akun/ubah-nama"
           className="-mx-2 px-2 hover:bg-neutral-100 border-gray-300 py-5 border-b text-xl flex justify-between items-center"
         >
-          <span>
-            Ubah Nama Lengkap
-          </span>
-          <span>
-            {'>'}
-          </span>
+          <span>Ubah Nama Lengkap</span>
+          <span>{">"}</span>
         </Link>
       </div>
 
