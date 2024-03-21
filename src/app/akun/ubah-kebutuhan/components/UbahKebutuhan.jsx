@@ -3,8 +3,10 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const UbahKebutuhan = ({ considerations }) => {
+  const router = useRouter();
   const [need, setneeds] = useState([...considerations]);
   const [input, setInput] = useState(""); // new state for the input value
 
@@ -26,21 +28,15 @@ export const UbahKebutuhan = ({ considerations }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ considerations: need }),
-    })
-      .then((res) => {
-        if (
-          res.ok &&
-          res.headers.get("Content-Type").includes("application/json")
-        ) {
-          return res.json();
-        } else {
-          toast.error("Gagal mengubah kebutuhan");
-        }
-      })
-      .then((data) => {
-        toast.success(data.message);
-      })
-      .catch((error) => console.error("Fetch error:", error));
+    });
+    const data = await res.json();
+
+    if (res.status === 200) {
+      toast.success(data.message);
+      router.push("/akun");
+    } else {
+      toast.error(data.message);
+    }
   }
 
   return (
