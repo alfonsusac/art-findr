@@ -6,25 +6,25 @@ import { useRouter } from "next/navigation";
 
 export const UbahTglLahirBtn = ({ dateOfBirth, user }) => {
   const router = useRouter();
-  const [dobValue, setDobValue] = useState(dateOfBirth);
-  async function handleUpdate() {
-    const res = await fetch("/api/ubah-data-mitra", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ dateOfBirth: new Date(dobValue) }),
-    });
+  // const [dobValue, setDobValue] = useState(dateOfBirth);
+  // async function handleUpdate() {
+  //   const res = await fetch("/api/ubah-data-mitra", {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ dateOfBirth: new Date(dobValue) }),
+  //   });
 
-    const data = await res.json();
+  //   const data = await res.json();
 
-    if (res.status === 200) {
-      toast.success(data.message);
-      router.push("/akun");
-    } else {
-      toast.error(data.message);
-    }
-  }
+  //   if (res.status === 200) {
+  //     toast.success(data.message);
+  //     router.push("/akun");
+  //   } else {
+  //     toast.error(data.message);
+  //   }
+  // }
 
   const defaultTglLahir = user.mitra.dateOfBirth?.toISOString().split('T')[0]
   const [error, setError] = useState({})
@@ -39,10 +39,22 @@ export const UbahTglLahirBtn = ({ dateOfBirth, user }) => {
       if (!value) {
         return setError({ tglLahir: "Mohon isi tanggal lahir anda 🙏" })
       }
-      const ok = await setTanggalLahir(value)
-      if (ok) {
+      const res = await fetch("/api/ubah-data-mitra", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ dateOfBirth: new Date(value) }),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 200) {
+        toast.success(data.message);
+        router.push("/akun");
         router.refresh()
-        return setLangkah(1)
+      } else {
+        toast.error(data.message);
       }
     }}>
       <fieldset className="mt-2">
