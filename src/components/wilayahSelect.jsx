@@ -51,7 +51,7 @@ export function SelectProvinsi({ listProvinsi, className, name, required }) {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value={null} disabled></SelectItem>
-          {listProvinsi?.map((item, index) => (
+          {listProvinsi?.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0 ).map((item, index) => (
             <SelectItem key={index} value={item.code}>
               {item.name}
             </SelectItem>
@@ -96,7 +96,7 @@ export function SelectKotaKabupaten({ listKota, className, name, required }) {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value={null} disabled></SelectItem>
-          {listKota?.map((item, index) => (
+          {listKota?.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0).map((item, index) => (
             <SelectItem key={index} value={item.code}>
               {item.name}
             </SelectItem>
@@ -140,7 +140,7 @@ export function SelectKecamatan({ listKecamatan, className, name, required }) {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value={null} disabled></SelectItem>
-          {listKecamatan?.map((item, index) => (
+          {listKecamatan?.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0).map((item, index) => (
             <SelectItem key={index} value={item.code}>
               {item.name}
             </SelectItem>
