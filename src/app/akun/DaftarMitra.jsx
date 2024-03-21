@@ -24,6 +24,8 @@ import { getImageURL } from "@/lib/upload";
  */
 export default function DaftarMitra({ user }) {
   const route = useRouter();
+  const [keterampilan, setKeterampilan] = useState("");
+  const [kebutuhan, setKebutuhan] = useState("");
 
 
   async function handleSubmit(formData) {
@@ -32,7 +34,7 @@ export default function DaftarMitra({ user }) {
       body: formData,
     });
     route.refresh();
-  };
+  }
 
   return (
     <>
@@ -57,8 +59,14 @@ export default function DaftarMitra({ user }) {
 
       {/* <form action={handleSubmit} className="flex flex-col gap-4">
         <InputTanggalLahir />
-        <InputKebutuhan />
-        <InputKeterampilan />
+        <InputKeterampilan
+          keterampilan={keterampilan}
+          setKeterampilan={setKeterampilan}
+        />
+        <InputKebutuhan
+          kebutuhan={kebutuhan}
+          setKebutuhan={setKebutuhan}
+        />
         <InputHarga />
         <InputFotoDiri />
         <InputFotoKTP />
