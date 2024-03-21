@@ -13,7 +13,15 @@ export default async function pageAkun() {
   });
 
   if (userData.mitra) {
-    return <DashboardMitra mitra={userData.mitra} uid={userData.id} />;
+    return <DashboardMitra
+      mitra={userData.mitra}
+      uid={userData.id}
+      fullName={userData.fullName}
+      phoneNumber={userData.phoneNumber}
+      email={userData.email}
+      province={userData.location.provinsi}
+      city={userData.location.kota}
+    />;
   }
 
   if (!userData.calonMitra) {
