@@ -42,6 +42,12 @@ export const DashboardMitra = ({
           {city}, {province}
         </p>
       </div>
+      <Link href={"/akun/ubah-nama"} className="button text-lg py-3 -mx-4">
+        Ubah Nama Lengkap
+      </Link>
+      <Link href={"/akun/ubah-lokasi"} className="button text-lg py-3 -mx-4">
+        Ubah Lokasi
+      </Link>
 
       <section className="py-4">
         <div className="pl-1 py-1 font-semibold text-2xl mt-4">Status Kesibukan Anda:</div>
