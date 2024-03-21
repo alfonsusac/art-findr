@@ -8,6 +8,7 @@ import {
 } from "@/lib/wilayah";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { BackToAkunPageButton } from "../component";
 
 
 export default async function ubahLokasiPage({ searchParams }) {
@@ -32,9 +33,7 @@ export default async function ubahLokasiPage({ searchParams }) {
 
   return (
     <>
-      <Link href="/akun" className="button h-12 self-start text-base">
-        {'<'} Kembali ke Akun Saya
-      </Link>
+      <BackToAkunPageButton />
       <div className="py-8">
         <div className="text-xl font-semibold">Penyetelan</div>
         <h3 className="text-4xl font-bold">Ubah Lokasi</h3>

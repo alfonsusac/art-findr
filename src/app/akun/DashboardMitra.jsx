@@ -1,13 +1,20 @@
 "use client";
 import React from "react";
 import { signOut } from "next-auth/react";
-import { MitraStatus } from "./MitraStatus";
 import { TextLogo } from "@/components/logo";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { PhCheckCircleFill } from "./DaftarMitra";
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation";
+import { BackToIndexPageButton } from "./component";
+
+
+export function PhCaretLeftFill(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" {...props}><path fill="currentColor" d="M168 48v160a8 8 0 0 1-13.66 5.66l-80-80a8 8 0 0 1 0-11.32l80-80A8 8 0 0 1 168 48"></path></svg>
+  )
+}
 
 
 export const DashboardMitra = ({
@@ -25,9 +32,7 @@ export const DashboardMitra = ({
   const router = useRouter()
   return (
     <>
-      <Link href="/" className="button h-12 self-start text-base">
-        {'<'} Kembali Lihat Daftar ART
-      </Link>
+      <BackToIndexPageButton />
       <div className="py-8">
         <TextLogo />
         <h3 className="text-5xl font-bold">Akun Saya</h3>

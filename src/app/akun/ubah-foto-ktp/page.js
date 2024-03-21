@@ -2,12 +2,11 @@ import React from "react";
 import { UbahKtp } from "./UbahKtp";
 import Link from "next/link";
 import { getUserData } from "@/lib/auth";
+import { BackToAkunPageButton } from "../component";
 
 export default async function UbahFotoKtp() {
   return <>
-    <Link href="/akun" className="button h-12 self-start text-base">
-      {'<'} Kembali ke Akun Saya
-    </Link>
+    <BackToAkunPageButton />
     <div className="py-8">
       <div className="text-xl font-semibold">Penyetelan</div>
       <h3 className="text-4xl font-bold">Ubah Foto KTP</h3>

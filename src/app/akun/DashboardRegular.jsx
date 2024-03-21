@@ -4,6 +4,8 @@ import React from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { TextLogo } from "@/components/logo";
+import { PhArrowLeftBold } from "./DashboardMitra";
+import { BackToIndexPageButton } from "./component";
 
 export const DashboardRegular = ({
   uid,
@@ -39,10 +41,8 @@ export const DashboardRegular = ({
     route.refresh();
   }
   return (
-    <main className="flex flex-col gap-2 max-w-sm items-stretch mx-auto mt-6 p-4 text-lg">
-      <Link href="/" className="button h-12 self-start text-base">
-        {"<"} Kembali Lihat Daftar ART
-      </Link>
+    <>
+      <BackToIndexPageButton />
       <div className="py-8">
         <TextLogo />
         <h3 className="text-5xl font-bold">Akun Saya</h3>
@@ -91,6 +91,8 @@ export const DashboardRegular = ({
       >
         Daftar Menjadi Mitra
       </button>
-    </main>
+    </>
   );
 };
+
+
