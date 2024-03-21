@@ -55,8 +55,8 @@ enum StatusMitra {
 }
 
 model CalonMitra {
-  isFotoDiri     Boolean?
-  isFotoKTP      Boolean?
+  isFotoDiri     Boolean @default(false)
+  isFotoKTP      Boolean @default(false)
   dateOfBirth    DateTime?
   allowOvernight Boolean?
   expertises     String[]
