@@ -2,35 +2,21 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
-import { useQueryState } from "nuqs";
-import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+import {
+  SelectProvinsi,
+  SelectKotaKabupaten,
+  SelectKecamatan,
+} from "@/components/wilayahSelect";
 
 export const UbahLokasi = ({
+  userData,
   listProvinsi,
   listKota,
   listKecamatan,
-  salahProvinsi,
-  salahKota,
-  userData,
 }) => {
-  const [provinsi, setProvinsi] = useQueryState("provinsi", {
-    shallow: false,
-  });
-  const [kota, setKota] = useQueryState("kota", {
-    shallow: false,
-  });
-
-  useEffect(() => {
-    if (salahProvinsi) {
-      setProvinsi(null);
-      setKota(null);
-    }
-    if (salahKota) {
-      setKota(null);
-    }
-
-    console.log(userData);
-  }, [salahProvinsi, salahKota, setProvinsi, setKota]);
+  const router = useRouter();
   return (
     <div className="bg-gray-800 text-white p-4 rounded-lg max-w-md mx-auto">
       <div className="flex items-center justify-between mb-6">
@@ -47,43 +33,71 @@ export const UbahLokasi = ({
           <p>Kota/Kab : {userData?.location?.kota}</p>
           <p>Kecamatan : {userData?.location?.kecamatan}</p>
         </div>
-        <form className="flex flex-col gap-2">
-          <select
-            name="provinsi"
-            id="provinsi"
-            onChange={(e) => {
-              setProvinsi(e.target.value);
-            }}
+        <form
+          action={async (formData) => {
+            const provinsiValue = formData.get("provinsi").split("|")[1];
+            if (!provinsiValue) {
+              toast.error("Mohon isi data provinsi");
+            }
+
+            const kotaValue = formData.get("kota").split("|")[1];
+            if (!kotaValue) {
+              toast.error("Mohon isi data kota");
+            }
+
+            const kecamatanValue = formData.get("kecamatan").split("|")[1];
+            if (!kecamatanValue) {
+              toast.error("Mohon isi data kecamatan");
+            }
+
+            const res = await fetch("/api/ubah-data-user", {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                location: {
+                  provinsi: provinsiValue,
+                  kota: kotaValue,
+                  kecamatan: kecamatanValue,
+                },
+              }),
+            });
+
+            const data = await res.json();
+
+            if (res.status === 200) {
+              router.push("/akun");
+              toast.success(data.message);
+            } else {
+              toast.error(data.message);
+            }
+          }}
+        >
+          <label>Lokasi</label>
+          <SelectProvinsi
+            name={"provinsi"}
+            className="w-full"
+            listProvinsi={listProvinsi}
+          />
+          <SelectKotaKabupaten
+            name={"kota"}
+            className="w-full"
+            listKota={listKota}
+          />
+          <SelectKecamatan
+            name={"kecamatan"}
+            className="w-full"
+            listKecamatan={listKecamatan}
+          />
+          <button
+            className="w-full bg-blue-600 hover:bg-blue-700"
+            type="submit"
           >
-            {listProvinsi.data.map((provinsi) => (
-              <option key={provinsi.name} value={provinsi.code}>
-                {provinsi.name}
-              </option>
-            ))}
-          </select>
-          <select
-            disabled={!listKota}
-            onChange={(e) => {
-              setKota(e.target.value);
-            }}
-          >
-            {listKota?.data.map((kota) => (
-              <option key={kota.name} value={kota.code}>
-                {kota.name}
-              </option>
-            ))}
-          </select>
-          <select disabled={!listKecamatan}>
-            {listKecamatan?.data.map((kecamatan) => (
-              <option key={kecamatan.name} value={kecamatan.code}>
-                {kecamatan.name}
-              </option>
-            ))}
-          </select>
+            Simpan
+          </button>
         </form>
       </div>
-
-      <button className="w-full bg-blue-600 hover:bg-blue-700">Simpan</button>
     </div>
   );
 };

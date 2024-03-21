@@ -78,13 +78,12 @@ export const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit, onError)}
       className="flex flex-col gap-4 width-full"
     >
-
-      {formState.errors.phone?.message &&
+      {formState.errors.phone?.message && (
         <div className="p-3 rounded-lg bg-red-50 text-red-600 leading-none">
           {/* {formState.errors.phone?.message} */}
           Nomor handphone tidak benar
         </div>
-      }
+      )}
       <section className={phoneStep > 0 ? "hidden" : "block"}>
         <LoginPhone
           control={control}
