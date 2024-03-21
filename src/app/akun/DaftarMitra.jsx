@@ -482,7 +482,16 @@ function FormFotoDiri({ setLangkah, user, error, clearFormError, setError }) {
         <p>Foto ini akan ditampilkan secara umum</p>
 
         <div className="w-full aspect-[9/10] bg-neutral-200 rounded-xl flex relative items-center justify-center overflow-hidden shadow-lg shadow-black/20">
-          {src ? <img src={src} alt="" width={999} height={999} className="absolute inset-0 object-cover h-full w-full" /> : <></>}
+          {src ? <img
+            src={src}
+            alt=""
+            width={999}
+            height={999}
+            className="absolute inset-0 object-cover h-full w-full"
+            onError={() => {
+              setSrc(undefined)
+            }}
+          /> : <></>}
           <input
             id="imageupload"
             className="image-upload"
@@ -491,9 +500,7 @@ function FormFotoDiri({ setLangkah, user, error, clearFormError, setError }) {
             accept="image/jpeg, image/png, image/webp, image/gif, image/avif, image/tiff"
             hidden
             ref={inputRef}
-            onError={() => {
-              setSrc("")
-            }}
+
             onChange={async (e) => {
               console.log(e.currentTarget.files[0])
               clearFormError()
@@ -619,9 +626,9 @@ function FormFotoKTP({ setLangkah, user, error, clearFormError, setError }) {
 
 function FormInputHarga({ setLangkah, user, error, clearFormError, setError }) {
 
-  const [hargaPerJam, setHargaPerJam] = useState(false)
-  const [hargaHarian, setHargaHarian] = useState(false)
-  const [hargaBulanan, setHargaBulanan] = useState(false)
+  const [hargaPerJam, setHargaPerJam] = useState(!!user.calonMitra.pricePerHour)
+  const [hargaHarian, setHargaHarian] = useState(!!user.calonMitra.pricePerDay)
+  const [hargaBulanan, setHargaBulanan] = useState(!!user.calonMitra.pricePerMonth)
   const router = useRouter()
 
   return (
@@ -643,7 +650,7 @@ function FormInputHarga({ setLangkah, user, error, clearFormError, setError }) {
         await fetch("/api/daftar-mitra/selesai", {
           method: "POST",
         });
-        route.refresh();
+        router.refresh();
       }
     }}>
       <label htmlFor="tanggal-lahir" className="text-2xl">Harga jasa saya:</label>
@@ -660,7 +667,7 @@ function FormInputHarga({ setLangkah, user, error, clearFormError, setError }) {
                     id="harga-per-jam"
                     name="harga-per-jam"
                     min={0}
-                    defaultValue={0}
+                    defaultValue={user.calonMitra.pricePerHour ?? 0}
                     className="h-full outline-none grow text-black text-end flex-1"
                   />
                   <span className="text-neutral-600">
@@ -694,7 +701,7 @@ function FormInputHarga({ setLangkah, user, error, clearFormError, setError }) {
                     id="harga-per-hari"
                     name="harga-per-hari"
                     min={0}
-                    defaultValue={0}
+                    defaultValue={user.calonMitra.pricePerDay ?? 0}
                     className="outline-none flex-1 text-black text-end"
                   />
                   <span className="text-neutral-600">
@@ -728,7 +735,7 @@ function FormInputHarga({ setLangkah, user, error, clearFormError, setError }) {
                     id="harga-per-bulan"
                     name="harga-per-bulan"
                     min={0}
-                    defaultValue={0}
+                    defaultValue={user.calonMitra.pricePerMonth ?? 0}
                     className="outline-none flex-1 text-black text-end"
                   />
                   <span className="text-neutral-600">
