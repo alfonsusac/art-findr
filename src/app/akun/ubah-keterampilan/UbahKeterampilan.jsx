@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { definedListKeterampilan, FormKeterampilan, PhCheckCircleFill } from "../../DaftarMitra";
+import { definedListKeterampilan, FormKeterampilan, PhCheckCircleFill } from "../DaftarMitra";
 import { cn } from "@/lib/utils";
 
 

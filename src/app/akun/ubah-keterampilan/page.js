@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { UbahKeterampilan } from "./components/UbahKeterampilan";
+import { UbahKeterampilan } from "./UbahKeterampilan";
 import { getUserData } from "@/lib/auth";
 import Link from "next/link";
 import { FormKeterampilan } from "../DaftarMitra";
