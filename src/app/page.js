@@ -6,6 +6,7 @@ import { MitraFilterList, SearchMitra } from "./client";
 import { prisma } from "@/lib/prisma";
 import { getKotaKabupaten, getListKecamatan, getListKotaKabupaten, getListProvinsi } from "@/lib/wilayah";
 import { Footer } from "./footer";
+import { TextLogo } from "@/components/logo";
 export const dynamic = "force-dynamic";
 
 export default async function Home({ searchParams }) {
@@ -43,7 +44,7 @@ export default async function Home({ searchParams }) {
     <div className="flex flex-col min-h-screen ">
       <header className="h-14 flex ">
         <div className="content flex justify-between items-center p-4">
-          <div className="font-bold tracking-tight">CariART</div>
+          <TextLogo />
           <div className="">
             <Link
               href="/masuk"
