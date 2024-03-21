@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { getUserData } from "@/lib/auth";
+import { revalidatePath } from 'next/cache'
 
 export async function PATCH(request) {
   const userData = await getUserData(request);
@@ -18,6 +19,8 @@ export async function PATCH(request) {
         },
       },
     });
+    revalidatePath('/')
+    
     return NextResponse.json(
       { message: "Data berhasil dirubah", data: updatedUser },
       { status: 200 }

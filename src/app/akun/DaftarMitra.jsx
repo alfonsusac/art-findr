@@ -200,7 +200,7 @@ function DaftarMitraContent({ user }) {
   )
 }
 
-function FormKeterampilan({ setLangkah, user, error, clearFormError, setError }) {
+export function FormKeterampilan({ setLangkah, user, error, clearFormError, setError }) {
 
   const router = useRouter()
   const [extraKeterampilan, setExtraKeterampilan] = useState(user.calonMitra.expertises.filter(ket => !definedListKeterampilan.includes(ket)))
@@ -340,7 +340,8 @@ export function PhCheckCircleFill(props) {
   )
 }
 
-const definedListKeterampilan = [
+// TODO: pindahin ke /config
+export const definedListKeterampilan = [
   "Memasak",
   "Mencuci Manual ",
   "Mencuci (Mesin Cuci)",

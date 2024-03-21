@@ -138,7 +138,7 @@ export const DashboardMitra = ({
             )
           }
         </div>
-        <Link href={"/akun/ubah-expertise"} className="button text-lg py-3">
+        <Link href={"/akun/ubah-keterampilan"} className="button text-lg py-3">
           Ubah Keterampilan
         </Link>
       </section>
