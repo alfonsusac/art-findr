@@ -40,8 +40,9 @@ export const UbahKtp = ({ user }) => {
 
       <fieldset className="mt-2">
         <label htmlFor="tanggal-lahir" className="text-2xl">Foto KTP saya:</label>
-        <p>Foto ini akan digunakan untuk proses verifikasi dan tidak ditampilkan secara umum</p>
+        <div className="mb-4">Foto ini akan digunakan untuk proses verifikasi dan tidak ditampilkan secara umum</div>
 
+        <div>Pencet gambar untuk mengubah gambar</div>
         <div className="w-full aspect-[1000/631] bg-neutral-200 rounded-xl flex relative items-center justify-center overflow-hidden shadow-lg shadow-black/20">
           {src ? <img
             src={src}

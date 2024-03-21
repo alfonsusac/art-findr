@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { getUserData } from "@/lib/auth";
 import Link from "next/link";
 import { UbahKeterampilan } from "./UbahKeterampilan";
-import { BackToAkunPageButton } from "../component";
+import { BackToAkunPageButton, LayoutPenyetelanAkun } from "../component";
 
 export default async function UbahKeterampilanPage() {
   const userData = await getUserData();
@@ -10,15 +10,10 @@ export default async function UbahKeterampilanPage() {
   const expertises = userData.mitra.expertises;
 
   // console.log(userData);
-  return <>
-    <BackToAkunPageButton />
-    <div className="py-8">
-      <div className="text-xl font-semibold">Penyetelan</div>
-      <h3 className="text-4xl font-bold">Ubah Keterampilan</h3>
-    </div>
+  return <LayoutPenyetelanAkun title={"Ubah Keterampilan"}>
     <UbahKeterampilan
       expertises={expertises}
       user={userData}
     />
-  </>
+  </LayoutPenyetelanAkun>
 }

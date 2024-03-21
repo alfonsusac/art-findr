@@ -53,7 +53,7 @@ export const LoginForm = () => {
       }),
     }).then((res) => {
       if (res.ok) {
-        alert("OTP:" + otpValue + "generated in VerifikasiOtp table!");
+        alert("OTP: " + otpValue);
         setPhoneStep((step) => step + 1);
       } else {
         alert(res.status);

@@ -39,21 +39,22 @@ export default function DaftarMitra({ user }) {
   return (
     <>
       <button
-        className="button h-12 self-start text-base"
+        className="button h-12 self-start text-base bg-white"
         onClick={async () => {
-          // await fetch("/api/daftar-mitra/batal", { method: "DELETE" });
-          // route.refresh()
+          await fetch("/api/daftar-mitra/batal", { method: "DELETE" });
+          route.refresh()
         }}
       >
         {/* TODO: Alert: Proses ini akan menghapus semua data pendaftaran mitra */}
         Batal
       </button>
-      <div className="py-8">
-        <TextLogo />
-        <h3 className="text-4xl font-bold">Daftar Menjadi Mitra</h3>
+      <div className="py-8 text-white">
+        <h3 className="text-4xl font-bold my-2 mt-4">Daftar Menjadi Mitra</h3>
       </div>
 
-      <DaftarMitraContent user={user} />
+      <section className="card-section">
+        <DaftarMitraContent user={user} />
+      </section>
 
 
 

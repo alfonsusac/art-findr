@@ -1,8 +1,8 @@
 import { getUserData } from "@/lib/auth";
-import { UbahTglLahirBtn } from "./components/UbahTglLahir";
+import { UbahTglLahirBtn } from "./UbahTglLahir";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { BackToAkunPageButton } from "../component";
+import { BackToAkunPageButton, LayoutPenyetelanAkun } from "../component";
 
 export default async function UbahTglLahir() {
   const user = await getUserData();
@@ -11,13 +11,8 @@ export default async function UbahTglLahir() {
   const dateOfBirth = new Date(date).toISOString().split("T")[0];
 
   return (
-    <>
-      <BackToAkunPageButton />
-      <div className="py-8">
-        <div className="text-xl font-semibold">Penyetelan</div>
-        <h3 className="text-4xl font-bold">Ubah Tanggal Lahir</h3>
-      </div>
+    <LayoutPenyetelanAkun title={"Ubah Tanggal Lahir"}>
       <UbahTglLahirBtn dateOfBirth={dateOfBirth} user={user} />
-    </>
+    </LayoutPenyetelanAkun>
   );
 }

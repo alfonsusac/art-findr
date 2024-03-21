@@ -75,7 +75,7 @@ export const UbahTglLahirBtn = ({ dateOfBirth, user }) => {
         }
       </fieldset>
       <button className="button btn-primary w-full mt-8 text-xl h-14">
-        Selanjutnya
+        Simpan
       </button>
     </form>
   );

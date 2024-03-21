@@ -28,12 +28,13 @@ body {
   .button {
     @apply text-sm font-medium tracking-tight text-black
     px-5 py-2 rounded-lg
-    shadow-[inset_0_0_0_0.1rem_#0002]
+    shadow-[inset_0_0_0_0.1rem_#0002,inset_0_-0.1rem_0.1rem_0.1rem_#0002]
+    active:shadow-[inset_0_0_0_0.1rem_#0002,inset_0_0.1rem_0.1rem_0.1rem_#0002]
     transition-all duration-75
     outline
     outline-0 outline-neutral-500/10 
     hover:outline-[0.3rem]
-    flex items-center justify-center;
+    flex items-center justify-center
   }
 
   .btn-primary {
@@ -52,6 +53,9 @@ body {
     focus-within:outline-[0.3rem] 
     data-[error=true]:outline-[0.2rem]
     data-[error=true]:outline-red-300;
+  }
+  .card-section{
+    @apply bg-white -mx-6 rounded-3xl overflow-hidden p-8 flex flex-col gap-2 mb-4 shadow-md
   }
   /* .image-upload {
     &::before {

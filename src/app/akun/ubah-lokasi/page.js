@@ -1,5 +1,5 @@
 import React from "react";
-import { UbahLokasi } from "./components/UbahLokasi";
+import { UbahLokasi } from "./UbahLokasi";
 import { getUserData } from "@/lib/auth";
 import {
   getListProvinsi,
@@ -8,7 +8,7 @@ import {
 } from "@/lib/wilayah";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { BackToAkunPageButton } from "../component";
+import { BackToAkunPageButton, LayoutPenyetelanAkun } from "../component";
 
 
 export default async function ubahLokasiPage({ searchParams }) {
@@ -33,17 +33,14 @@ export default async function ubahLokasiPage({ searchParams }) {
 
   return (
     <>
-      <BackToAkunPageButton />
-      <div className="py-8">
-        <div className="text-xl font-semibold">Penyetelan</div>
-        <h3 className="text-4xl font-bold">Ubah Lokasi</h3>
-      </div>
-      <UbahLokasi
-        listProvinsi={await getListProvinsi()}
-        listKota={await getListKotaKabupaten(searchParams.provinsi)}
-        listKecamatan={await getListKecamatan(searchParams.kota)}
-        userData={userData}
-      />
+      <LayoutPenyetelanAkun title={"Ubah Lokasi"}>
+        <UbahLokasi
+          listProvinsi={await getListProvinsi()}
+          listKota={await getListKotaKabupaten(searchParams.provinsi)}
+          listKecamatan={await getListKecamatan(searchParams.kota)}
+          userData={userData}
+        />
+      </LayoutPenyetelanAkun>
     </>
   );
 }

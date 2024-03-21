@@ -42,7 +42,7 @@ export default function UbahFoto({ user }) {
 
       <fieldset className="mt-2">
         <label htmlFor="tanggal-lahir" className="text-2xl">Foto saya:</label>
-        <p>Tekan foto anda dibawah ini untuk mengubah foto diri anda. Foto ini akan ditampilkan secara umum</p>
+        <div className="mb-4">Tekan foto anda dibawah ini untuk mengubah foto diri anda. Foto ini akan ditampilkan secara umum</div>
         <div className="w-full aspect-[9/10] bg-neutral-200 rounded-xl flex relative items-center justify-center overflow-hidden shadow-lg shadow-black/20">
           {src ? <img src={src} alt="" width={999} height={999} className="absolute inset-0 object-cover h-full w-full" /> : <></>}
           <input
