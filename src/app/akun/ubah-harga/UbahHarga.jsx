@@ -82,7 +82,7 @@ export const UbahHarga = ({ considerations, user }) => {
                 </div>
                 <button className="button" onClick={() => {
                   setHargaPerJam(false)
-                }}>Hapus Data Per Jam</button>
+                }}>Hapus Harga Per Jam</button>
               </fieldset>
               : <div
                 className="grow flex items-center justify-center bg-neutral-100 rounded-lg gap-2 hover:bg-neutral-200 cursor-pointer"
@@ -116,7 +116,7 @@ export const UbahHarga = ({ considerations, user }) => {
                 </div>
                 <button className="button" onClick={() => {
                   setHargaHarian(false)
-                }}>Hapus Data Harian</button>
+                }}>Hapus Harga Harian</button>
               </fieldset>
               : <div
                 className="grow flex items-center justify-center bg-neutral-100 rounded-lg gap-2 hover:bg-neutral-200 cursor-pointer"
@@ -150,7 +150,7 @@ export const UbahHarga = ({ considerations, user }) => {
                 </div>
                 <button className="button" onClick={() => {
                   setHargaBulanan(false)
-                }}>Hapus Data Bulanan</button>
+                }}>Hapus Harga Bulanan</button>
               </fieldset>
               : <div
                 className="w-full h-36 flex items-center justify-center bg-neutral-100 rounded-lg gap-2 hover:bg-neutral-200 cursor-pointer"
