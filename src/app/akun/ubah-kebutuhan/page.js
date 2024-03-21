@@ -3,6 +3,7 @@ import { getUserData } from "@/lib/auth";
 
 export default async function UbahKeterampilanPage() {
   const userData = await getUserData();
-  const considerations = userData?.mitra?.considerations;
+  if (!userData.mitra) redirect("/akun");
+  const considerations = userData.mitra.considerations;
   return <UbahKebutuhan considerations={considerations} />;
 }

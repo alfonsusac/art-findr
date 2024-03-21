@@ -30,16 +30,14 @@ export default async function Home({ searchParams }) {
     (m) => m.mitra && m.mitra.status === "Tersedia"
   );
 
+  // TODO: pindahin ke server component sendiri. this is too messy
   // For Mitra Image. Create an object where the keys are the mitra phoneNumber and the values are the URLs.
-  const mitraIdUrlMap = await availableMitra.reduce(async (accPromise, m) => {
-    const acc = await accPromise;
-    const url = await getURLfotoDiri(m.phoneNumber);
-    acc[m.phoneNumber] = url;
-    return acc;
+  const mitraIdUrlMap = await availableMitra.reduce(async (urlMapPromise, mitra) => {
+    const urlMap = await urlMapPromise 
+    const url = await getURLfotoDiri(mitra.id);
+    urlMap[mitra.id] = url;
+    return urlMap;
   }, Promise.resolve({}));
-
-  // const listProv = await getListKotaKabupaten(searchParams.provinsi)
-  // console.log("prov", listProv)
 
   return (
     <div className="flex flex-col min-h-screen ">

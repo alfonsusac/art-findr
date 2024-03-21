@@ -16,12 +16,18 @@ export async function getUserSession() {
 }
 
 /**
+ * @typedef {import("@prisma/client").User & {
+ *  calonMitra: import("@prisma/client").CalonMitra,
+ *  mitra: import("@prisma/client").Mitra
+ * }} UserComplete
+ */
+/**
  * 
  * @param {{
  *   redirectIfNoSession?: boolean
  *   redirectIfNoData?: boolean
  * }} [opts] 
- * @returns {Promise<import("@prisma/client").User>}
+ * @returns {Promise<UserComplete>}
  */
 export async function getUserData(opts) {
   const session = await getServerSession(authOptions)
