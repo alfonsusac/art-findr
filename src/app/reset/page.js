@@ -32,3 +32,5 @@ export default async function ResetPage() {
   
   redirect('/')
 }
+
+export const dynamic = "force-dynamic"
