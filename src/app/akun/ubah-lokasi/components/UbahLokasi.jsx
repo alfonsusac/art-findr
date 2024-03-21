@@ -18,21 +18,8 @@ export const UbahLokasi = ({
 }) => {
   const router = useRouter();
   return (
-    <div className="bg-gray-800 text-white p-4 rounded-lg max-w-md mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <Link href="/akun">Batal{"\n          "}</Link>
-      </div>
-      <h1 className="text-3xl font-bold mb-4">Ubah Lokasi</h1>
-      <div className="mb-4">
-        <h2 className="font-semibold mb-2">Lokasi</h2>
-      </div>
+    <>
       <div className="mb-6 text-black space-y-2">
-        <div className="text-white">
-          <h2>Previous location</h2>
-          <p>Provinsi : {userData?.location?.provinsi}</p>
-          <p>Kota/Kab : {userData?.location?.kota}</p>
-          <p>Kecamatan : {userData?.location?.kecamatan}</p>
-        </div>
         <form
           action={async (formData) => {
             const provinsiValue = formData.get("provinsi").split("|")[1];
@@ -74,30 +61,30 @@ export const UbahLokasi = ({
             }
           }}
         >
-          <label>Lokasi</label>
+          <label className="text-xl">Lokasi Saya</label>
           <SelectProvinsi
             name={"provinsi"}
-            className="w-full"
+            className="w-full text-lg h-14 my-2"
             listProvinsi={listProvinsi}
           />
           <SelectKotaKabupaten
             name={"kota"}
-            className="w-full"
+            className="w-full text-lg h-14 my-2"
             listKota={listKota}
           />
           <SelectKecamatan
             name={"kecamatan"}
-            className="w-full"
+            className="w-full text-lg h-14 my-2"
             listKecamatan={listKecamatan}
           />
           <button
-            className="w-full bg-blue-600 hover:bg-blue-700"
+            className="button btn-primary w-full text-lg h-14"
             type="submit"
           >
             Simpan
           </button>
         </form>
       </div>
-    </div>
+    </>
   );
 };

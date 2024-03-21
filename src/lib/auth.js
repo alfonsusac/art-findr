@@ -18,7 +18,8 @@ export async function getUserSession() {
 /**
  * @typedef {import("@prisma/client").User & {
  *  calonMitra: import("@prisma/client").CalonMitra,
- *  mitra: import("@prisma/client").Mitra
+ *  mitra: import("@prisma/client").Mitra,
+ *  location: import("@prisma/client").SeekerAddress,
  * }} UserComplete
  */
 /**

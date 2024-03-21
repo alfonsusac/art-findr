@@ -2,7 +2,6 @@ import React from "react";
 import { UbahNama } from "./components/UbahNama";
 import { getUserData } from "@/lib/auth";
 import Link from "next/link";
-import { TextLogo } from "@/components/logo";
 
 export default async function ubahNamaPage() {
   const userData = await getUserData();
@@ -12,7 +11,6 @@ export default async function ubahNamaPage() {
     </Link>
     <div className="py-8">
       <div className="text-xl font-semibold">Penyetelan</div>
-      {/* <TextLogo /> */}
       <h3 className="text-4xl font-bold">Ubah Nama Lengkap</h3>
     </div>
     <UbahNama userData={userData} />

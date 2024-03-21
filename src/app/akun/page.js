@@ -34,7 +34,6 @@ export default async function pageAkun() {
   if (!userData.calonMitra) {
     return (
       <>
-
         <DashboardRegular
           uid={userData.id}
           fullName={userData.fullName}
