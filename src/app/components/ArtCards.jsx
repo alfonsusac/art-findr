@@ -8,7 +8,14 @@ import Image from "next/image";
 import { ArtCardItem } from "../ArtCardItem";
 import { cn } from "@/lib/utils";
 
-export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
+export const ArtCards = ({
+  session,
+  availableMitra,
+  mitraIdUrlMap,
+  allProvinsi,
+  listKota,
+  listKecamatan,
+}) => {
   const [id, setId] = useQueryState("id");
   const [keahlianFilter, setKeahlianFilter] = useQueryState("keahlian");
   const [provinsiFilter, setProvinsiFilter] = useQueryState("provinsi");
@@ -24,19 +31,19 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
         user.mitra.expertises.includes(keahlianFilter)
       );
     }
-    if (provinsiFilter) {
+    if (provinsiFilter && allProvinsi) {
       filteredMitra = filteredMitra.filter(
-        (user) => user.location.provinsi === provinsiFilter
+        (user) => user.location.provinsi === allProvinsi.find(item => item.code === provinsiFilter)?.name ?? ""
       );
     }
-    if (kotaFilter) {
+    if (kotaFilter && listKota) {
       filteredMitra = filteredMitra.filter(
-        (user) => user.location.kota === kotaFilter
+        (user) => user.location.kota === listKota.find(item => item.code === kotaFilter)?.name ?? ""
       );
     }
-    if (kecamatanFilter) {
+    if (kecamatanFilter && listKecamatan) {
       filteredMitra = filteredMitra.filter(
-        (user) => user.location.kecamatan === kecamatanFilter
+        (user) => user.location.kecamatan === listKecamatan.find(item => item.code === kecamatanFilter)?.name ?? ""
       );
     }
     if (menginapFilter !== null) {
@@ -45,14 +52,7 @@ export const ArtCards = ({ session, availableMitra, mitraIdUrlMap }) => {
       );
     }
     setFilteredMitra(filteredMitra);
-  }, [
-    keahlianFilter,
-    provinsiFilter,
-    kotaFilter,
-    kecamatanFilter,
-    availableMitra,
-    menginapFilter,
-  ]);
+  }, [keahlianFilter, provinsiFilter, kotaFilter, kecamatanFilter, availableMitra, menginapFilter, allProvinsi, listKota, listKecamatan]);
 
   if (id) {
     /**

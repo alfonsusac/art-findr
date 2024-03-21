@@ -5,6 +5,8 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export const SingleArtCards = ({ user, session, imageUrl }) => {
+  const [id, setId] = useQueryState("id");
+
   return user ? (
     <div className={cn(
       "flex flex-col items-center gap-2 mb-8",
@@ -13,7 +15,12 @@ export const SingleArtCards = ({ user, session, imageUrl }) => {
     )}>
       <div className="max-w-screen-sm w-full">
 
-        <Link href="/">Back</Link>
+        <button
+          className="button"
+          onClick={() => {
+            setId(null)
+          }}
+        >Back</button>
  
         <div className="flex flex-col md:flex-row gap-8">
           <div className="bg-neutral-300 aspect-[9/12] max-w-xs w-full rounded-xl object-cover relative">

@@ -20,8 +20,9 @@ export function ArtCardItem({ user, onClick, imageUrl, session, selected }) {
     <div
       className={cn(
         "flex flex-col gap-3 mb-8",
-        "hover:bg-neutral-100 bg-white rounded-xl p-2",
-        "pointer-events-auto", 
+        "bg-white rounded-xl p-2",
+        "group",
+        "pointer-events-auto",
         "cursor-pointer",
         // selected && "absolute inset-0 mb-0 rounded-none"
       )}
@@ -31,37 +32,17 @@ export function ArtCardItem({ user, onClick, imageUrl, session, selected }) {
       {/* {
         selected && <button>Back</button>
       } */}
-      <div className="bg-neutral-300 aspect-[9/12] rounded-xl object-cover relative">
+      <div className="bg-neutral-300 aspect-[9/12] rounded-xl object-cover relative group-hover:shadow-xl transition-all duration-300">
         <Image
           className="bg-neutral-300 aspect-[9/12] rounded-xl object-cover"
           src={imageUrl} fill unoptimized alt="Mitra ART"
         />
       </div>
       <div className="flex flex-col">
-        <div className="text-lg font-semibold">{user.fullName}</div>
-        <div>
-          Lokasi: {user?.location?.kecamatan}, {user?.location?.kota},
+        <div className="text-lg font-semibold leading-tight mb-2 my-1">{user.fullName}</div>
+        <div className="leading-tight">
+          {user?.location?.kecamatan}, {user?.location?.kota},
           {user?.location?.provinsi}
-        </div>
-        {session ? (
-          <>
-            {/* <div>Keahlian: {user.mitra.expertises.join(", ")}</div> */}
-            {/* <div>Kebutuhan: {user.mitra.considerations.join(", ")}</div> */}
-            {user.mitra.pricePerHour && <div>Rp{user.mitra.pricePerHour}/jam</div>}
-            {user.mitra.pricePerDay && <div>Rp{user.mitra.pricePerDay}/hari</div>}
-            {user.mitra.pricePerMonth && <div>Rp{user.mitra.pricePerMonth}/bulan</div>}
-            <div>
-              {user.mitra.allowOvernight ? "Bisa Menginap" : "Tidak bisa menginap"}
-            </div>
-          </>
-        ) : (
-          <div>
-            Harga:{" "}
-            <Link href="/masuk">Login untuk melihat lebih detail</Link>
-          </div>
-        )}
-        <div>
-          Umur {new Date().getFullYear() - new Date(user.mitra.dateOfBirth).getFullYear()} tahun
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ export function SearchMitra() {
   });
   return (
     <input
-      placeholder="Search"
+      placeholder="Cari Keterampilan..."
       className="block grow outline-none"
       value={search || ""}
       onChange={(e) => {

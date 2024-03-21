@@ -92,6 +92,9 @@ export default async function Home({ searchParams }) {
             session={session}
             availableMitra={availableMitra}
             mitraIdUrlMap={mitraIdUrlMap}
+            allProvinsi={await getListProvinsi()}
+            listKota={await getListKotaKabupaten(searchParams.provinsi)}
+            listKecamatan={await getListKecamatan(searchParams.kota)}
           />
         </section>
         {/* <section className="">
