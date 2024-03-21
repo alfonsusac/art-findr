@@ -18,12 +18,7 @@ export default async function UbahTglLahir() {
         <div className="text-xl font-semibold">Penyetelan</div>
         <h3 className="text-4xl font-bold">Ubah Tanggal Lahir</h3>
       </div>
-      <div className="w-full max-w-md mb-4">
-        <label className="block text-lg mb-2" htmlFor="birthdate">
-          Tanggal Lahir Saya:
-        </label>
-        <UbahTglLahirBtn dateOfBirth={dateOfBirth} />
-      </div>
+      <UbahTglLahirBtn dateOfBirth={dateOfBirth} user={user} />
     </>
   );
 }
