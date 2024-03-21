@@ -62,7 +62,6 @@ export const authOptions = {
   ],
   callbacks: {
     jwt({ user, token }) {
-      console.log("User", user);
       // Only store email or phoneNumber in the JWT
       return {
         email: user ? user.email : token.email,
