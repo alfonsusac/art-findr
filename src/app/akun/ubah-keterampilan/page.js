@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
-import { UbahKeterampilan } from "./UbahKeterampilan";
 import { getUserData } from "@/lib/auth";
 import Link from "next/link";
-import { FormKeterampilan } from "../DaftarMitra";
+import { UbahKeterampilan } from "./UbahKeterampilan";
 
 export default async function UbahKeterampilanPage() {
   const userData = await getUserData();
