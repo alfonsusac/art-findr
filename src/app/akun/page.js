@@ -4,6 +4,7 @@ import { getUserData } from "@/lib/auth";
 import { DashboardRegular } from "./DashboardRegular";
 import { DashboardMitra } from "./DashboardMitra";
 import DaftarMitra from "./DaftarMitra";
+import { getURLfotoDiri, getURLfotoKTP } from "@/lib/link-foto";
 
 
 export default async function pageAkun() {
@@ -12,7 +13,11 @@ export default async function pageAkun() {
     redirectIfNoSession: true,
   });
 
+
   if (userData.mitra) {
+    const urlFotoDiri = await getURLfotoDiri(userData.id)
+    const urlFotoKTP = await getURLfotoKTP(userData.id)
+
     return <DashboardMitra
       mitra={userData.mitra}
       uid={userData.id}
@@ -21,6 +26,8 @@ export default async function pageAkun() {
       email={userData.email}
       province={userData.location.provinsi}
       city={userData.location.kota}
+      urlFotoDiri={urlFotoDiri}
+      urlFotoKTP={urlFotoKTP}
     />;
   }
 

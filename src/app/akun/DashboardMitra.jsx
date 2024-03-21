@@ -10,7 +10,18 @@ import toast from "react-hot-toast"
 import { useRouter } from "next/navigation";
 
 
-export const DashboardMitra = ({ mitra, uid, fullName, email, phoneNumber, city, province }) => {
+export const DashboardMitra = ({
+  mitra,
+  uid,
+  fullName,
+  email,
+  phoneNumber,
+  city,
+  province,
+  urlFotoDiri,
+  urlFotoKTP,
+
+}) => {
   const router = useRouter()
   return (
     <>
@@ -218,8 +229,8 @@ export const DashboardMitra = ({ mitra, uid, fullName, email, phoneNumber, city,
 
       <section className="py-4">
         <div className="pl-1 py-1 font-semibold mb-2 text-2xl mt-4">Foto Anda</div>
-        <div className="text-2xl mb-4">
-
+        <div className="text-2xl mb-4 w-full aspect-[9/10] relative rounded-xl overflow-hidden shadow-lg shadow-black/20">
+          <img src={urlFotoDiri} alt="" width={999} height={999} className="absolute inset-0 object-cover h-full w-full" />
         </div>
         <Link href={"/akun/ubah-foto-diri"} className="button text-lg py-3">
           Ubah Foto Diri
@@ -229,8 +240,8 @@ export const DashboardMitra = ({ mitra, uid, fullName, email, phoneNumber, city,
 
       <section className="py-4">
         <div className="pl-1 py-1 font-semibold mb-2 text-2xl mt-4">Foto KTP Anda</div>
-        <div className="text-2xl mb-4">
-
+        <div className="text-2xl mb-4 w-full aspect-[1000/631] relative rounded-xl overflow-hidden shadow-lg shadow-black/20">
+          <img src={urlFotoKTP} alt="" width={999} height={999} className="absolute inset-0 object-cover h-full w-full" />
         </div>
         <Link href={"/akun/ubah-foto-ktp"} className="button text-lg py-3">
           Ubah Foto KTP
@@ -238,12 +249,12 @@ export const DashboardMitra = ({ mitra, uid, fullName, email, phoneNumber, city,
       </section>
 
       <button
-        className="button h-14 text-xl w-full"
+        className="button h-14  my-8 text-xl w-full"
         onClick={() => {
           signOut();
         }}
       >
-        Keluar
+        Keluar Dari Aplikasi
       </button>
 
       <div className="mb-24"/>
