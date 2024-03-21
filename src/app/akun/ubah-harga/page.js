@@ -1,5 +1,6 @@
 import { getUserData } from "@/lib/auth";
 import Link from "next/link";
+import { UbahHarga } from "./UbahHarga";
 
 export default async function UbahHargaPage() {
   const userData = await getUserData();
@@ -13,6 +14,6 @@ export default async function UbahHargaPage() {
       <div className="text-xl font-semibold">Penyetelan</div>
       <h3 className="text-4xl font-bold">Ubah Harga</h3>
     </div>
-    {/* <UbahKebutuhan harga={harga} /> */}
+    <UbahHarga user={userData} />
   </>
 }

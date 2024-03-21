@@ -168,7 +168,7 @@ export const DashboardMitra = ({
                 ?
                 <div className="text-2xl flex gap-1">
                   <span className="text-neutral-500">Rp.</span>
-                  <span className="font-bold">{Number(30000).toLocaleString()}</span>
+                  <span className="font-bold">{Number(mitra.pricePerHour).toLocaleString()}</span>
                   <span className="text-primary font-semibold">/jam</span>
                 </div>
                 :
@@ -185,7 +185,7 @@ export const DashboardMitra = ({
                 ?
                 <div className="text-2xl flex gap-1">
                   <span className="text-neutral-500">Rp.</span>
-                  <span className="font-bold">{Number(300000).toLocaleString()}</span>
+                  <span className="font-bold">{Number(mitra.pricePerDay).toLocaleString()}</span>
                   <span className="text-primary font-semibold">/hari</span>
                 </div>
                 :
