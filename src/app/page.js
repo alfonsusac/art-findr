@@ -66,23 +66,27 @@ export default async function Home({ searchParams }) {
       </header>
 
       <main className=" grow">
-        <section className="min-h-40 my-4 flex items-end rounded-b-[3rem]">
-          <div className="content flex flex-col gap-4 items-center justify-center text-center">
-            <h1 className="text-3xl font-bold tracking-tight px-12">
-              Cari ART Sesuai Kebutuhanmu
+        <section className="my-0 flex items-end rounded-b-[3rem]">
+          <div className="content flex flex-col gap-2 items-center justify-center text-center">
+            <h1 className="text-xl font-bold tracking-tight px-12">
+              Cari <span class="text-primary">ART</span> Sesuai Kebutuhanmu
             </h1>
             <div className="w-96 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
               <SearchMitra />
+              <div className="aspect-square h-9 w-9 -my-1 bg-primary text-white rounded-full flex items-center justify-center -mr-3">
+                <PhMagnifyingGlassBold className="text-lg" />
+              </div>
             </div>
           </div>
         </section>
-        <section className="bg-primary/10 mb-12 flex overflow-auto">
+        <section className="flex overflow-auto">
           <MitraFilterList
             allProvinsi={await getListProvinsi()}
             listKota={await getListKotaKabupaten(searchParams.provinsi)}
             listKecamatan={await getListKecamatan(searchParams.kota)}
           />
         </section>
+        <hr className="mb-2"/>
         <section className="">
           <ArtCards
             session={session}
@@ -90,11 +94,19 @@ export default async function Home({ searchParams }) {
             mitraIdUrlMap={mitraIdUrlMap}
           />
         </section>
-        <section className="">
+        {/* <section className="">
           <Link href="/daftar">Daftar jadi Mitra</Link>
-        </section>
+        </section> */}
       </main>
       <Footer />
     </div>
   );
+}
+
+
+
+export function PhMagnifyingGlassBold(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" {...props}><path fill="currentColor" d="M232.49 215.51L185 168a92.12 92.12 0 1 0-17 17l47.53 47.54a12 12 0 0 0 17-17ZM44 112a68 68 0 1 1 68 68a68.07 68.07 0 0 1-68-68"></path></svg>
+  )
 }

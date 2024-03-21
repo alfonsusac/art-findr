@@ -1,13 +1,15 @@
+import { TextLogo } from "@/components/logo";
+
 export function Footer() {
   return (
-    <footer className="bg-blue-100 min-h-48 flex">
+    <footer className="bg-primary/20 min-h-48 flex">
       <div className="content flex flex-col">
         <div className="content p-8 flex justify-between grow">
           <div className="">
-            <div className="font-bold tracking-tight">CariART</div>
+            <TextLogo />
           </div>
           <div className="text-end flex flex-col gap-2">
-            <div className="text-blue-900/60">Company</div>
+            <div className="text-primary font-semibold">Company</div>
             <div>About us</div>
             <div>Blog</div>
             <div>Careers</div>
@@ -15,7 +17,7 @@ export function Footer() {
             <div>Partner with us</div>
           </div>
           <div className="text-end flex flex-col gap-2">
-            <div className="text-blue-900/60">Resources</div>
+            <div className="text-primary font-semibold">Resources</div>
             <div>Help center</div>
             <div>Contact support</div>
             <div>Community</div>
@@ -23,9 +25,9 @@ export function Footer() {
             <div>For Seekers</div>
           </div>
         </div>
-        <div className="flex justify-between py-5 border-t border-blue-900/20 text-sm mx-8">
+        <div className="flex justify-between py-5 border-t border-black/20 text-sm mx-8">
           <div className="flex gap-2">
-            <div>© 2024 CariART, Inc.</div>
+            <div>© 2024 Hackhive</div>
             <div>·</div>
             <div>Privacy</div>
             <div>Terms</div>

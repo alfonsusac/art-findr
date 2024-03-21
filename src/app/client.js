@@ -11,7 +11,7 @@ export function SearchMitra() {
   return (
     <input
       placeholder="Search"
-      className="block w-full outline-none"
+      className="block grow outline-none"
       value={search || ""}
       onChange={(e) => {
         setSearch(e.target.value);
@@ -19,6 +19,7 @@ export function SearchMitra() {
     />
   );
 }
+
 
 
 /**
@@ -43,7 +44,7 @@ export function MitraFilterList({
 
   return (
     <div className={cn(
-      "flex flex-col flex-wrap items-center justify-start mx-auto p-4 gap-4",
+      "flex flex-row flex-wrap items-center justify-start mx-auto p-4 gap-4",
     )}>
       <div className="flex flex-wrap gap-2">
         <Select
