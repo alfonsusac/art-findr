@@ -34,7 +34,7 @@ export default async function Home({ searchParams }) {
   // TODO: pindahin ke server component sendiri. this is too messy
   // For Mitra Image. Create an object where the keys are the mitra phoneNumber and the values are the URLs.
   const mitraIdUrlMap = await availableMitra.reduce(async (urlMapPromise, mitra) => {
-    const urlMap = await urlMapPromise 
+    const urlMap = await urlMapPromise
     const url = await getURLfotoDiri(mitra.id);
     urlMap[mitra.id] = url;
     return urlMap;
@@ -46,12 +46,21 @@ export default async function Home({ searchParams }) {
         <div className="content flex justify-between items-center p-4">
           <TextLogo />
           <div className="">
-            <Link
-              href="/masuk"
-              className="button btn-primary p-2 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
-            >
-              Masuk
-            </Link>
+            {
+              session
+                ? <Link
+                  href="/akun"
+                  className="button btn-primary p-2 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
+                >
+                  Akun Saya
+                </Link> :
+                <Link
+                  href="/masuk"
+                  className="button btn-primary p-2 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
+                >
+                  Masuk
+                </Link>
+            }
           </div>
         </div>
       </header>
