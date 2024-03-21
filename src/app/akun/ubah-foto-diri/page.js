@@ -1,5 +1,5 @@
 import React from "react";
-import UbahFoto from "./components/UbahFoto";
+import UbahFoto from "./UbahFoto";
 import Link from "next/link";
 import { getUserData } from "@/lib/auth";
 

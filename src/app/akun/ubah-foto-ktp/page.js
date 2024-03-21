@@ -1,8 +1,9 @@
 import React from "react";
-import { UbahKtp } from "./components/UbahKtp";
+import { UbahKtp } from "./UbahKtp";
 import Link from "next/link";
+import { getUserData } from "@/lib/auth";
 
-export default function UbahFotoKtp() {
+export default async function UbahFotoKtp() {
   return <>
     <Link href="/akun" className="button h-12 self-start text-base">
       {'<'} Kembali ke Akun Saya
@@ -11,6 +12,6 @@ export default function UbahFotoKtp() {
       <div className="text-xl font-semibold">Penyetelan</div>
       <h3 className="text-4xl font-bold">Ubah Foto KTP</h3>
     </div>
-    <UbahKtp />
+    <UbahKtp user={await getUserData()} />
   </>
 }
