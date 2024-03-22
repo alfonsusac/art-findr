@@ -3,13 +3,13 @@ import { redirect } from "next/navigation";
 
 export default async function ResetPage() {
 
-  if (process.env.NODE_ENV === "development") {
-    const deleteUser = prisma.user.deleteMany()
-    const deleteLocation = prisma.seekerAddress.deleteMany()
-    const deleteMitra = prisma.mitra.deleteMany()
-    const deleteCalonMitra = prisma.calonMitra.deleteMany()
-    await prisma.$transaction([deleteLocation, deleteCalonMitra, deleteMitra, deleteUser])
-  }
+  // if (process.env.NODE_ENV === "development") {
+  const deleteUser = prisma.user.deleteMany({ where: { id: { startsWith: 'seed' } } })
+  const deleteLocation = prisma.seekerAddress.deleteMany({ where: { userId: { startsWith: 'seed' } } })
+  const deleteMitra = prisma.mitra.deleteMany({ where: { userId: { startsWith: 'seed' } } })
+  const deleteCalonMitra = prisma.calonMitra.deleteMany({ where: { userId: { startsWith: 'seed' } } })
+  await prisma.$transaction([deleteLocation, deleteCalonMitra, deleteMitra, deleteUser])
+  // }
 
   // await prisma.user.create({ data: { id: `seed-${crypto.randomUUID()}`, fullName: "", email: "", phoneNumber: "", location: { create: { kecamatan: "Tanjung Priok", kota: "Kota Adm. Jakarta Utara", provinsi: "DKI Jakarta" } }, mitra: { create: { allowOvernight: true, dateOfBirth: new Date(Date.now()), status: "Tersedia", considerations: [], expertises: [], pricePerDay: 100000, pricePerMonth: 2000000, pricePerHour: 10000 } } } })
   await prisma.user.create({ data: { id: `seed-1`, fullName: "Budi Santoso", email: "budisantoso@example.com", phoneNumber: "081234567890", location: { create: { kecamatan: "Tanjung Priok", kota: "Kota Adm. Jakarta Utara", provinsi: "DKI Jakarta" } }, mitra: { create: { allowOvernight: true, dateOfBirth: new Date("1990-05-15"), status: "Tersedia", considerations: [], expertises: ["Pembangunan", "Desain Interior"], pricePerDay: 100000, pricePerMonth: 2000000, pricePerHour: 10000 } } } })
@@ -29,7 +29,7 @@ export default async function ResetPage() {
   await prisma.user.create({ data: { id: `seed-8`, fullName: "Hadi Nugroho", email: "hadinugroho@example.com", phoneNumber: "088901234567", location: { create: { kecamatan: "Cilincing", kota: "Kota Adm. Jakarta Utara", provinsi: "DKI Jakarta" } }, mitra: { create: { allowOvernight: true, dateOfBirth: new Date("1991-01-12"), status: "Tersedia", considerations: [], expertises: ["Desain Komunikasi Visual", "Pembuatan Video"], pricePerDay: 100000, pricePerMonth: 2000000, pricePerHour: 10000 } } } })
 
   await prisma.user.create({ data: { id: `seed-9`, fullName: "Rina Hartati", email: "rinahartati@example.com", phoneNumber: "089012345678", location: { create: { kecamatan: "Cilincing", kota: "Kota Adm. Jakarta Utara", provinsi: "DKI Jakarta" } }, mitra: { create: { allowOvernight: true, dateOfBirth: new Date("1984-06-22"), status: "Tersedia", considerations: [], expertises: ["Fotografi", "Desain Logo"], pricePerDay: 110000, pricePerMonth: 2200000, pricePerHour: 10500 } } } })
-  
+
   return redirect('/')
 }
 
