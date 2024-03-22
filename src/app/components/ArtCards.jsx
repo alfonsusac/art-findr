@@ -22,7 +22,7 @@ export const ArtCards = ({
   const [kotaFilter, setKotaFilter] = useQueryState("kota");
   const [kecamatanFilter, setKecamatanFilter] = useQueryState("kecamatan");
   const [menginapFilter, setMenginapFilter] = useQueryState("menginap");
-  const [filteredMitra, setFilteredMitra] = useState(availableMitra);
+  const [filteredMitra, setFilteredMitra] = useState(availableMitra)
 
   useEffect(() => {
     let filteredMitra = availableMitra;
