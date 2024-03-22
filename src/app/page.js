@@ -69,7 +69,7 @@ export default async function Home({ searchParams }) {
         <section className="my-0 flex items-end rounded-b-[3rem]">
           <div className="content flex flex-col gap-2 items-center justify-center text-center">
             <h1 className="text-xl font-bold tracking-tight px-12">
-              Cari <span class="text-primary">ART</span> Sesuai Kebutuhanmu
+              Cari <span className="text-primary">ART</span> Sesuai Kebutuhanmu
             </h1>
             <div className="w-96 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
               <SearchMitra />
