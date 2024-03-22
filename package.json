@@ -13,6 +13,7 @@
     "@aws-sdk/s3-request-presigner": "^3.535.0",
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.10.2",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@vercel/blob": "^0.22.1",

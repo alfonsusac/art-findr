@@ -27,7 +27,7 @@ export function ArtCardItem({ user, onClick, imageUrl, session, selected }) {
         // selected && "absolute inset-0 mb-0 rounded-none"
       )}
       key={user.id}
-      onClick={() => onClick(user.id)}
+      // onClick={() => onClick(user.id)}
     >
       {/* {
         selected && <button>Back</button>

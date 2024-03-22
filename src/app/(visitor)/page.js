@@ -1,12 +1,12 @@
-import { ArtCards } from "./components/ArtCards";
+import { ArtCards } from "../components/ArtCards";
 import { getUserSession } from "@/lib/auth";
-import Link from "next/link";
 import { getURLfotoDiri } from "@/lib/link-foto";
-import { MitraFilterList, SearchMitra } from "./client";
+import { MitraFilterList, SearchMitra } from "../client";
 import { prisma } from "@/lib/prisma";
-import { getKotaKabupaten, getListKecamatan, getListKotaKabupaten, getListProvinsi } from "@/lib/wilayah";
-import { Footer } from "./footer";
-import { TextLogo } from "@/components/logo";
+import { getListKecamatan, getListKotaKabupaten, getListProvinsi } from "@/lib/wilayah";
+import { Footer } from "../Footer";
+import { ARTdetailPage } from "../ArtDetailPage";
+import { Header } from "./Header";
 export const dynamic = "force-dynamic";
 
 export default async function Home({ searchParams }) {
@@ -41,30 +41,8 @@ export default async function Home({ searchParams }) {
   }, Promise.resolve({}));
 
   return (
-    <div className="flex flex-col min-h-screen ">
-      <header className="h-14 flex ">
-        <div className="content flex justify-between items-center p-4">
-          <TextLogo />
-          <div className="">
-            {
-              session
-                ? <Link
-                  href="/akun"
-                  className="button btn-primary p-2 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
-                >
-                  Akun Saya
-                </Link> :
-                <Link
-                  href="/masuk"
-                  className="button btn-primary p-2 px-5 border border-neutral-200 rounded-lg text-sm font-semibold"
-                >
-                  Masuk
-                </Link>
-            }
-          </div>
-        </div>
-      </header>
-
+    <>
+      <Header />
       <main className=" grow">
         <section className="my-0 flex items-end rounded-b-[3rem]">
           <div className="content flex flex-col gap-2 items-center justify-center text-center">
@@ -86,8 +64,8 @@ export default async function Home({ searchParams }) {
             listKecamatan={await getListKecamatan(searchParams.kota)}
           />
         </section>
-        <hr className="mb-2"/>
-        <section className="">
+        <section className="max-w-screen-xl mx-auto">
+          <ARTdetailPage />
           <ArtCards
             session={session}
             availableMitra={availableMitra}
@@ -97,12 +75,8 @@ export default async function Home({ searchParams }) {
             listKecamatan={await getListKecamatan(searchParams.kota)}
           />
         </section>
-        {/* <section className="">
-          <Link href="/daftar">Daftar jadi Mitra</Link>
-        </section> */}
       </main>
-      <Footer />
-    </div>
+    </>
   );
 }
 

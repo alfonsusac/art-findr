@@ -54,31 +54,31 @@ export const ArtCards = ({
     setFilteredMitra(filteredMitra);
   }, [keahlianFilter, provinsiFilter, kotaFilter, kecamatanFilter, availableMitra, menginapFilter, allProvinsi, listKota, listKecamatan]);
 
-  if (id) {
-    /**
-     * @type {import("@prisma/client").User}
-     */
-    const user = filteredMitra.find((user) => user.id === id);
-    return (
-      <SingleArtCards
-        user={user}
-        session={session}
-        imageUrl={mitraIdUrlMap[user.id]}
-      />
-    );
-  }
+  // if (id) {
+  //   /**
+  //    * @type {import("@prisma/client").User}
+  //    */
+  //   const user = filteredMitra.find((user) => user.id === id);
+  //   return (
+  //     <SingleArtCards
+  //       user={user}
+  //       session={session}
+  //       imageUrl={mitraIdUrlMap[user.id]}
+  //     />
+  //   );
+  // }
 
   // Get all unique expertises
-  const allExpertises = [
-    ...new Set(availableMitra.flatMap((user) => user.mitra.expertises)),
-  ];
+  // const allExpertises = [
+  //   ...new Set(availableMitra.flatMap((user) => user.mitra.expertises)),
+  // ];
 
   return (
-    <div className="flex flex-col items-center">
-      <div className={cn(
-        "bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-8"
-      )}>
-        {filteredMitra.map((user) => (
+    <div className={cn(
+      "bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-4"
+    )}>
+      {filteredMitra.map((user) => (
+        <a key={user.id} href={`/${user.id}`}>
           <ArtCardItem
             key={user.id}
             user={user}
@@ -87,8 +87,8 @@ export const ArtCards = ({
             session={session}
             selected={id === user.id}
           />
-        ))}
-      </div>
+        </a>
+      ))}
     </div>
   );
 };

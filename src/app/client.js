@@ -3,7 +3,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { cn } from "@/lib/utils";
 import { useQueryState } from "nuqs";
 
-export function SearchMitra() {
+export function SearchMitra({ className }) {
   const [search, setSearch] = useQueryState("search", {
     shallow: false,
     throttleMs: 1000,
