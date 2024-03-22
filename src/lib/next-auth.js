@@ -1,6 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { env, isDevelopment } from "./utils";
+import { prisma } from "./prisma";
 
 /**
 @type {import("next-auth").AuthOptions}
