@@ -1,44 +1,23 @@
 import { ArtCards } from "../components/ArtCards";
 import { getUserSession } from "@/lib/auth";
-import { getURLfotoDiri } from "@/lib/link-foto";
 import { MitraFilterList, SearchMitra } from "../client";
 import { prisma } from "@/lib/prisma";
 import { getListKecamatan, getListKotaKabupaten, getListProvinsi } from "@/lib/wilayah";
-import { Footer } from "../Footer";
-import { ARTdetailPage } from "../ArtDetailPage";
 import { Header } from "./Header";
+import { Suspense } from "react";
 export const dynamic = "force-dynamic";
 
 export default async function Home({ searchParams }) {
-  const session = await getUserSession();
-  const res = await prisma.user.findMany({
-    where: {
-      mitra: {
-        isNot: null,
-      },
-      fullName: {
-        contains: searchParams.search,
-      },
-    },
-    include: {
-      mitra: true,
-      location: true,
-    },
-  });
 
-  // Filter out the mitra objects where mitra is defined and its status is "Tersedia"
-  const availableMitra = res.filter(
-    (m) => m.mitra && m.mitra.status === "Tersedia"
-  );
 
   // TODO: pindahin ke server component sendiri. this is too messy
   // For Mitra Image. Create an object where the keys are the mitra phoneNumber and the values are the URLs.
-  const mitraIdUrlMap = await availableMitra.reduce(async (urlMapPromise, mitra) => {
-    const urlMap = await urlMapPromise
-    const url = await getURLfotoDiri(mitra.id);
-    urlMap[mitra.id] = url;
-    return urlMap;
-  }, Promise.resolve({}));
+  // const mitraIdUrlMap = await availableMitra.reduce(async (urlMapPromise, mitra) => {
+  //   const urlMap = await urlMapPromise
+  //   const url = await getURLfotoDiri(mitra.id);
+  //   urlMap[mitra.id] = url;
+  //   return urlMap;
+  // }, Promise.resolve({}));
 
   return (
     <>
@@ -65,21 +44,49 @@ export default async function Home({ searchParams }) {
           />
         </section>
         <section className="max-w-screen-xl mx-auto">
-          <ARTdetailPage />
-          <ArtCards
-            session={session}
-            availableMitra={availableMitra}
-            mitraIdUrlMap={mitraIdUrlMap}
-            allProvinsi={await getListProvinsi()}
-            listKota={await getListKotaKabupaten(searchParams.provinsi)}
-            listKecamatan={await getListKecamatan(searchParams.kota)}
-          />
+          <Suspense fallback={
+            <div className="w-full"></div>
+          }>
+            <ARTListServer searchParams={searchParams} />
+          </Suspense>
         </section>
       </main>
     </>
   );
 }
 
+async function ARTListServer({ searchParams }) {
+  const session = await getUserSession();
+  const res = await prisma.user.findMany({
+    where: {
+      mitra: {
+        isNot: null,
+      },
+      fullName: {
+        contains: searchParams.search,
+      },
+    },
+    include: {
+      mitra: true,
+      location: true,
+    },
+  });
+
+  // Filter out the mitra objects where mitra is defined and its status is "Tersedia"
+  const availableMitra = res.filter(
+    (m) => m.mitra && m.mitra.status === "Tersedia"
+  );
+
+  return (
+    <ArtCards
+      session={session}
+      availableMitra={availableMitra}
+      allProvinsi={await getListProvinsi()}
+      listKota={await getListKotaKabupaten(searchParams.provinsi)}
+      listKecamatan={await getListKecamatan(searchParams.kota)}
+    />
+  )
+}
 
 
 export function PhMagnifyingGlassBold(props) {

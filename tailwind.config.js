@@ -18,7 +18,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        'primary': '#28ad97'
+        'primary': '#06A285'
       },
       keyframes: {
         "accordion-down": {

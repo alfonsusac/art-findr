@@ -1,17 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useQueryState } from "nuqs";
-import { SingleArtCards } from "./SingleArtCard";
-import Image from "next/image";
 import { ArtCardItem } from "../ArtCardItem";
 import { cn } from "@/lib/utils";
 
 export const ArtCards = ({
   session,
   availableMitra,
-  // mitraIdUrlMap,
   allProvinsi,
   listKota,
   listKecamatan,

@@ -48,13 +48,14 @@ export function MitraFilterList({
     )}>
       <div className="flex flex-wrap gap-2">
         <Select
+          name="Seleksi Provinsi"
           className=""
           value={provinsiFilter ?? undefined} onValueChange={(value) => {
             setProvinsiFilter(value)
             setKotaFilter(null)
             setKecamatanFilter(null)
           }}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px]" title="Seleksi Provinsi">
             <SelectValue placeholder="Pilih Provinsi" />
           </SelectTrigger>
           <SelectContent>
@@ -65,11 +66,13 @@ export function MitraFilterList({
             ))}
           </SelectContent>
         </Select>
-        <Select value={kotaFilter ?? undefined} disabled={!listKota} onValueChange={(value) => {
-          setKotaFilter(value)
-          setKecamatanFilter(null)
-        }}>
-          <SelectTrigger className="w-[180px]">
+        <Select
+          name="Seleksi Kota/Kabupaten"
+          value={kotaFilter ?? undefined} disabled={!listKota} onValueChange={(value) => {
+            setKotaFilter(value)
+            setKecamatanFilter(null)
+          }}>
+          <SelectTrigger className="w-[180px]" title="Seleksi Kecamatan">
             <SelectValue placeholder="Pilih Kota" />
           </SelectTrigger>
           <SelectContent>
@@ -80,10 +83,12 @@ export function MitraFilterList({
             ))}
           </SelectContent>
         </Select>
-        <Select value={kecamatanFilter ?? undefined} disabled={!listKecamatan} onValueChange={(value) => {
-          setKecamatanFilter(value)
-        }}>
-          <SelectTrigger className="w-[180px]">
+        <Select
+          name="Seleksi Kota Kecamatan"
+          value={kecamatanFilter ?? undefined} disabled={!listKecamatan} onValueChange={(value) => {
+            setKecamatanFilter(value)
+          }}>
+          <SelectTrigger className="w-[180px]" title="Seleksi Kecamatan">
             <SelectValue placeholder="Pilih Kecamatan" />
           </SelectTrigger>
           <SelectContent>
@@ -106,14 +111,14 @@ export function MitraFilterList({
             }
           }}
         >
-          <SelectTrigger className="w-[180px]">
+          {/* <SelectTrigger className="w-[180px]" title="Seleksi Penginapan">
             <SelectValue placeholder="Pilih Penginapan" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="true">Bisa Menginap</SelectItem>
             <SelectItem value="false">Tidak Bisa Menginap</SelectItem>
             <SelectItem value="batalkan">Batalkan</SelectItem>
-          </SelectContent>
+          </SelectContent> */}
         </Select>
         <button
           className="button bg-white font-medium"
