@@ -2,7 +2,12 @@ import { ArtCards } from "../components/ArtCards";
 import { getUserSession } from "@/lib/auth";
 import { MitraFilterList, SearchMitra } from "../client";
 import { prisma } from "@/lib/prisma";
-import { getListKecamatan, getListKotaKabupaten, getListProvinsi } from "@/lib/wilayah";
+import {
+  getListKecamatan,
+  getListKotaKabupaten,
+  getListProvinsi,
+} from "@/lib/wilayah";
+import { ARTdetailPage } from "../ArtDetailPage";
 import { Header } from "./Header";
 import { Suspense } from "react";
 export const dynamic = "force-dynamic";
@@ -77,6 +82,18 @@ async function ARTListServer({ searchParams }) {
     (m) => m.mitra && m.mitra.status === "Tersedia"
   );
 
+  // TODO: pindahin ke server component sendiri. this is too messy
+  // For Mitra Image. Create an object where the keys are the mitra phoneNumber and the values are the URLs.
+  const mitraIdUrlMap = await availableMitra.reduce(
+    async (urlMapPromise, mitra) => {
+      const urlMap = await urlMapPromise;
+      const url = await getURLfotoDiri(mitra.id);
+      urlMap[mitra.id] = url;
+      return urlMap;
+    },
+    Promise.resolve({})
+  );
+
   return (
     <ArtCards
       session={session}
@@ -88,9 +105,19 @@ async function ARTListServer({ searchParams }) {
   )
 }
 
-
 export function PhMagnifyingGlassBold(props) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" {...props}><path fill="currentColor" d="M232.49 215.51L185 168a92.12 92.12 0 1 0-17 17l47.53 47.54a12 12 0 0 0 17-17ZM44 112a68 68 0 1 1 68 68a68.07 68.07 0 0 1-68-68"></path></svg>
-  )
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 256 256"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M232.49 215.51L185 168a92.12 92.12 0 1 0-17 17l47.53 47.54a12 12 0 0 0 17-17ZM44 112a68 68 0 1 1 68 68a68.07 68.07 0 0 1-68-68"
+      ></path>
+    </svg>
+  );
 }
