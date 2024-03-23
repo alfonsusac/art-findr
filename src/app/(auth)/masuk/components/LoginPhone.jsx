@@ -1,7 +1,10 @@
+import { Button } from "@/components/button";
+import { useLoading } from "@/components/useLoading";
 import { cn } from "@/lib/utils";
 import PhoneInput from "react-phone-number-input/react-hook-form-input";
 
 export const LoginPhone = ({ control, setPhoneNum, handleNext }) => {
+  const { loading, setLoading } = useLoading()
   return (
     <div className="flex flex-col gap-4">
       <p className="max-w-xs text-lg text-center">
@@ -24,13 +27,18 @@ export const LoginPhone = ({ control, setPhoneNum, handleNext }) => {
           className="px-2 h-14 bg-transparent text-lg focus-within:outline-none"
         />
       </div>
-      <button
+      <Button
         type="button"
-        onClick={handleNext}
+        onClick={() => {
+          setLoading(true)
+          handleNext()
+          setLoading(false)
+        }}
+        loading={loading}
         className="button btn-primary font-medium text-lg tracking-normal rounded-md text-white h-14"
       >
         Masuk
-      </button>
+      </Button>
     </div>
   );
 };

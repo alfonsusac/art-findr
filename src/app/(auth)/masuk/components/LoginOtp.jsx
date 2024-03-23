@@ -1,7 +1,9 @@
+import { Button } from "@/components/button";
+import { useLoading } from "@/components/useLoading";
 import { Controller } from "react-hook-form";
 import OtpInput from "react-otp-input";
 
-export const LoginOtp = ({ control }) => {
+export const LoginOtp = ({ control, formState }) => {
   return (
     <div className="flex flex-col gap-4 text-center w-full">
       <p className="text-lg">
@@ -39,9 +41,12 @@ export const LoginOtp = ({ control }) => {
           Kirim ulang
         </button> 👈
       </p>
-      <button type="submit" className="button btn-primary h-14 text-lg">
+      <Button
+        loading={formState.isSubmitting}
+        type="submit"
+        className="button btn-primary h-14 text-lg">
         Masuk
-      </button>
+      </Button>
     </div>
   );
 };

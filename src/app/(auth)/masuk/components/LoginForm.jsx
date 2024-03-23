@@ -68,6 +68,7 @@ export const LoginForm = () => {
       callbackUrl: "/akun",
     });
   };
+formState.isSubmitting
 
   const onError = (e) => {
     console.log(e);
@@ -93,7 +94,7 @@ export const LoginForm = () => {
       </section>
 
       <section className={phoneStep > 0 ? "block" : "hidden"}>
-        <LoginOtp control={control} />
+        <LoginOtp control={control} formState={formState} />
       </section>
     </form>
   );

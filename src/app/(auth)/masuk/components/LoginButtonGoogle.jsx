@@ -1,21 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import { signIn } from "next-auth/react";
+import { useLoading } from "@/components/useLoading";
+import { SvgSpinners270RingWithBg } from "@/app/akun/DaftarMitra";
+import { Button } from "@/components/button";
 
 export const LoginButtonGoogle = () => {
+  const { loading, setLoading } = useLoading()
   return (
-    <button
+    <Button
       onClick={() => {
+        setLoading(true)
         signIn("google");
       }}
-      // className="bg-rose-400 rounded-md text-white h-12 w-full"
+      loading={loading}
       className="button font-medium text-lg tracking-normal  h-14 w-full flex gap-2"
     >
       <LogosGoogleIcon /> Masuk dengan Google
-    </button>
+    </Button>
   );
 };
 

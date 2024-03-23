@@ -34,7 +34,7 @@ export function ArtCardItem({ user, onClick, imageUrl, session, selected }) {
       } */}
       <div className="bg-neutral-300 aspect-[3/4] rounded-xl object-cover relative group-hover:shadow-xl transition-all duration-300">
         <Image
-          className="bg-neutral-300 aspect-[3/4] rounded-xl object-cover"
+          className="bg-neutral-300 rounded-xl object-cover"
           src={imageUrl} fill unoptimized alt="Mitra ART"
         />
       </div>

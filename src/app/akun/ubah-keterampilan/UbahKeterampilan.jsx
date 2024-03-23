@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { definedListKeterampilan, FormKeterampilan, PhCheckCircleFill } from "../DaftarMitra";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
 
 
 export const UbahKeterampilan = ({ expertises, user }) => {
@@ -179,10 +180,9 @@ export const UbahKeterampilan = ({ expertises, user }) => {
         }}>Tambah keterampilan</button>
       </fieldset>
 
-
-      <button className="button btn-primary w-full mt-8 text-xl h-14">
+      <Button className="button btn-primary w-full mt-8 text-xl h-14">
         Simpan
-      </button>
+      </Button>
     </form>
   )
 }

@@ -3,6 +3,7 @@
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/button";
 
 export const UbahTglLahirBtn = ({ dateOfBirth, user }) => {
   const router = useRouter();
@@ -74,9 +75,11 @@ export const UbahTglLahirBtn = ({ dateOfBirth, user }) => {
           </div>
         }
       </fieldset>
-      <button className="button btn-primary w-full mt-8 text-xl h-14">
+      <Button
+        className="button btn-primary w-full mt-8 text-xl h-14"
+      >
         Simpan
-      </button>
+      </Button>
     </form>
   );
 };

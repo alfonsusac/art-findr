@@ -22,9 +22,10 @@ export default async function ArtPage({ params }) {
       <section className="max-w-screen-xl mx-auto  flex-1 mt-8">
         <div className="mx-4 flex flex-col lg:flex-row gap-8 items-center lg:items-start">
           <div className="flex-1  max-w-sm self-center lg:self-start w-4/5 flex flex-col gap-4">
+
             <img
               src={imgurl}
-              className=" aspect-[9/10] rounded-3xl object-cover"
+              className="aspect-[9/10] rounded-3xl object-cover"
             />
 
             {/* CTO Bar */}
@@ -36,7 +37,16 @@ export default async function ArtPage({ params }) {
             >
               <div>
                 <div className="leading-none">Mulai Dari</div>
-                <div className="text-2xl font-bold">Rp. 5.000.000 / jam</div>
+                {
+                  art.mitra.pricePerDay
+                    ? <div className="text-2xl font-bold">Rp. {art.mitra.pricePerHour.toLocaleString()} / jam</div>
+                    : art.mitra.pricePerHour
+                      ? <div className="text-2xl font-bold">Rp. {art.mitra.pricePerDay.toLocaleString()} / hari</div>
+                      : art.mitra.pricePerMonth
+                        ? <div className="text-2xl font-bold">Rp. {art.mitra.pricePerDay.toLocaleString()} / month</div>
+                        : <></>
+                }
+
               </div>
               <div className="flex gap-2 justify-stretch">
                 <button className="lg:hidden button text-lg flex-1">
@@ -51,7 +61,8 @@ export default async function ArtPage({ params }) {
 
           {/* Content */}
           <div
-            className="bg-white flex-1 flex-grow-[2] py-4 pb-20 px-4 w-full max-w-screen-md
+            className="
+            bg-white flex-1 flex-grow-[2] py-4 pb-20 px-4 w-full max-w-screen-md
           [&_h2]:text-2xl
           [&_h2]:font-semibold
           [&_h2]:mt-8
@@ -67,7 +78,7 @@ export default async function ArtPage({ params }) {
             </div>
             <div className="flex gap-2 my-2 items-center">
               <PhPersonFill className="text-neutral-400" />
-              <div>{ageMitra} years old</div>
+              <div>{ageMitra} tahun</div>
             </div>
             <div className="inline-flex p-2 px-3 text-lg rounded-md bg-emerald-500 text-white font-semibold leading-none mt-2">
               {art.mitra.status}

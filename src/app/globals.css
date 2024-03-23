@@ -35,6 +35,8 @@ body {
     outline-0 outline-neutral-500/10 
     hover:outline-[0.3rem]
     flex items-center justify-center
+    disabled:pointer-events-none
+    disabled:shadow-[inset_0_0_0_0.1rem_#0002]
   }
 
   .btn-primary {

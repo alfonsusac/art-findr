@@ -2,12 +2,16 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/button";
+import { useLoading } from "@/components/useLoading";
 
 export const UbahNama = ({ userData }) => {
   const route = useRouter();
   const [fullName, setFullName] = useState(userData.fullName);
+  const { loading, setLoading } = useLoading()
 
   async function handleUpdate() {
+    setLoading(true)
     const res = await fetch("/api/ubah-data-user", {
       method: "PATCH",
       headers: {
@@ -38,12 +42,13 @@ export const UbahNama = ({ userData }) => {
           />
         </form>
       </div>
-      <button
+      <Button
         className="button btn-primary w-full text-xl h-14 "
         onClick={handleUpdate}
+        loading={loading}
       >
         Simpan
-      </button>
+      </Button>
     </>
   );
 };

@@ -14,6 +14,7 @@ import { setFotodiri, setFotoKTP, setHarga, setKebutuhanKhusus, setKeterampilan,
 import { cn } from "@/lib/utils";
 import { uploadImage } from "@/lib/upload-client";
 import { getImageURL } from "@/lib/upload";
+import { Button } from "@/components/button";
 
 
 /**
@@ -38,7 +39,8 @@ export default function DaftarMitra({ user }) {
 
   return (
     <>
-      <button
+      <Button
+        onClickLoad
         className="button h-12 self-start text-base bg-white"
         onClick={async () => {
           await fetch("/api/daftar-mitra/batal", { method: "DELETE" });
@@ -47,7 +49,7 @@ export default function DaftarMitra({ user }) {
       >
         {/* TODO: Alert: Proses ini akan menghapus semua data pendaftaran mitra */}
         Batal
-      </button>
+      </Button>
       <div className="py-8 text-white">
         <h3 className="text-4xl font-bold my-2 mt-4">Daftar Menjadi Mitra</h3>
       </div>
@@ -55,24 +57,6 @@ export default function DaftarMitra({ user }) {
       <section className="card-section">
         <DaftarMitraContent user={user} />
       </section>
-
-
-
-      {/* <form action={handleSubmit} className="flex flex-col gap-4">
-        <InputTanggalLahir />
-        <InputKeterampilan
-          keterampilan={keterampilan}
-          setKeterampilan={setKeterampilan}
-        />
-        <InputKebutuhan
-          kebutuhan={kebutuhan}
-          setKebutuhan={setKebutuhan}
-        />
-        <InputHarga />
-        <InputFotoDiri />
-        <InputFotoKTP />
-        <button> Submit</button>
-      </form> */}
     </>
   );
 }
@@ -127,9 +111,9 @@ function DaftarMitraContent({ user }) {
           </div>
         }
       </fieldset>
-      <button className="button btn-primary w-full mt-8 text-xl h-14">
+      <Button className="button btn-primary w-full mt-8 text-xl h-14">
         Selanjutnya
-      </button>
+      </Button>
     </form>
   )
 
@@ -182,7 +166,7 @@ function DaftarMitraContent({ user }) {
         />
       }
 
-      {
+      {/* {
         langkah > 0 && <>
           <hr className="my-4" />
           <button
@@ -192,11 +176,7 @@ function DaftarMitraContent({ user }) {
             }}
           >Balik</button>
         </>
-      }
-      {
-
-      }
-
+      } */}
     </>
   )
 }
@@ -327,9 +307,9 @@ export function FormKeterampilan({ setLangkah, user, error, clearFormError, setE
       </fieldset>
 
 
-      <button className="button btn-primary w-full mt-8 text-xl h-14">
+      <Button className="button btn-primary w-full mt-8 text-xl h-14">
         Selanjutnya
-      </button>
+      </Button>
     </form>
   )
 }
@@ -439,9 +419,9 @@ function FormKebutuhanKhusus({ setLangkah, user, error, clearFormError, setError
           </div>
         }
       </fieldset>
-      <button className="button btn-primary w-full mt-8 text-xl h-14">
+      <Button className="button btn-primary w-full mt-8 text-xl h-14">
         Selanjutnya
-      </button>
+      </Button>
     </form>
   )
 }
@@ -545,9 +525,9 @@ function FormFotoDiri({ setLangkah, user, error, clearFormError, setError }) {
           </div>
         }
       </fieldset>
-      <button className="button btn-primary w-full mt-8 text-xl h-14">
+      <Button className="button btn-primary w-full mt-8 text-xl h-14">
         Selanjutnya
-      </button>
+      </Button>
     </form>
   )
 
@@ -651,9 +631,9 @@ function FormFotoKTP({ setLangkah, user, error, clearFormError, setError }) {
           </div>
         }
       </fieldset>
-      <button className="button btn-primary w-full mt-8 text-xl h-14">
+      <Button className="button btn-primary w-full mt-8 text-xl h-14">
         Selanjutnya
-      </button>
+      </Button>
     </form>
   )
 }
@@ -796,9 +776,9 @@ function FormInputHarga({ setLangkah, user, error, clearFormError, setError }) {
           </div>
         }
       </div>
-      <button className="button btn-primary w-full mt-8 text-xl h-14">
+      <Button className="button btn-primary w-full mt-8 text-xl h-14">
         Selesai
-      </button>
+      </Button>
     </form>
   )
 }

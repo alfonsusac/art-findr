@@ -9,6 +9,7 @@ import {
   SelectKotaKabupaten,
   SelectKecamatan,
 } from "@/components/wilayahSelect";
+import { Button } from "@/components/button";
 
 export const UbahLokasi = ({
   userData,
@@ -22,19 +23,19 @@ export const UbahLokasi = ({
       <form
         action={async (formData) => {
           const provinsiValue = formData.get("provinsi").split("|")[1];
-          if (!provinsiValue) {
-            toast.error("Mohon isi data provinsi");
-          }
+          // if (!provinsiValue) {
+          //   toast.error("Mohon isi data provinsi");
+          // }
 
           const kotaValue = formData.get("kota").split("|")[1];
-          if (!kotaValue) {
-            toast.error("Mohon isi data kota");
-          }
+          // if (!kotaValue) {
+          //   toast.error("Mohon isi data kota");
+          // }
 
           const kecamatanValue = formData.get("kecamatan").split("|")[1];
-          if (!kecamatanValue) {
-            toast.error("Mohon isi data kecamatan");
-          }
+          // if (!kecamatanValue) {
+          //   toast.error("Mohon isi data kecamatan");
+          // }
 
           const res = await fetch("/api/ubah-data-user", {
             method: "PATCH",
@@ -54,6 +55,7 @@ export const UbahLokasi = ({
 
           if (res.status === 200) {
             router.push("/akun");
+            router.refresh();
             toast.success(data.message);
           } else {
             toast.error(data.message);
@@ -76,12 +78,12 @@ export const UbahLokasi = ({
           className="w-full text-lg h-14 my-2"
           listKecamatan={listKecamatan}
         />
-        <button
+        <Button
           className="button btn-primary w-full text-lg h-14"
           type="submit"
         >
           Simpan
-        </button>
+        </Button>
       </form>
     </>
   );

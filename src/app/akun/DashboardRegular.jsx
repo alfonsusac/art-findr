@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { TextLogo } from "@/components/logo";
 import { PhArrowLeftBold } from "./DashboardMitra";
 import { BackToIndexPageButton } from "./component";
+import { Button } from "@/components/button";
 
 export const DashboardRegular = ({
   uid,
@@ -36,7 +37,7 @@ export const DashboardRegular = ({
       }),
     });
 
-    const data = res.json();
+    const data = await res.json();
     console.log(data);
     route.refresh();
   }
@@ -77,21 +78,23 @@ export const DashboardRegular = ({
           </Link>
         </div>
 
-        <button
+        <Button
+          onClickLoad
           className="button h-12 p-4 text-lg"
           onClick={() => {
             signOut();
           }}
         >
           Keluar
-        </button>
+        </Button>
         <hr className="my-2" />
-        <button
+        <Button
+          onClickLoad
           className="button btn-primary h-12 p-4 text-lg"
           onClick={handleCreate}
         >
           Daftar Menjadi Mitra
-        </button>
+        </Button>
       </section>
     </>
 
