@@ -3,10 +3,11 @@ import { getUserSession } from "@/lib/auth";
 import Link from "next/link";
 import { SearchMitra } from "../client";
 import { PhMagnifyingGlassBold } from "./page";
+import HeaderSearchbar from "./HeaderClient";
 
 export function Header() {
   return (
-    <header className="h-14 flex ">
+    <header className="h-20 flex ">
       <div className="content flex justify-between items-center p-4">
         <a href="/">
           <TextLogo />
@@ -43,18 +44,13 @@ async function HeaderMasukButton() {
 
 export function HeaderWithSearch() {
   return (
-    <header className="h-14 flex ">
+    <header className="h-20 flex ">
       <div className="content flex justify-between items-center p-4">
         <div className="flex gap-4 items-center">
           <a href="/">
             <TextLogo />
           </a>
-          <div className="grow w-full max-w-72 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
-            <SearchMitra />
-            <div className="aspect-square h-9 w-9 -my-1 text-neutral-400 rounded-full flex items-center justify-center -mr-3">
-              <PhMagnifyingGlassBold className="text-lg" />
-            </div>
-          </div>
+          <HeaderSearchbar />
         </div>
         <HeaderMasukButton />
       </div>

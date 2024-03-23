@@ -7,11 +7,12 @@ export function UploadFormTestPage() {
   const router = useRouter()
   return (
     <form action={async (form) => {
-      const res = await uploadImage(form.get('fotodiri'), `fotodiri/test.webp`)
+      const res = await uploadImage(form.get('fotodiri'), `fotodiri/${form.get('filename') ?? "test"}.webp`)
       router.refresh()
     }}>
       <input name="fotodiri" type="file" accept="image/jpeg, image/png, image/webp, image/gif, image/avif, image/tiff" />
-      <button>Submit</button>
+      <input name="filename" className="input" placeholder="filename" />
+      <button className="button inline-flex">Submit</button>
     </form>
   )
 }

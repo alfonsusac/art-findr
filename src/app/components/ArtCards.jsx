@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 export const ArtCards = ({
   session,
   availableMitra,
-  mitraIdUrlMap,
+  // mitraIdUrlMap,
   allProvinsi,
   listKota,
   listKecamatan,
@@ -71,11 +71,11 @@ export const ArtCards = ({
   // Get all unique expertises
   // const allExpertises = [
   //   ...new Set(availableMitra.flatMap((user) => user.mitra.expertises)),
-  // ];
+  // ]; 
 
   return (
     <div className={cn(
-      "bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 px-4"
+      "bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 px-4"
     )}>
       {filteredMitra.map((user) => (
         <a key={user.id} href={`/${user.id}`}>
@@ -83,7 +83,7 @@ export const ArtCards = ({
             key={user.id}
             user={user}
             onClick={(id) => { setId(id) }}
-            imageUrl={mitraIdUrlMap[user.id]}
+            imageUrl={`https://carimitraart.s3.ap-southeast-1.amazonaws.com/fotodiri/${user.id}.webp`}
             session={session}
             selected={id === user.id}
           />

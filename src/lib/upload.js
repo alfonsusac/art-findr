@@ -8,10 +8,6 @@ import sharp from 'sharp';
 
 const S3 = createSingleton('s3', () => new S3Client({ region: "ap-southeast-1" }))
 
-// export async function upload(filename, file) {
-//   return await put(filename, file, { access: "public" })
-// }
-
 /**
  * Get Upload URL (server function)
  * @param {string} pathAndKey 
@@ -46,6 +42,11 @@ export async function convertToWebp(form) {
   "use server"
   const file = form.get("image")
   const arrayBuffer = await file.arrayBuffer()
-  const buffer = await sharp(arrayBuffer).webp({ quality: 100 }).toBuffer()
+  const buffer = await sharp(arrayBuffer).webp({ quality: 80 }).resize({
+    height: 320,
+    width: 240,
+    fit: "cover",
+    withoutEnlargement: true
+  }).toBuffer()
   return buffer.toString("binary")
 }
