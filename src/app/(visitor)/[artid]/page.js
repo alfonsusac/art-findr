@@ -53,7 +53,7 @@ export default async function ArtPage({ params }) {
           <h1 className="text-4xl font-bold">
             {art.fullName}
           </h1>
-          <div className="flex gap-2 my-2 items-center">
+          <div className="flex gap-2 my-2 items-center flex-wrap">
             <PhMapPinFill className="text-neutral-400" />
             <div>
               {art.location.provinsi},

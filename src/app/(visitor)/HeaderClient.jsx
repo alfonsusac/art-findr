@@ -3,7 +3,7 @@ import { PhMagnifyingGlassBold } from "./page";
 export default function HeaderSearchbar() {
 
   return (
-    <div className="grow w-full max-w-72 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
+    <div className="grow max-w-72 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
       <input
         placeholder="Cari Keterampilan..."
         className="block grow outline-none"

@@ -49,7 +49,7 @@ export default async function Home({ searchParams }) {
             <h1 className="text-xl font-bold tracking-tight px-12">
               Cari <span className="text-primary">ART</span> Sesuai Kebutuhanmu
             </h1>
-            <div className="w-96 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
+            <div className="w-full max-w-96 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
               <SearchMitra />
               <div className="aspect-square h-9 w-9 -my-1 bg-primary text-white rounded-full flex items-center justify-center -mr-3">
                 <PhMagnifyingGlassBold className="text-lg" />

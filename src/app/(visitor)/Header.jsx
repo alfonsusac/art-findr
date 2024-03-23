@@ -47,7 +47,7 @@ export function HeaderWithSearch() {
     <header className="h-20 flex ">
       <div className="content flex justify-between items-center p-4">
         <div className="flex gap-4 items-center">
-          <a href="/">
+          <a href="/" className="hidden sm:block">
             <TextLogo />
           </a>
           <HeaderSearchbar />

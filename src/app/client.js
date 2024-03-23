@@ -115,14 +115,6 @@ export function MitraFilterList({
             <SelectItem value="batalkan">Batalkan</SelectItem>
           </SelectContent>
         </Select>
-        {/* <select
-          value={menginapFilter || ""}
-          onChange={(e) => setMenginapFilter(e.target.value || null)}
-        >
-          <option value="">Semua Menginap atau Tidak</option>
-          <option value="true">Menginap</option>
-          <option value="false">Tidak Menginap</option>
-        </select> */}
         <button
           className="button bg-white font-medium"
           onClick={() => {
