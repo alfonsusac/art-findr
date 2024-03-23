@@ -7,7 +7,6 @@ import {
   getListKotaKabupaten,
   getListProvinsi,
 } from "@/lib/wilayah";
-import { ARTdetailPage } from "../ArtDetailPage";
 import { Header } from "./Header";
 import { Suspense } from "react";
 export const dynamic = "force-dynamic";
@@ -84,15 +83,15 @@ async function ARTListServer({ searchParams }) {
 
   // TODO: pindahin ke server component sendiri. this is too messy
   // For Mitra Image. Create an object where the keys are the mitra phoneNumber and the values are the URLs.
-  const mitraIdUrlMap = await availableMitra.reduce(
-    async (urlMapPromise, mitra) => {
-      const urlMap = await urlMapPromise;
-      const url = await getURLfotoDiri(mitra.id);
-      urlMap[mitra.id] = url;
-      return urlMap;
-    },
-    Promise.resolve({})
-  );
+  // const mitraIdUrlMap = await availableMitra.reduce(
+  //   async (urlMapPromise, mitra) => {
+  //     const urlMap = await urlMapPromise;
+  //     const url = await getURLfotoDiri(mitra.id);
+  //     urlMap[mitra.id] = url;
+  //     return urlMap;
+  //   },
+  //   Promise.resolve({})
+  // );
 
   return (
     <ArtCards
