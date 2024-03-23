@@ -1,7 +1,7 @@
 import { TextLogo } from "@/components/logo";
 import { getUserSession } from "@/lib/auth";
 import Link from "next/link";
-import { Footer } from "@/app/footer";
+import { Footer } from "@/app/Footer";
 
 export default async function VisitorLayout({ children }) {
   const session = await getUserSession();

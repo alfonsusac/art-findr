@@ -69,6 +69,7 @@ export default async function ArtPage({ params }) {
           [&_hr]:my-8
         "
           >
+
             <h1 className="text-4xl font-bold">{art.fullName}</h1>
             <div className="flex gap-2 my-2 items-center">
               <PhMapPinFill className="text-neutral-400" />
