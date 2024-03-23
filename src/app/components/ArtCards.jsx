@@ -1,17 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useQueryState } from "nuqs";
-import { SingleArtCards } from "./SingleArtCard";
-import Image from "next/image";
 import { ArtCardItem } from "../ArtCardItem";
 import { cn } from "@/lib/utils";
 
 export const ArtCards = ({
   session,
   availableMitra,
-  // mitraIdUrlMap,
   allProvinsi,
   listKota,
   listKecamatan,
@@ -75,7 +71,7 @@ export const ArtCards = ({
 
   return (
     <div className={cn(
-      "bg-white pb-20 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 px-4"
+      "bg-white pb-20 grid gap-1 sm:gap-4  grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 px-4"
     )}>
       {filteredMitra.map((user) => (
         <a key={user.id} href={`/${user.id}`}>

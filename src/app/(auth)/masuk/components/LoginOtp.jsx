@@ -28,7 +28,7 @@ export const LoginOtp = ({ control }) => {
               onChange={onChange}
               numInputs={6}
               renderSeparator={<span className="mx-1 text-neutral-400">-</span>}
-              renderInput={(props) => <input {...props} />}
+              renderInput={(props) => <input type="number" {...props} />}
             />
           </div>
         )}

@@ -1,6 +1,5 @@
 import { ArtCards } from "../components/ArtCards";
 import { getUserSession } from "@/lib/auth";
-import { getURLfotoDiri } from "@/lib/link-foto";
 import { MitraFilterList, SearchMitra } from "../client";
 import { prisma } from "@/lib/prisma";
 import {
@@ -10,9 +9,58 @@ import {
 } from "@/lib/wilayah";
 import { ARTdetailPage } from "../ArtDetailPage";
 import { Header } from "./Header";
+import { Suspense } from "react";
 export const dynamic = "force-dynamic";
 
 export default async function Home({ searchParams }) {
+
+
+  // TODO: pindahin ke server component sendiri. this is too messy
+  // For Mitra Image. Create an object where the keys are the mitra phoneNumber and the values are the URLs.
+  // const mitraIdUrlMap = await availableMitra.reduce(async (urlMapPromise, mitra) => {
+  //   const urlMap = await urlMapPromise
+  //   const url = await getURLfotoDiri(mitra.id);
+  //   urlMap[mitra.id] = url;
+  //   return urlMap;
+  // }, Promise.resolve({}));
+
+  return (
+    <>
+      <Header />
+      <main className=" grow">
+        <section className="my-0 flex items-end rounded-b-[3rem]">
+          <div className="content flex flex-col gap-2 items-center justify-center text-center">
+            <h1 className="text-xl font-bold tracking-tight px-12">
+              Cari <span className="text-primary">ART</span> Sesuai Kebutuhanmu
+            </h1>
+            <div className="w-full max-w-96 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
+              <SearchMitra />
+              <div className="aspect-square h-9 w-9 -my-1 bg-primary text-white rounded-full flex items-center justify-center -mr-3">
+                <PhMagnifyingGlassBold className="text-lg" />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="flex overflow-auto">
+          <MitraFilterList
+            allProvinsi={await getListProvinsi()}
+            listKota={await getListKotaKabupaten(searchParams.provinsi)}
+            listKecamatan={await getListKecamatan(searchParams.kota)}
+          />
+        </section>
+        <section className="max-w-screen-xl mx-auto">
+          <Suspense fallback={
+            <div className="w-full"></div>
+          }>
+            <ARTListServer searchParams={searchParams} />
+          </Suspense>
+        </section>
+      </main>
+    </>
+  );
+}
+
+async function ARTListServer({ searchParams }) {
   const session = await getUserSession();
   const res = await prisma.user.findMany({
     where: {
@@ -47,43 +95,14 @@ export default async function Home({ searchParams }) {
   );
 
   return (
-    <>
-      <Header />
-      <main className=" grow">
-        <section className="my-0 flex items-end rounded-b-[3rem]">
-          <div className="content flex flex-col gap-2 items-center justify-center text-center">
-            <h1 className="text-xl font-bold tracking-tight px-12">
-              Cari <span className="text-primary">ART</span> Sesuai Kebutuhanmu
-            </h1>
-            <div className="w-96 p-2 px-4 border border-neutral-200 rounded-full flex focus-within:border-neutral-400">
-              <SearchMitra />
-              <div className="aspect-square h-9 w-9 -my-1 bg-primary text-white rounded-full flex items-center justify-center -mr-3">
-                <PhMagnifyingGlassBold className="text-lg" />
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="flex overflow-auto">
-          <MitraFilterList
-            allProvinsi={await getListProvinsi()}
-            listKota={await getListKotaKabupaten(searchParams.provinsi)}
-            listKecamatan={await getListKecamatan(searchParams.kota)}
-          />
-        </section>
-        <section className="max-w-screen-xl mx-auto">
-          <ARTdetailPage />
-          <ArtCards
-            session={session}
-            availableMitra={availableMitra}
-            mitraIdUrlMap={mitraIdUrlMap}
-            allProvinsi={await getListProvinsi()}
-            listKota={await getListKotaKabupaten(searchParams.provinsi)}
-            listKecamatan={await getListKecamatan(searchParams.kota)}
-          />
-        </section>
-      </main>
-    </>
-  );
+    <ArtCards
+      session={session}
+      availableMitra={availableMitra}
+      allProvinsi={await getListProvinsi()}
+      listKota={await getListKotaKabupaten(searchParams.provinsi)}
+      listKecamatan={await getListKecamatan(searchParams.kota)}
+    />
+  )
 }
 
 export function PhMagnifyingGlassBold(props) {
