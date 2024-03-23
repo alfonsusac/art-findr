@@ -12,7 +12,7 @@ export default async function ArtPage({ params }) {
     include: { location: {}, mitra: {} },
   });
   if (!art) return <>ART Not Found Balik Ke Halaman</>;
-  const age = dobToAge(art.mitra.dateOfBirth);
+  const ageMitra = dobToAge(art.mitra.dateOfBirth);
 
   const imgurl = await getURLfotoDiri(id);
 
@@ -67,7 +67,7 @@ export default async function ArtPage({ params }) {
             </div>
             <div className="flex gap-2 my-2 items-center">
               <PhPersonFill className="text-neutral-400" />
-              <div>{age} years old</div>
+              <div>{ageMitra} years old</div>
             </div>
             <div className="inline-flex p-2 px-3 text-lg rounded-md bg-emerald-500 text-white font-semibold leading-none mt-2">
               {art.mitra.status}
